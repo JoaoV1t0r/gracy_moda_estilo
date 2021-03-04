@@ -1,0 +1,24 @@
+{
+    "name": "joaov/webstore",
+    "description": "loja em php",
+    "type": "project",
+    "authors": [
+        {
+            "name": "JoaoV1t0r",
+            "email": "joaovitor.silva2pereira@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "phpmailer/phpmailer": "^6.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/",
+            "MF\\": "vendor/MF/"
+        },
+        "files": [
+            "config.php"
+        ]
+    }
+}

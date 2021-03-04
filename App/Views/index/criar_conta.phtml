@@ -1,0 +1,65 @@
+<div class="container-fluid">
+    <div class="row mt-3">
+        <div class="col-sm-6 offset-sm-3 ml-2">
+            <h3 class="text-center mb-3" style="color:#CD6090;">Criar Conta</h3>
+            <form class="row needs-validation mb-3" method="post" action="/registrar_conta">
+                <div class="row">
+                    <div class="col-md">
+                        <?php if (isset($_GET['erro']) && $_GET['erro'] == 'campoVazio') { ?>
+                            <div>
+                                <p class="alert alert-danger text-center p-2">Preencha todos os campos para fazer o cadastro</p>
+                            </div>
+                        <?php } ?>
+
+                        <?php if (isset($_GET['erro']) && $_GET['erro'] == 'senha') { ?>
+                            <div>
+                                <p class="alert alert-danger text-center p-2">Senhas diferentes, tente novamente</p>
+                            </div>
+                        <?php } ?>
+
+                        <?php if (isset($_GET['erro']) && $_GET['erro'] == 'email') { ?>
+                            <div>
+                                <p class="alert alert-danger text-center p-2">E-mail já cadastrado, por favor use outro email</p>
+                            </div>
+                        <?php } ?>
+                        <div class="form-floating mb-2">
+                            <input name="email" type="email" class="form-control" id="floatingInputGrid" placeholder="E-mail" value="">
+                            <label for="floatingInputGrid">E-mail</label>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input name="nome" type="name" class="form-control" id="floatingInputGrid" placeholder="Nome" value="">
+                            <label for="floatingInputGrid">Nome</label>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input name="senha" type="password" class="form-control" id="floatingInputGrid" placeholder="Senha" value="">
+                            <label for="floatingInputGrid">Senha</label>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input name="senhaConfirmada" type="password" class="form-control" id="floatingInputGrid" placeholder="Confirme a Senha" value="">
+                            <label for="floatingInputGrid">Confirme a Senha</label>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input name="endereco" type="text" class="form-control" id="floatingInputGrid" placeholder="Confirme a Senha" value="">
+                            <label for="floatingInputGrid">Endereço</label>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input name="cidade" type="text" class="form-control" id="floatingInputGrid" placeholder="Confirme a Senha" value="">
+                            <label for="floatingInputGrid">Cidade</label>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input name="cep" type="text" class="form-control" id="floatingInputGrid" placeholder="Confirme a Senha" value="">
+                            <label for="floatingInputGrid">CEP</label>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input name="telefone" type="text" class="form-control" id="floatingInputGrid" placeholder="Confirme a Senha" value="">
+                            <label for="floatingInputGrid">Telefone para contato</label>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 mt-2">
+                        <input type="submit" value="Criar Conta" class="btn btn-cadastro">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

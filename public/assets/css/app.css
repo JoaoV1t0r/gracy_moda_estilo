@@ -1,0 +1,35 @@
+.menu {
+    background-color: #CD6090;
+    color: white;
+}
+
+.btn-cadastro {
+    background-color: #CD6090;
+    color: white;
+}
+
+.btn-cadastro:hover {
+    color: white;
+}
+
+@media(max-width: 1080px) {
+    html {
+        font-size: 93.75%;
+    }
+}
+
+@media(max-width: 720) {
+    html {
+        font-size: 73%;
+    }
+}
+
+.rodape {
+    background-color: #CD6090;
+    color: white;
+}
+
+.produto-carrinho {
+    display: flex;
+    float: left;
+}

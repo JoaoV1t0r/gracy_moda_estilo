@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/css/all.min.css">
+	<link rel="stylesheet" href="assets/css/app.css">
+	<title><?= APP_NAME ?></title>
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark menu">
+		<div class="container-fluid">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<a class="navbar-brand logo" href="/"><?= 'Gracy' ?></a>
+			<div class="navbar-brand text-white">
+				<a class="nav-link text-white" href="/carrinho">
+					<i class="fas fa-shopping-cart text-white"></i>
+					<span class="badge bg-light text-dark">10</span>
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link" aria-current="" href="/"><i class="fas fa-home"></i> Home</a>
+					</li>
+					<?php if ($this->view->clienteLogado) { ?>
+						<li class="nav-item">
+							<a class="nav-link" href="#"><i class="fas fa-user"></i></i> Minha Conta</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#"><i class="fas fa-sign-out-alt"></i> Sair</a>
+						</li>
+					<?php } else { ?>
+						<li class="nav-item">
+							<a class="nav-link" aria-current="" href="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/criar_conta"><i class="far fa-address-card"></i> Criar Conta</a>
+						</li>
+					<?php } ?>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="far fa-list-alt"></i>
+							Departamentos
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+							<a href="/macaquinhos" class="dropdown-item">
+								Macaquinhos
+							</a>
+							<a href="/camisas" class="dropdown-item">
+								Camisas & Camisetas
+							</a>
+							<a href="/conjuntos" class="dropdown-item">
+								Conjuntinhos
+							</a>
+							<li>
+								<hr class="dropdown-divider">
+							</li>
+							<li><a class="dropdown-item" href="/todos">Ver Todos</a></li>
+						</ul>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="fas fa-comments"></i>
+							Contatos
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+							<a href="" class="dropdown-item">
+								<i class="fab fa-whatsapp"></i>
+								WhatsApp
+							</a>
+							<a href="" class="dropdown-item">
+								<i class="fab fa-instagram"></i>
+								Intagram
+							</a>
+						</ul>
+					</li>
+				</ul>
+				<form class="d-flex">
+					<input class="form-control me-2" type="search" placeholder="Procurar por Produtos" aria-label="Search">
+					<button class="btn btn-outline-light" type="submit">Search</button>
+				</form>
+			</div>
+		</div>
+	</nav>
+
+	<?php
+	$this->content();
+	?>
+
+	<footer class="footer mt-3 ">
+		<div class="container-fluid rodape ">
+			<div class="row">
+				<div class="col-12 text-center p-3">
+					<?= APP_NAME .  ' &copy;'  . date('Y') ?>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/js/app.js"></script>
+
+</body>
+
+</html>

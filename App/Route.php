@@ -40,6 +40,31 @@ class Route extends Bootstrap
 			'controller' => 'UserControllers',
 			'action' => 'validaLogin'
 		);
+		$routes['sair'] = array(
+			'route' => '/sair',
+			'controller' => 'UserControllers',
+			'action' => 'sair'
+		);
+		$routes['todos'] = array(
+			'route' => '/todos',
+			'controller' => 'DepartamentoControllers',
+			'action' => 'getTodosProdutos'
+		);
+		$routes['produtos'] = array(
+			'route' => '/produtos',
+			'controller' => 'DepartamentoControllers',
+			'action' => 'getCategoria'
+		);
+		$routes['carrinho'] = array(
+			'route' => '/carrinho',
+			'controller' => 'CarrinhoControllers',
+			'action' => 'carrinho'
+		);
+		$routes['carrinho'] = array(
+			'route' => '/adiconar_carrinho',
+			'controller' => 'CarrinhoControllers',
+			'action' => 'adicionarCarrinho'
+		);
 
 		$this->setRoutes($routes);
 	}

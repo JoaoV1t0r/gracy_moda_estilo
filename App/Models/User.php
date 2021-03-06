@@ -145,7 +145,7 @@ class User extends Model
         if (!password_verify($this->senha, $usuario->senha)) {
             return false;
         } else {
-            return true;
+            return $usuario;
         }
     }
 }

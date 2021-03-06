@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Classes\EnviarEmail;
 use App\Classes\Store;
-use App\Models\User;
 use MF\Controller\Action;
 use MF\Model\Container;
 
@@ -133,10 +132,32 @@ class UserControllers extends Action
 			return;
 		}
 
-		if ($user->validaLogin()) {
-			echo 'OK';
-		} else {
+		$usuario = $user->validaLogin();
+		if (is_bool($usuario)) {
 			header('Location: /criar_conta?erro=senha');
+		} else {
+			$_SESSION['cliente'] = $usuario->nome;
+			$_SESSION['email'] = $usuario->email;
+			$_SESSION['endereco'] = $usuario->endereco;
+			$_SESSION['cidade'] = $usuario->cidade;
+			$_SESSION['cep'] = $usuario->cep;
+			$_SESSION['telefone'] = $usuario->contato;
+			$_SESSION['logado'] = true;
+			header('Location: /');
 		}
+	}
+
+	// ===========================================================================
+	public function sair()
+	{
+		//remover  as variaveis de sessão e retorna para o inicio
+		unset($_SESSION['cliente']);
+		unset($_SESSION['email']);
+		unset($_SESSION['endereco']);
+		unset($_SESSION['cidade']);
+		unset($_SESSION['cep']);
+		unset($_SESSION['telefone']);
+		unset($_SESSION['logado']);
+		header('Location: /');
 	}
 }

@@ -60,10 +60,15 @@ class Route extends Bootstrap
 			'controller' => 'CarrinhoControllers',
 			'action' => 'carrinho'
 		);
-		$routes['carrinho'] = array(
+		$routes['adicionar_carrinho'] = array(
 			'route' => '/adiconar_carrinho',
 			'controller' => 'CarrinhoControllers',
 			'action' => 'adicionarCarrinho'
+		);
+		$routes['limpar_carrinho'] = array(
+			'route' => '/limpar_carrinho',
+			'controller' => 'CarrinhoControllers',
+			'action' => 'limparCarrinho'
 		);
 
 		$this->setRoutes($routes);

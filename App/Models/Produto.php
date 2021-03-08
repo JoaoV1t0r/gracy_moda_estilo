@@ -37,7 +37,7 @@ class Produto extends Model
             FROM
                 produtos
             WHERE
-                ativo = 1 and estoque > 0
+                ativo = 1
         ";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
@@ -55,7 +55,7 @@ class Produto extends Model
             FROM
                 produtos
             WHERE
-            ativo = 1 and estoque > 0 and categoria = :categoria
+            ativo = 1 and categoria = :categoria
         ";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':categoria', $categoria);

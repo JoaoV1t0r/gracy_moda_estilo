@@ -1,1 +1,14 @@
-<h1>Carrinho</h1>
+<div class="container">
+    <h1 style="color: #CD6090;">Carrinho</h1>
+
+    <?php
+    if (isset($_SESSION['carrinho'])) { ?>
+        <pre>
+            <?php print_r($_SESSION['carrinho']); ?>
+        </pre>
+        <a href="/limpar_carrinho" class="btn btn-cadastro">Limpar Carrinho</a>
+    <?php } else { ?>
+        <p>Adicione produtos ao Carrinho</p>
+    <?php } ?>
+
+</div>

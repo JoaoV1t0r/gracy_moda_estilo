@@ -17,6 +17,13 @@ class CarrinhoControllers extends Action
         }
     }
 
+    public function limparCarrinho()
+    {
+        //esvazia o carrinho
+        unset($_SESSION['carrinho']);
+        $this->carrinho();
+    }
+
     public function carrinho()
     {
         //Renderização da index
@@ -28,7 +35,29 @@ class CarrinhoControllers extends Action
     {
         //adicona produtos ao carrinho
         $id_produto = $_GET['id_produto'];
-        $_SESSION['teste'] = $id_produto;
-        echo 'Produto adicionado ' . $id_produto . ' ao carrinho.';
+        $carrinho = [];
+        if (isset($_SESSION['carrinho'])) {
+            $carrinho = $_SESSION['carrinho'];
+        }
+
+        //Adicionar o produto ao carrinho
+        if (key_exists($id_produto, $carrinho)) {
+            //Se o produto já existe acrescenta mais uma unidade
+            $carrinho[$id_produto]++;
+        } else {
+            //Adiciona um novo produto ao carinho
+            $carrinho[$id_produto] = 1;
+        }
+
+        //Atualiza o carrinho da sessão
+        $_SESSION['carrinho'] = $carrinho;
+
+        //Resposta
+        $total_produtos = 0;
+        foreach ($carrinho as $produto_quantidade) {
+            $total_produtos += $produto_quantidade;
+        }
+
+        echo $total_produtos;
     }
 }

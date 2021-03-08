@@ -1,3 +1,11 @@
+<?php
+$total_produtos = 0;
+if (isset($_SESSION['carrinho'])) {
+	foreach ($_SESSION['carrinho'] as $quantidadeProdutos) {
+		$total_produtos += $quantidadeProdutos;
+	}
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -22,7 +30,7 @@
 			<div class="navbar-brand text-white">
 				<a class="nav-link text-white" href="/carrinho">
 					<i class="fas fa-shopping-cart text-white"></i>
-					<span class="badge bg-light text-dark">10</span>
+					<span id="carrinho" class="badge bg-light text-dark"><?= $total_produtos ?></span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="navbarTogglerDemo03">

@@ -14,6 +14,7 @@ class Produto extends Model
     private $preco;
     private $estoque;
     private $ativo;
+    private $quantidade;
 
     //=============================================================================================
     public function __set($attr, $value)
@@ -55,10 +56,52 @@ class Produto extends Model
             FROM
                 produtos
             WHERE
-            ativo = 1 and categoria = :categoria
+                ativo = 1 and categoria = :categoria
         ";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':categoria', $categoria);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_CLASS);
+    }
+
+    //=============================================================================================
+    public function validaProduto()
+    {
+        //Todos os produtos
+        $query = "
+            SELECT
+                *
+            FROM
+                produtos
+            WHERE
+                id_produto = :id_produto and estoque > 0 and ativo = 1
+        ";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id_produto', $this->id_produto);
+        $stmt->execute();
+
+        if (count($stmt->fetchAll(\PDO::FETCH_CLASS)) != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //=============================================================================================
+    public function getProdutoCarrinho()
+    {
+        //Todos os produtos
+        $query = "
+            SELECT
+                id_produto, nome_produto, imagem, categoria, preco, estoque
+            FROM
+                produtos
+            WHERE
+                id_produto = :id_produto and estoque > 0 and ativo = 1
+        ";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id_produto', $this->id_produto);
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_CLASS);

@@ -1,14 +1,56 @@
 <div class="container">
-    <h1 style="color: #CD6090;">Carrinho</h1>
+    <div class="row">
+        <h1 style="color: #CD6090;">Carrinho</h1>
+        <div class="col">
+            <?php if ($this->view->carrinho != null) { ?>
+                <table class="table table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Foto</th>
+                            <th scope="col">Nome</th>
+                            <!-- <th scope="col">Categoria</th> -->
+                            <th scope="col">Preço</th>
+                            <th scope="coll">Qntd</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($this->view->carrinho as $produto) { ?>
+                            <tr>
+                                <td class="align-middle text-start">
+                                    <img src="assets/img/<?= $produto->imagem ?>" class="img-fluid" width="50px">
+                                </td>
+                                <td class="align-middle text-start">
+                                    <?= $produto->nome_produto ?>
+                                </td>
+                                <!-- <td>
+                                    
+                                </td> -->
+                                <td class="align-middle text-start">
 
-    <?php
-    if (isset($_SESSION['carrinho'])) { ?>
-        <pre>
-            <?php print_r($_SESSION['carrinho']); ?>
-        </pre>
-        <a href="/limpar_carrinho" class="btn btn-cadastro">Limpar Carrinho</a>
-    <?php } else { ?>
-        <p>Adicione produtos ao Carrinho</p>
-    <?php } ?>
+                                    R$<?= preg_replace("/\./", ",", $produto->preco) ?>
 
+                                </td>
+                                <td class="align-middle text-center">
+                                    <?= $produto->quantidade ?>
+                                </td>
+                                <td class="align-middle">
+                                    <button class="btn btn-danger" value=""><i class="fas fa-times"></i></button>
+                                </td>
+                            </tr>
+
+                        <?php } ?>
+                    </tbody>
+                </table>
+                <!-- <pre>
+                    <?php print_r($this->view->carrinho); ?>
+                </pre> -->
+                <a href="/limpar_carrinho" class="btn btn-cadastro">Limpar Carrinho</a>
+                <a href="/todos" class="btn btn-cadastro">Ver mais produtos</a>
+            <?php } else { ?>
+                <p>Adicione produtos ao Carrinho. Você pode ir ao departamento da nossa loja para achar produtos.</p>
+                <a href="/todos" class="btn btn-cadastro">Ir aos produtos</a>
+            <?php } ?>
+        </div>
+    </div>
 </div>

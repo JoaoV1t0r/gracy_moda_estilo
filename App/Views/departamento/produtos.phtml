@@ -11,7 +11,11 @@
                 </h4>
                 <h5 class="card-text ">Preço: R$<?= preg_replace("/\./", ",", $produto->preco) ?></h5>
                 <div class="align-bottom button-card">
-                    <button onclick="adicionarCarrinho(<?= $produto->id_produto ?>)" class="btn btn-cadastro btn-lg">Adicionar <i class="fas fa-cart-plus"></i></button>
+                    <?php if ($produto->estoque > 0) { ?>
+                        <button onclick="adicionarCarrinho(<?= $produto->id_produto ?>)" class="btn btn-cadastro btn-lg">Adicionar <i class="fas fa-cart-plus"></i></button>
+                    <?php } else { ?>
+                        <button class="btn disabled btn-danger ">Produto indisponível <i class="fas fa-exclamation-triangle"></i></button>
+                    <?php } ?>
                 </div>
             </div>
         <?php } ?>

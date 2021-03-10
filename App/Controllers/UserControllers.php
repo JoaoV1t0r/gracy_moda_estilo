@@ -67,7 +67,7 @@ class UserControllers extends Action
 				if ($resultado) {
 					//Carrega o layout
 					$this->view->clienteLogado = $this->clienteLogado();
-					$this->render('envio_email', 'layout_fixed');
+					$this->render('envio_email');
 					return;
 				}
 			}
@@ -96,7 +96,7 @@ class UserControllers extends Action
 		if ($user->confirmaEmail()) {
 			//Carrega o layout
 			$this->view->clienteLogado = $this->clienteLogado();
-			$this->render('email_confirmado', 'layout_fixed');
+			$this->render('email_confirmado');
 			return;
 		} else {
 			header('Location: /');

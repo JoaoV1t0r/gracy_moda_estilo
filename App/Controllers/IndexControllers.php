@@ -27,7 +27,7 @@ class IndexControllers extends Action
 	{
 		//Renderização da index
 		$this->view->clienteLogado = $this->clienteLogado();
-		$this->render('login', 'layout_fixed');
+		$this->render('login');
 	}
 
 	public function criarUsuario()

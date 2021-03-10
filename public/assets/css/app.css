@@ -27,6 +27,10 @@
 .rodape {
     background-color: #CD6090;
     color: white;
+    margin: auto;
+    width: 100%;
+    bottom: 0;
+    position: fixed;
 }
 
 .produto-carrinho {
@@ -50,7 +54,6 @@
     margin: 10px 10px;
     color: #CD6090;
     width: 250px;
-
 }
 
 .img-produto {

@@ -95,6 +95,6 @@ class CarrinhoControllers extends Action
             $total_produtos += $produto_quantidade;
         }
 
-        echo $total_produtos;
+        echo json_encode($total_produtos);
     }
 }

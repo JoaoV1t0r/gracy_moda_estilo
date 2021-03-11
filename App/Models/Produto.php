@@ -39,6 +39,8 @@ class Produto extends Model
                 produtos
             WHERE
                 ativo = 1
+            ORDER BY
+                estoque desc
         ";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
@@ -57,6 +59,8 @@ class Produto extends Model
                 produtos
             WHERE
                 ativo = 1 and categoria = :categoria
+            ORDER BY
+                estoque desc
         ";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':categoria', $categoria);

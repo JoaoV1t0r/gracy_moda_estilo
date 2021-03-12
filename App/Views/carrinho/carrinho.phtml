@@ -6,47 +6,69 @@
                 <table class="table table-hover table-sm">
                     <thead>
                         <tr>
-                            <th scope="col">Foto</th>
-                            <th scope="col">Nome</th>
-                            <!-- <th scope="col">Categoria</th> -->
-                            <th scope="col">Preço</th>
-                            <th scope="coll">Qntd</th>
+                            <th scope="col "></th>
+                            <th scope="col ">Nome</th>
+                            <th scope="col ">Preço(Und)</th>
+                            <th scope="col ">Qntd</th>
+                            <th scope="col ">Total</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($this->view->carrinho as $produto) { ?>
                             <tr>
-                                <td class="align-middle text-start">
-                                    <img src="assets/img/<?= $produto->imagem ?>" class="img-fluid" width="50px">
+                                <td class="d-flex flex-column">
+                                    <img src="assets/img/<?= $produto->imagem ?>" class="img-fluid d-block img-produto d-flex align-center" width="120px">
                                 </td>
                                 <td class="align-middle text-start">
                                     <?= $produto->nome_produto ?>
                                 </td>
-                                <!-- <td>
-                                    
-                                </td> -->
-                                <td class="align-middle text-start">
+                                <td id="ValorProduto<?= $produto->id_produto ?>" class="align-middle text-start">
 
                                     R$<?= preg_replace("/\./", ",", $produto->preco) ?>
 
                                 </td>
                                 <td class="align-middle text-center">
-                                    <?= $produto->quantidade ?>
+                                    <h5>
+                                        <i onclick="menosUmProduto(<?= $produto->id_produto ?>)" class="fas fa-minus text-danger"></i>
+                                        <span id="QuantidaCarrinhoProduto<?= $produto->id_produto ?>" class="text-center">
+                                            <?= $produto->quantidade ?>
+                                        </span>
+                                        <i onclick="maisUmProduto(<?= $produto->id_produto ?>)" class="fas fa-plus text-success"></i>
+                                    </h5>
                                 </td>
-                                <td class="align-middle">
-                                    <button class="btn btn-danger" value=""><i class="fas fa-times"></i></button>
+                                <td class="align-middle text-start">
+                                    <h6 id="ValorQuantidadeCarrinhoProduto<?= $produto->id_produto ?>">
+                                        R$<?= number_format((float)$produto->valorQuantidade, 2, ',', '') ?>
+                                    </h6>
+                                </td>
+                                <td class="align-middle text-start">
+                                    <span onclick="removerPedido(<?= $produto->id_produto ?>)" class="text-danger" value=""><i class="fas fa-times"></i></span>
                                 </td>
                             </tr>
-
                         <?php } ?>
+                        <tr>
+                            <td>
+                                <h3>
+                                    Total da Compra:
+                                </h3>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="align-middle">
+                                <h3 id="ValorTotalCarrinho">
+                                    R$<?= number_format((float)$this->view->total, 2, ',', '') ?>
+                                </h3>
+                            </td>
+                            <td></td>
+                        </tr>
                     </tbody>
                 </table>
-                <!-- <pre>
-                    <?php print_r($this->view->carrinho); ?>
-                </pre> -->
-                <a href="/limpar_carrinho" class="btn btn-cadastro">Limpar Carrinho</a>
-                <a href="/todos" class="btn btn-cadastro">Ver mais produtos</a>
+                <div class="mb-5">
+                    <a href="/limpar_carrinho" class="btn btn-cadastro">Limpar Carrinho</a>
+                    <a href="/todos" class="btn btn-cadastro">Ver mais produtos</a>
+                </div>
             <?php } else { ?>
                 <p>Adicione produtos ao Carrinho. Você pode ir ao departamento da nossa loja para achar produtos.</p>
                 <a href="/todos" class="btn btn-cadastro">Ir aos produtos</a>

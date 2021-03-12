@@ -18,7 +18,7 @@
     }
 }
 
-@media(max-width: 720) {
+@media(max-width: 720px) {
     html {
         font-size: 73%;
     }

@@ -40,17 +40,24 @@ class CarrinhoControllers extends Action
                 ]);
             }
             $this->view->carrinho = [];
+            $this->view->total = 0;
             foreach ($idProdutoCarrinho as $pedido) {
                 $produto = Container::getModel('Produto');
                 $produto->id_produto = $pedido['id_produto'];
-                $produto->quantidade = $pedido['quantidade'];
+
                 $consulta = $produto->getProdutoCarrinho();
-                $produto->nome_produto = $consulta[0]->nome_produto;
-                $produto->imagem = $consulta[0]->imagem;
-                $produto->categoria = $consulta[0]->categoria;
-                $produto->preco = $consulta[0]->preco;
-                $produto->estoque = $consulta[0]->estoque;
-                array_push($this->view->carrinho, $produto);
+                $produtoCarrinho = new \stdClass();
+
+                $produtoCarrinho->id_produto = $produto->id_produto;
+                $produtoCarrinho->nome_produto = $consulta[0]->nome_produto;
+                $produtoCarrinho->imagem = $consulta[0]->imagem;
+                $produtoCarrinho->categoria = $consulta[0]->categoria;
+                $produtoCarrinho->preco = $consulta[0]->preco;
+                $produtoCarrinho->valorQuantidade = $consulta[0]->preco * $pedido['quantidade'];;
+                $produtoCarrinho->quantidade = $pedido['quantidade'];
+
+                $this->view->total += $produtoCarrinho->preco * $pedido['quantidade'];;
+                array_push($this->view->carrinho, $produtoCarrinho);
                 unset($consulta);
             }
         }
@@ -90,6 +97,39 @@ class CarrinhoControllers extends Action
         $_SESSION['carrinho'] = $carrinho;
 
         //Resposta
+        $total_produtos = 0;
+        foreach ($carrinho as $produto_quantidade) {
+            $total_produtos += $produto_quantidade;
+        }
+
+        echo json_encode($total_produtos);
+    }
+
+    public function removerProdutoCarrinho()
+    {
+        //Validação
+        if (!isset($_GET['id_produto'])) {
+            echo isset($_SESSION['carrinho']) ? count($_SESSION['carrinho']) : '';
+            return;
+        }
+        $carrinho = $_SESSION['carrinho'];
+        $produto = Container::getModel('Produto');
+        $produto->id_produto = $_GET['id_produto'];
+
+        //Remover uma unidade do produto ao carrinho
+        if (key_exists($produto->id_produto, $carrinho)) {
+            //Diminui uma unidade
+            $carrinho[$produto->id_produto]--;
+
+            foreach ($carrinho as $key => $value) {
+                if ($value == 0) {
+                    unset($carrinho[$key]);
+                }
+            }
+        }
+
+        $_SESSION['carrinho'] = $carrinho;
+
         $total_produtos = 0;
         foreach ($carrinho as $produto_quantidade) {
             $total_produtos += $produto_quantidade;

@@ -14,7 +14,6 @@ class Produto extends Model
     private $preco;
     private $estoque;
     private $ativo;
-    private $quantidade;
 
     //=============================================================================================
     public function __set($attr, $value)

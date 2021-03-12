@@ -7,22 +7,24 @@ if (isset($_SESSION['carrinho'])) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" class="h-100">
 
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sticky-footer-navbar/">
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/css/all.min.css">
 	<link rel="stylesheet" href="assets/css/app.css">
 	<title><?= APP_NAME ?></title>
 </head>
 
-<body>
-
-	<nav class="navbar navbar-expand-lg navbar-dark menu">
-		<div class="container-fluid">
+<body class="d-flex flex-column h-100">
+<header>
+<!-- Fixed navbar -->
+  <nav class="navbar navbar-expand-md fixed-top navbar-dark menu">
+	    <div class="container-fluid">
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -101,20 +103,22 @@ if (isset($_SESSION['carrinho'])) {
 				</form>
 			</div>
 		</div>
-	</nav>
+	  </nav>
 
-	<?php
-	$this->content();
-	?>
+</header>
+	<!-- Begin page content -->
+	<main class="flex-shrink-0" style="padding: 80px 15px 0">
+	  	<?php
+			$this->content();
+		?>
+	</main>
 
-	<footer class="footer mt-5">
-		<div class="container-fluid rodape ">
-			<div class="row">
-				<div class="col-12 text-center p-3">
+	<footer class="footer mt-auto">
+	  <div class="container-fluid rodape">
+	    <div class="col-12 text-center p-3">
 					<?= APP_NAME .  ' &copy;'  . date('Y') ?>
 				</div>
-			</div>
-		</div>
+	  </div>
 	</footer>
 
 	<script src="assets/js/jquery.min.js"></script>

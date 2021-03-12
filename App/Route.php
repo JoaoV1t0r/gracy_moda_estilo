@@ -65,6 +65,11 @@ class Route extends Bootstrap
 			'controller' => 'CarrinhoControllers',
 			'action' => 'adicionarCarrinho'
 		);
+		$routes['remover_unidade_produto_carrinho'] = array(
+			'route' => '/remover_unidade_produto_carrinho',
+			'controller' => 'CarrinhoControllers',
+			'action' => 'removerUnidadeProdutoCarrinho'
+		);
 		$routes['remover_produto_carrinho'] = array(
 			'route' => '/remover_produto_carrinho',
 			'controller' => 'CarrinhoControllers',

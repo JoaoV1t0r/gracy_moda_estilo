@@ -105,7 +105,7 @@ class CarrinhoControllers extends Action
         echo json_encode($total_produtos);
     }
 
-    public function removerProdutoCarrinho()
+    public function removerUnidadeProdutoCarrinho()
     {
         //Validação
         if (!isset($_GET['id_produto'])) {
@@ -126,6 +126,35 @@ class CarrinhoControllers extends Action
                     unset($carrinho[$key]);
                 }
             }
+        }
+
+        $_SESSION['carrinho'] = $carrinho;
+
+        $total_produtos = 0;
+        foreach ($carrinho as $produto_quantidade) {
+            $total_produtos += $produto_quantidade;
+        }
+
+        echo json_encode($total_produtos);
+    }
+
+    
+    public function removerProdutoCarrinho()
+    {
+        //Validação
+        if (!isset($_GET['id_produto'])) {
+            echo isset($_SESSION['carrinho']) ? count($_SESSION['carrinho']) : '';
+            return;
+        }
+        $carrinho = $_SESSION['carrinho'];
+        $produto = Container::getModel('Produto');
+        $produto->id_produto = $_GET['id_produto'];
+
+        //Remover uma unidade do produto ao carrinho
+        if (key_exists($produto->id_produto, $carrinho)) {
+            //Diminui uma unidade
+            unset($carrinho[$produto->id_produto]);
+                
         }
 
         $_SESSION['carrinho'] = $carrinho;

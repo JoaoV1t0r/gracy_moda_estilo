@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
-        <h1 style="color: #CD6090;">Carrinho</h1>
-        <div class="col">
+        <h1 class="text-center" style="color: #CD6090;">Seu Pedido:</h1>
+        <div class="col conteudo">
             <?php if ($this->view->carrinho != null) { ?>
                 <table class="table table-hover table-sm">
                     <thead>
@@ -16,7 +16,7 @@
                     </thead>
                     <tbody>
                         <?php foreach ($this->view->carrinho as $produto) { ?>
-                            <tr>
+                            <tr id="IdTabelaProduto<?= $produto->id_produto ?>">
                                 <td class="d-flex flex-column">
                                     <img src="assets/img/<?= $produto->imagem ?>" class="img-fluid d-block img-produto d-flex align-center" width="120px">
                                 </td>
@@ -43,7 +43,7 @@
                                     </h6>
                                 </td>
                                 <td class="align-middle text-start">
-                                    <span onclick="removerPedido(<?= $produto->id_produto ?>)" class="text-danger" value=""><i class="fas fa-times"></i></span>
+                                    <span onclick="removerProdutoCarrinho(<?= $produto->id_produto ?>)" class="text-danger" value=""><i class="fas fa-times"></i></span>
                                 </td>
                             </tr>
                         <?php } ?>

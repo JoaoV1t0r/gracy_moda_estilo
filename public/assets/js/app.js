@@ -13,14 +13,34 @@ function adicionarCarrinho(idProduto){
 }
 
 // ================================================================================
-function removerProdutoCarrinho(idProduto){
+function removerUnidadeProdutoCarrinho(idProduto){
+	$.ajax({
+		type: 'GET',
+		url: `/remover_unidade_produto_carrinho`,
+		data: `id_produto=${idProduto}`,
+		dataType: 'json',
+		success: dados => {
+			$('#carrinho').html(dados)
+			if(dados == 0){
+				window.location.href = 'http://localhost:8080/carrinho'
+			}
+		},
+		erro: erro => {console.log(erro)}
+	})
+}
+
+// ================================================================================
+function getRemoverProdutoCarrinho(idProduto){
 	$.ajax({
 		type: 'GET',
 		url: `/remover_produto_carrinho`,
 		data: `id_produto=${idProduto}`,
 		dataType: 'json',
 		success: dados => {
-			$('#carrinho').html(dados)
+			$('#carrinho').html(dados);
+			if(dados == 0){
+				window.location.href = 'http://localhost:8080/carrinho'
+			}
 		},
 		erro: erro => {console.log(erro)}
 	})
@@ -55,14 +75,11 @@ function maisUmProduto(idProduto){
 
 // ================================================================================
 function menosUmProduto(idProduto){
-	removerProdutoCarrinho(idProduto);
+	removerUnidadeProdutoCarrinho(idProduto);
 
 	//Quantidade do mesmo produto no carrinho
 	document.getElementById('QuantidaCarrinhoProduto'+idProduto).innerText = parseInt(document.getElementById('QuantidaCarrinhoProduto'+idProduto).innerText) - 1;
 
-	if(document.getElementById('QuantidaCarrinhoProduto'+idProduto).innerText <= 0){
-		window.location.href = "http://localhost:8080/carrinho";
-	}
 
 	//Valor do produto adicionado
 	let valorProduto = document.getElementById('ValorProduto'+idProduto).innerText;
@@ -82,4 +99,29 @@ function menosUmProduto(idProduto){
 	valorTotalCarrinho = parseFloat(valorTotalCarrinho);
 	valorTotalCarrinho -= valorProduto;
 	document.getElementById('ValorTotalCarrinho').innerText = 'R$' + valorTotalCarrinho.toFixed(2);
+	
+	if(document.getElementById('QuantidaCarrinhoProduto'+idProduto).innerText <= 0){
+		document.getElementById('IdTabelaProduto'+idProduto).remove();
+	}
+}
+
+// ================================================================================
+function removerProdutoCarrinho(idProduto){
+	getRemoverProdutoCarrinho(idProduto);
+
+
+	//Valor do produto * a quantidade
+	let valorAtualProduto = document.getElementById('ValorQuantidadeCarrinhoProduto'+idProduto).innerText;
+	valorAtualProduto = valorAtualProduto.slice(2);
+	valorAtualProduto = parseFloat(valorAtualProduto);
+
+	//Valor total do carrinho
+	let valorTotalCarrinho = document.getElementById('ValorTotalCarrinho').innerText;
+	valorTotalCarrinho = valorTotalCarrinho.slice(2);
+	valorTotalCarrinho = parseFloat(valorTotalCarrinho);
+	valorTotalCarrinho -= valorAtualProduto;
+	document.getElementById('ValorTotalCarrinho').innerText = 'R$' + valorTotalCarrinho.toFixed(2);
+
+	document.getElementById('IdTabelaProduto'+idProduto).remove();
+
 }

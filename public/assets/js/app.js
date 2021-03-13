@@ -6,10 +6,24 @@ function adicionarCarrinho(idProduto){
 		data: `id_produto=${idProduto}`,
 		dataType: 'json',
 		success: dados => {
-			$('#carrinho').html(dados)
+			if(dados.validacao){
+				$('#carrinho').html(dados.total_produtos);
+			}else{
+				$('#modalText').html('Infelizmente nós só contamos com ' + dados.estoque + ' peças desse modelo atualmente. Mas não se preocupe, temos muitos produtos para você escolhe.')
+				//Informa que o limite de peças do produto no estoque
+				$('#modalEstoqueInvalido').modal('show');
+				if(window.location.href == 'http://localhost:8080/carrinho'){
+					subtraiProduto(idProduto);
+				}
+			}
 		},
 		erro: erro => {console.log(erro)}
 	})
+}
+
+// ================================================================================
+function closeModal(){
+	$('#modalEstoqueInvalido').modal('toggle')
 }
 
 // ================================================================================
@@ -76,7 +90,11 @@ function maisUmProduto(idProduto){
 // ================================================================================
 function menosUmProduto(idProduto){
 	removerUnidadeProdutoCarrinho(idProduto);
+	subtraiProduto(idProduto);
+}
 
+// ================================================================================
+function subtraiProduto(idProduto){
 	//Quantidade do mesmo produto no carrinho
 	document.getElementById('QuantidaCarrinhoProduto'+idProduto).innerText = parseInt(document.getElementById('QuantidaCarrinhoProduto'+idProduto).innerText) - 1;
 

@@ -21,105 +21,123 @@ if (isset($_SESSION['carrinho'])) {
 </head>
 
 <body class="d-flex flex-column h-100">
-<header>
-<!-- Fixed navbar -->
-  <nav class="navbar navbar-expand-md fixed-top navbar-dark menu">
-	    <div class="container-fluid">
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<a class="navbar-brand logo" href="/"><?= 'Gracy' ?></a>
-			<div class="navbar-brand text-white">
-				<a class="nav-link text-white" href="/carrinho">
-					<i class="fas fa-shopping-cart text-white"></i>
-					<span id="carrinho" class="badge bg-light text-dark"><?= $total_produtos ?></span>
-				</a>
-			</div>
-			<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item">
-						<a class="nav-link" aria-current="" href="/"><i class="fas fa-home"></i> Home</a>
-					</li>
+	<header>
+		<!-- Fixed navbar -->
+		<nav class="navbar navbar-expand-md fixed-top navbar-dark menu">
+			<div class="container-fluid">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<a class="navbar-brand logo" href="/"><?= 'Gracy' ?></a>
+				<div class="navbar-brand text-white">
+					<a class="nav-link text-white" href="/carrinho">
+						<i class="fas fa-shopping-cart text-white"></i>
+						<span id="carrinho" class="badge bg-light text-dark"><?= $total_produtos ?></span>
+					</a>
+				</div>
+				<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="nav-link" aria-current="" href="/"><i class="fas fa-home"></i> Home</a>
+						</li>
 
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							<i class="far fa-list-alt"></i>
-							Categorias
-						</a>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<i class="far fa-list-alt"></i>
+								Categorias
+							</a>
 
-						<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-							<a href="/produtos?categoria=Macaquinhos" class="dropdown-item">
-								Macaquinhos
+							<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+								<a href="/produtos?categoria=Macaquinhos" class="dropdown-item">
+									Macaquinhos
+								</a>
+								<a href="/produtos?categoria=Camisas" class="dropdown-item">
+									Camisas & Camisetas
+								</a>
+								<a href="/produtos?categoria=Conjuntos" class="dropdown-item">
+									Conjuntinhos
+								</a>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="/todos">Ver Todos</a></li>
+							</ul>
+
+						</li>
+
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<i class="fas fa-comments"></i>
+								Contatos
 							</a>
-							<a href="/produtos?categoria=Camisas" class="dropdown-item">
-								Camisas & Camisetas
-							</a>
-							<a href="/produtos?categoria=Conjuntos" class="dropdown-item">
-								Conjuntinhos
-							</a>
-							<li>
-								<hr class="dropdown-divider">
+							<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+								<a href="https://api.whatsapp.com/send?phone=5585984064679" class="dropdown-item">
+									<i class="fab fa-whatsapp"></i>
+									WhatsApp
+								</a>
+								<a href="https://www.instagram.com/gracymodaeestilo/" class="dropdown-item">
+									<i class="fab fa-instagram"></i>
+									Intagram
+								</a>
+							</ul>
+						</li>
+						<?php if ($this->view->clienteLogado) { ?>
+							<li class="nav-item">
+								<a class="nav-link" href="#"><i class="fas fa-user"></i></i> <?= $_SESSION['cliente'] ?></a>
 							</li>
-							<li><a class="dropdown-item" href="/todos">Ver Todos</a></li>
-						</ul>
-
-					</li>
-
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							<i class="fas fa-comments"></i>
-							Contatos
-						</a>
-						<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-							<a href="https://api.whatsapp.com/send?phone=5585984064679" class="dropdown-item">
-								<i class="fab fa-whatsapp"></i>
-								WhatsApp
-							</a>
-							<a href="https://www.instagram.com/gracymodaeestilo/" class="dropdown-item">
-								<i class="fab fa-instagram"></i>
-								Intagram
-							</a>
-						</ul>
-					</li>
-					<?php if ($this->view->clienteLogado) { ?>
-						<li class="nav-item">
-							<a class="nav-link" href="#"><i class="fas fa-user"></i></i> <?= $_SESSION['cliente'] ?></a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="/sair"><i class="fas fa-sign-out-alt"></i> Sair</a>
-						</li>
-					<?php } else { ?>
-						<li class="nav-item">
-							<a class="nav-link" aria-current="" href="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="/criar_conta"><i class="far fa-address-card"></i> Criar Conta</a>
-						</li>
-					<?php } ?>
-				</ul>
-				<form class="d-flex">
-					<input class="form-control me-2" type="search" placeholder="Procurar por Produtos" aria-label="Search">
-					<button class="btn btn-outline-light" type="submit">Search</button>
-				</form>
+							<li class="nav-item">
+								<a class="nav-link" href="/sair"><i class="fas fa-sign-out-alt"></i> Sair</a>
+							</li>
+						<?php } else { ?>
+							<li class="nav-item">
+								<a class="nav-link" aria-current="" href="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="/criar_conta"><i class="far fa-address-card"></i> Criar Conta</a>
+							</li>
+						<?php } ?>
+					</ul>
+					<form class="d-flex">
+						<input class="form-control me-2" type="search" placeholder="Procurar por Produtos" aria-label="Search">
+						<button class="btn btn-outline-light" type="submit">Search</button>
+					</form>
+				</div>
 			</div>
-		</div>
-	  </nav>
+		</nav>
 
-</header>
+	</header>
 	<!-- Begin page content -->
 	<main class="flex-shrink-0" style="padding: 80px 15px 0">
-	  	<?php
-			$this->content();
+		<?php
+		$this->content();
 		?>
 	</main>
 
 	<footer class="footer mt-auto">
-	  <div class="container-fluid rodape">
-	    <div class="col-12 text-center p-3">
-					<?= APP_NAME .  ' &copy;'  . date('Y') ?>
-				</div>
-	  </div>
+		<div class="container-fluid rodape">
+			<div class="col-12 text-center p-3">
+				<?= APP_NAME .  ' &copy;'  . date('Y') ?>
+			</div>
+		</div>
 	</footer>
+
+	<!-- Modal -->
+	<div class="modal fade" id="modalEstoqueInvalido" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+			<div class="modal-content">
+				<div class="modal-header text-warning">
+					<h3 class="modal-title">Ops...</h3>
+				</div>
+				<div class="modal-body">
+					<p class="text-warning" id="modalText">
+					<p>
+				</div>
+				<div class="modal-footer">
+					<button onclick="closeModal()" class="btn btn-warning" type="button" data-dismiss="modal">Cotinuar comprando</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/bootstrap.bundle.min.js"></script>

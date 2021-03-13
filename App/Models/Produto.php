@@ -109,4 +109,23 @@ class Produto extends Model
 
         return $stmt->fetchAll(\PDO::FETCH_CLASS);
     }
+
+    //=============================================================================================
+    public function validaEstoque()
+    {
+        //Todos os produtos
+        $query = "
+            SELECT
+                estoque
+            FROM
+                produtos
+            WHERE
+                id_produto = :id_produto and ativo = 1
+        ";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id_produto', $this->id_produto);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_CLASS);
+    }
 }

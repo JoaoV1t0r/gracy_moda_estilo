@@ -7,7 +7,7 @@ use MF\Model\Container;
 
 class CarrinhoControllers extends Action
 {
-
+    //=============================================================================================
     public function clienteLogado()
     {
         if (isset($_SESSION['logado']) && $_SESSION['logado'] == true) {
@@ -17,6 +17,7 @@ class CarrinhoControllers extends Action
         }
     }
 
+    //=============================================================================================
     public function limparCarrinho()
     {
         //esvazia o carrinho
@@ -24,6 +25,7 @@ class CarrinhoControllers extends Action
         $this->carrinho();
     }
 
+    //=============================================================================================
     public function carrinho()
     {
         //Renderização da index
@@ -64,6 +66,7 @@ class CarrinhoControllers extends Action
         $this->render('carrinho');
     }
 
+    //=============================================================================================
     public function adicionarCarrinho()
     {
         //Validação
@@ -75,6 +78,7 @@ class CarrinhoControllers extends Action
         //Valida se o produto existe na bd e se tem estoque
         $produto = Container::getModel('Produto');
         $produto->id_produto = $_GET['id_produto'];
+        $validacao = null;
         if (!$produto->validaProduto()) {
             echo isset($_SESSION['carrinho']) ? count($_SESSION['carrinho']) : '';
             return;
@@ -87,9 +91,29 @@ class CarrinhoControllers extends Action
         //Adicionar o produto ao carrinho
         if (key_exists($produto->id_produto, $carrinho)) {
             //Se o produto já existe acrescenta mais uma unidade
-            $carrinho[$produto->id_produto]++;
+            $consulta = $produto->validaEstoque();
+            if ($consulta[0]->estoque <= $carrinho[$produto->id_produto]) {
+                $total_produtos = 0;
+                $validacao = false;
+
+                foreach ($carrinho as $produto_quantidade) {
+                    $total_produtos += $produto_quantidade;
+                }
+
+                $resultado = new \stdClass();
+                $resultado->total_produtos = $total_produtos;
+                $resultado->validacao = $validacao;
+                $resultado->estoque = $consulta[0]->estoque;
+
+                echo json_encode($resultado);
+                return;
+            } else {
+                $validacao = true;
+                $carrinho[$produto->id_produto]++;
+            }
         } else {
             //Adiciona um novo produto ao carinho
+            $validacao = true;
             $carrinho[$produto->id_produto] = 1;
         }
 
@@ -101,10 +125,14 @@ class CarrinhoControllers extends Action
         foreach ($carrinho as $produto_quantidade) {
             $total_produtos += $produto_quantidade;
         }
+        $resultado = new \stdClass();
+        $resultado->total_produtos = $total_produtos;
+        $resultado->validacao = $validacao;
 
-        echo json_encode($total_produtos);
+        echo json_encode($resultado);
     }
 
+    //=============================================================================================
     public function removerUnidadeProdutoCarrinho()
     {
         //Validação
@@ -138,7 +166,7 @@ class CarrinhoControllers extends Action
         echo json_encode($total_produtos);
     }
 
-    
+    //=============================================================================================
     public function removerProdutoCarrinho()
     {
         //Validação
@@ -154,7 +182,6 @@ class CarrinhoControllers extends Action
         if (key_exists($produto->id_produto, $carrinho)) {
             //Diminui uma unidade
             unset($carrinho[$produto->id_produto]);
-                
         }
 
         $_SESSION['carrinho'] = $carrinho;

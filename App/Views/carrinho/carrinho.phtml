@@ -65,12 +65,18 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="mb-5">
-                    <a href="/limpar_carrinho" class="btn btn-cadastro">Limpar Carrinho</a>
-                    <a href="/todos" class="btn btn-cadastro">Ver mais produtos</a>
+                <div class="row mb-4">
+                    <div class="col text-start">
+                        <a href="/limpar_carrinho" class="btn btn-cadastro mx-3">Limpar Carrinho</a>
+                        <a href="/todos" class="btn btn-cadastro mx-4">Ver mais produtos</a>
+                    </div>
+                    <div class="col text-end">
+                        <a href="#" class="btn btn-cadastro mx-2">Finarlizar</a>
+                    </div>
                 </div>
             <?php } else { ?>
-                <p>Adicione produtos ao Carrinho. Você pode ir ao departamento da nossa loja para achar produtos.</p>
+                <h4 class="text-center" style="color: #CD6090;">Vazio...</h4>
+                <p class="text-center">Adicione produtos ao Carrinho. Você pode ir ao departamento da nossa loja para achar produtos.</p>
                 <a href="/todos" class="btn btn-cadastro">Ir aos produtos</a>
             <?php } ?>
         </div>

@@ -2,21 +2,12 @@
 
 namespace App\Controllers;
 
+use App\Classes\Store;
 use MF\Controller\Action;
 use MF\Model\Container;
 
 class CarrinhoControllers extends Action
 {
-    //=============================================================================================
-    public function clienteLogado()
-    {
-        if (isset($_SESSION['logado']) && $_SESSION['logado'] == true) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     //=============================================================================================
     public function limparCarrinho()
     {
@@ -29,7 +20,7 @@ class CarrinhoControllers extends Action
     public function carrinho()
     {
         //Renderização da index
-        $this->view->clienteLogado = $this->clienteLogado();
+        $this->view->clienteLogado = Store::clienteLogado();
         if (!isset($_SESSION['carrinho']) || count($_SESSION['carrinho']) == 0) {
             $this->view->carrinho = null;
         } else {

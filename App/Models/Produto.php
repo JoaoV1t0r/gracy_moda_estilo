@@ -128,4 +128,24 @@ class Produto extends Model
 
         return $stmt->fetchAll(\PDO::FETCH_CLASS);
     }
+
+    //=============================================================================================
+    public function getMaisVendidos()
+    {
+        //Todos os produtos
+        $query = "
+            SELECT
+                *
+            FROM
+                produtos
+            WHERE
+                ativo = 1 and estoque > 0
+            ORDER BY
+                total_vendidos desc
+        ";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_CLASS);
+    }
 }

@@ -10,19 +10,9 @@ use MF\Model\Container;
 class UserControllers extends Action
 {
 	// ===========================================================================
-	public function clienteLogado()
-	{
-		if (isset($_SESSION['logado']) && $_SESSION['logado'] == true) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	// ===========================================================================
 	public function registraUsuario()
 	{
-		if ($this->clienteLogado()) {
+		if (Store::clienteLogado()) {
 			header('Location: /');
 		}
 
@@ -66,7 +56,7 @@ class UserControllers extends Action
 				$resultado = $email->EnviarEmailConfirmacaoNovoCLiente($user->email, $user->purl);
 				if ($resultado) {
 					//Carrega o layout
-					$this->view->clienteLogado = $this->clienteLogado();
+					$this->view->clienteLogado = Store::clienteLogado();
 					$this->render('envio_email');
 					return;
 				}
@@ -77,7 +67,7 @@ class UserControllers extends Action
 	// ===========================================================================
 	public function confirmarEmail()
 	{
-		if ($this->clienteLogado()) {
+		if (Store::clienteLogado()) {
 			header('Location: /');
 		}
 
@@ -95,7 +85,7 @@ class UserControllers extends Action
 
 		if ($user->confirmaEmail()) {
 			//Carrega o layout
-			$this->view->clienteLogado = $this->clienteLogado();
+			$this->view->clienteLogado = Store::clienteLogado();
 			$this->render('email_confirmado');
 			return;
 		} else {
@@ -107,7 +97,7 @@ class UserControllers extends Action
 	// ===========================================================================
 	public function validaLogin()
 	{
-		if ($this->clienteLogado()) {
+		if (Store::clienteLogado()) {
 			header('Location: /');
 		}
 
@@ -123,18 +113,20 @@ class UserControllers extends Action
 
 		//verifica os campos
 		if ($user->email == '' || $user->senha == '' || !filter_var($user->email, FILTER_VALIDATE_EMAIL)) {
-			header('Location: /criar_conta?erro=campoVazio');
+			header('Location: /login?erro=campoVazio');
+			return;
 		}
 
 		//Valida email
 		if (!$user->validacaoEmail()) {
-			header('Location: /criar_conta?erro=email');
+			header('Location: /login?erro=email');
 			return;
 		}
 
 		$usuario = $user->validaLogin();
 		if (is_bool($usuario)) {
-			header('Location: /criar_conta?erro=senha');
+			header('Location: /login?erro=senha');
+			return;
 		} else {
 			$_SESSION['cliente'] = $usuario->nome;
 			$_SESSION['email'] = $usuario->email;
@@ -143,7 +135,12 @@ class UserControllers extends Action
 			$_SESSION['cep'] = $usuario->cep;
 			$_SESSION['telefone'] = $usuario->contato;
 			$_SESSION['logado'] = true;
-			header('Location: /');
+			if (isset($_SESSION['login_finalizar_pedido']) && $_SESSION['login_finalizar_pedido'] == true) {
+				unset($_SESSION['login_finalizar_pedido']);
+				header('Location: /finalizar_pedido');
+			} else {
+				header('Location: /');
+			}
 		}
 	}
 

@@ -13,7 +13,7 @@
 
                         <?php if (isset($_GET['erro']) && $_GET['erro'] == 'senha') { ?>
                             <div>
-                                <p class="alert alert-danger text-center p-2">Senhas incorreta, tente novamente</p>
+                                <p class="alert alert-danger text-center p-2">Senha ou E-mail incorreto, tente novamente</p>
                             </div>
                         <?php } ?>
 
@@ -22,6 +22,11 @@
                                 <p class="alert alert-danger text-center p-2">E-mail não cadastrado.
                                     Por favor tente usar outro email ou faça um <a href="?page=newUser">Cadastro </a>desse E-mail
                                 </p>
+                            </div>
+                        <?php } ?>
+                        <?php if (isset($_GET['finalizarPedido']) && $_GET['finalizarPedido'] == true) { ?>
+                            <div>
+                                <p class="alert alert-warning text-center p-2">Faça Login para finalizar o pedido</p>
                             </div>
                         <?php } ?>
 

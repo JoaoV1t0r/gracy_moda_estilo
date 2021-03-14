@@ -80,6 +80,16 @@ class Route extends Bootstrap
 			'controller' => 'CarrinhoControllers',
 			'action' => 'limparCarrinho'
 		);
+		$routes['valida_login_finaliar_pedido'] = array(
+			'route' => '/valida_login_finaliar_pedido',
+			'controller' => 'CarrinhoControllers',
+			'action' => 'clienteLogadoFinalizarPedido'
+		);
+		$routes['finalizar_pedido'] = array(
+			'route' => '/finalizar_pedido',
+			'controller' => 'PedidoControllers',
+			'action' => 'finalizarPedido'
+		);
 
 		$this->setRoutes($routes);
 	}

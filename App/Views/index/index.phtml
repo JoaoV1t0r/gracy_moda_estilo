@@ -1,38 +1,29 @@
 <div class="container mt-1">
-    <div class="row">
-        <div class="col-12 mt-2" style="color: #CD6090;">
-            <h1 class="text-center">Os Mais Vendidos</h1>
-            <div class="container-produtos card-body row">
-                <div class="card-produto text-center">
-                    <img src="assets/img/produto/macaquinho/macaquinho_preto.jpeg" alt="" class="img-fluid img-produto card-img-top">
-                    <h4 class="card-title mt-1 ">
-                        Macaquinho 2 </h4>
-                    <h5 class="card-text ">Preço: R$30,00</h5>
-                    <div class="align-bottom button-card">
-                        <button onclick="adicionarCarrinho(2)" class="btn btn-cadastro btn-lg">Adicionar <i class="fas fa-cart-plus"></i></button>
-                    </div>
-                </div>
-                <div class="card-produto text-center">
-                    <img src="assets/img/produto/macaquinho/macaquinho_preto2.jpeg" alt="" class="img-fluid img-produto card-img-top">
-                    <h4 class="card-title mt-1 ">
-                        Macaquinho 3 </h4>
-                    <h5 class="card-text ">Preço: R$30,00</h5>
-                    <div class="align-bottom button-card">
-                        <button onclick="adicionarCarrinho(3)" class="btn btn-cadastro btn-lg">Adicionar <i class="fas fa-cart-plus"></i></button>
-                    </div>
-                </div>
-                <div class="card-produto text-center">
-                    <img src="assets/img/produto/macaquinho/macaquinho_vermelho.jpeg" alt="" class="img-fluid img-produto card-img-top">
-                    <h4 class="card-title mt-1 ">
-                        Macaquinho 4 </h4>
-                    <h5 class="card-text ">Preço: R$30,00</h5>
-                    <div class="align-bottom button-card">
-                        <button onclick="adicionarCarrinho(4)" class="btn btn-cadastro btn-lg">Adicionar <i class="fas fa-cart-plus"></i></button>
-                    </div>
+    <?php if (isset($this->view->maisVendidos)) { ?>
+        <div class="row">
+            <div class="col-12 mt-2" style="color: #CD6090;">
+                <h1 class="text-center">Os Mais Vendidos</h1>
+                <div class="container-produtos card-body row">
+                    <?php for ($idx = 0; $idx < 3; $idx++) { ?>
+                        <div class="card-produto text-center">
+                            <img src="assets/img/<?= $this->view->maisVendidos[$idx]->imagem ?>" alt="" class="img-fluid img-produto card-img-top">
+                            <h4 class="card-title mt-1 ">
+                                <?= $this->view->maisVendidos[$idx]->nome_produto ?>
+                            </h4>
+                            <h5 class="card-text ">
+                                Preço: R$<?= preg_replace("/\./", ",", $this->view->maisVendidos[$idx]->preco) ?>
+                            </h5>
+                            <div class="align-bottom button-card">
+                                <button onclick="adicionarCarrinho(<?= $this->view->maisVendidos[$idx]->id_produto ?>)" class="btn btn-cadastro btn-lg">
+                                    Adicionar <i class="fas fa-cart-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>
-    </div>
+    <?php } ?>
     <div class="row">
         <div class="col-12 mt-2 d-flex flex-column ">
             <h1 class=" text-center" style="color: #CD6090;">Nossa Localização</h1>

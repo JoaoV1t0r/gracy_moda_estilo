@@ -143,3 +143,13 @@ function removerProdutoCarrinho(idProduto){
 	document.getElementById('IdTabelaProduto'+idProduto).remove();
 
 }
+
+// ================================================================================
+function showModalLimpar(){
+	$('#showModalLimpar').modal('show');
+}
+
+// ================================================================================
+function closeModalLimpar(){
+	$('#showModalLimpar').modal('toggle');
+}

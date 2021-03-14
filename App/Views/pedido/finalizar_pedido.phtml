@@ -1,83 +1,87 @@
 <div class="container">
     <div class="row">
-        <h1 class="text-center" style="color: #CD6090;">Carrinho</h1>
+        <h1 class="text-center" style="color: #CD6090;">Seu Pedido - Resumo</h1>
         <div class="col conteudo">
             <?php if ($this->view->carrinho != null) { ?>
+                <h5 class="menu text-white p-2">Seu Pedido</h5>
                 <table class="table table-hover table-sm">
                     <thead>
                         <tr>
-                            <th scope="col"></th>
-                            <th scope="col" class="text-center">Nome</th>
-                            <th scope="col" class="text-center">Preço(Und)</th>
-                            <th scope="col" class="text-center">Qntd</th>
-                            <th scope="col" class="text-center">Total</th>
-                            <th></th>
+                            <th class="text-start">Nome</th>
+                            <th class="text-end">Qntd</th>
+                            <th class="text-end">Total</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($this->view->carrinho as $produto) { ?>
                             <tr id="IdTabelaProduto<?= $produto->id_produto ?>">
-                                <td class="d-flex flex-column">
-                                    <img src="assets/img/<?= $produto->imagem ?>" class="img-fluid d-block img-produto d-flex align-center" width="120px">
-                                </td>
-                                <td class="align-middle text-center">
+                                <td class="align-middle text-start">
                                     <?= $produto->nome_produto ?>
                                 </td>
-                                <td id="ValorProduto<?= $produto->id_produto ?>" class="align-middle text-center">
-
-                                    R$<?= preg_replace("/\./", ",", $produto->preco) ?>
-
-                                </td>
-                                <td class="align-middle text-center">
+                                <td class="align-middle text-end">
                                     <h5>
-                                        <i onclick="menosUmProduto(<?= $produto->id_produto ?>)" class="fas fa-minus text-danger"></i>
-                                        <span id="QuantidaCarrinhoProduto<?= $produto->id_produto ?>" class="text-center">
-                                            <?= $produto->quantidade ?>
-                                        </span>
-                                        <i onclick="maisUmProduto(<?= $produto->id_produto ?>)" class="fas fa-plus text-success"></i>
+                                        <?= $produto->quantidade ?>
                                     </h5>
                                 </td>
-                                <td class="align-middle text-center">
+                                <td class="align-middle text-end">
                                     <h6 id="ValorQuantidadeCarrinhoProduto<?= $produto->id_produto ?>">
                                         R$<?= number_format((float)$produto->valorQuantidade, 2, ',', '') ?>
                                     </h6>
-                                </td>
-                                <td class="align-middle text-start">
-                                    <span onclick="removerProdutoCarrinho(<?= $produto->id_produto ?>)" class="text-danger" value=""><i class="fas fa-times"></i></span>
                                 </td>
                             </tr>
                         <?php } ?>
                         <tr>
                             <td>
-                                <h3>
+                                <h4>
                                     Total da Compra:
-                                </h3>
+                                </h4>
                             </td>
                             <td></td>
-                            <td></td>
-                            <td></td>
-                            <td class="align-middle">
-                                <h3 id="ValorTotalCarrinho">
+                            <td class="align-middle text-end">
+                                <h4 id="ValorTotalCarrinho">
                                     R$<?= number_format((float)$this->view->total, 2, ',', '') ?>
-                                </h3>
+                                </h4>
                             </td>
-                            <td></td>
                         </tr>
                     </tbody>
                 </table>
-                <div class="row mb-4">
+                <div class="mt-3 mb-4">
+                    <div>
+                        <h5 class="menu text-white p-2">Seus Dados</h5>
+                        <h6>
+                            Nome: <?= $this->view->dadosCliente->nome ?>
+                        </h6>
+                        <h6>
+                            E-mail: <?= $this->view->dadosCliente->email ?>
+                        </h6>
+                        <h6>
+                            Número: <?= $this->view->dadosCliente->telefone ?>
+                        </h6>
+                        <h6>
+                            Cidade: <?= $this->view->dadosCliente->cidade ?>
+                        </h6>
+                        <h6>
+                            Endereço: <?= $this->view->dadosCliente->endereco ?>
+                        </h6>
+                        <h6>
+                            CEP: <?= $this->view->dadosCliente->cep ?>
+                        </h6>
+                    </div>
+                </div>
+                <div class="mb-4">
                     <div class="col text-start">
-                        <a onclick="showModalLimpar()" class="btn btn-cadastro mx-3">Limpar Carrinho</a>
-                        <a href="/todos" class="btn btn-cadastro mx-4 my-1">Mais produtos</a>
+                        <a onclick="showModalLimpar()" class="btn btn-sm btn-cadastro mx-3">Cancelar</a>
+                        <a href="/carrinho" class="btn btn-sm btn-cadastro mx-2 my-1">Voltar</a>
                     </div>
                     <div class="col text-end">
-                        <a href="/finalizar_pedido" class="btn btn-cadastro mx-2">Finarlizar</a>
+                        <a href="#" class="btn btn-lg btn-cadastro mx-2">Pagar</a>
                     </div>
                 </div>
             <?php } else { ?>
                 <h4 class="text-center" style="color: #CD6090;">Vazio...</h4>
                 <p class="text-center">Adicione produtos ao Carrinho. Você pode ir ao departamento da nossa loja para achar produtos.</p>
                 <a href="/todos" class="btn btn-cadastro">Ir aos produtos</a>
+
             <?php } ?>
         </div>
     </div>
@@ -88,7 +92,7 @@
     <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header text-danger">
-                <h3 class="modal-title">Deseja mesmo limpar o Carrinho?</h3>
+                <h3 class="modal-title">Deseja mesmo Cancelar esse Pedido?</h3>
             </div>
             <div class="modal-body row my-3">
                 <div class="col text-start mx-4">

@@ -90,6 +90,16 @@ class Route extends Bootstrap
 			'controller' => 'PedidoControllers',
 			'action' => 'finalizarPedido'
 		);
+		$routes['escolher_pagamento'] = array(
+			'route' => '/escolher_pagamento',
+			'controller' => 'PedidoControllers',
+			'action' => 'escolherPagamento'
+		);
+		$routes['adicionar_dados_alternativos'] = array(
+			'route' => '/adicionar_dados_alternativos',
+			'controller' => 'UserControllers',
+			'action' => 'adicionarDadosAlternativos'
+		);
 
 		$this->setRoutes($routes);
 	}

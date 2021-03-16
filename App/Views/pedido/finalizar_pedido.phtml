@@ -71,16 +71,49 @@
                 <div class="mb-4">
                     <div class="col text-start">
                         <a onclick="showModalLimpar()" class="btn btn-sm btn-cadastro mx-3">Cancelar</a>
-                        <a href="/carrinho" class="btn btn-sm btn-cadastro mx-2 my-1">Voltar</a>
+                        <a href="<?= BASE_URL ?>carrinho" class="btn btn-sm btn-cadastro mx-2 my-1">Voltar</a>
+                    </div>
+                    <div class="form-check mx-3 my-4">
+                        <input class="form-check-input" onchange="enderecoAlternativo()" type="checkbox" value="" id="enderecoAlternativo">
+                        <label class="form-check-label" for="enderecoAlternativo">
+                            Definir outro endereço
+                        </label>
+                    </div>
+                    <div id="campoEnderecoAlternativo" style="display: none;">
+                        <form class="row needs-validation mb-3" method="" action="">
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-floating mb-2">
+                                        <input id="Cidade" class="form-control" id="floatingInputGrid" placeholder="Cidade">
+                                        <label for="floatingInputGrid">Cidade</label>
+                                    </div>
+                                    <div class="form-floating mb-2">
+                                        <input id="rua" class="form-control" id="floatingInputGrid" placeholder="Endereço">
+                                        <label for="floatingInputGrid">Sua Rua</label>
+                                    </div>
+                                    <div class="form-floating mb-2">
+                                        <input id="numero_casa" class="form-control" id="floatingInputGrid" placeholder="Número">
+                                        <label for="floatingInputGrid">Número da Residência</label>
+                                    </div>
+
+                                    <div class="form-floating mb-2">
+                                        <input id="cep" class="form-control" id="floatingInputGrid" placeholder="CEP">
+                                        <label for="floatingInputGrid">CEP</label>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
                     </div>
                     <div class="col text-end">
-                        <a href="#" class="btn btn-lg btn-cadastro mx-2">Pagar</a>
+                        <a onclick="definirDadosAlternativos()" href="<?= BASE_URL ?>escolher_pagamento" class="btn btn-lg btn-cadastro mx-2">Escolher Método de Pagamento</a>
+                        <!-- href="<?= BASE_URL ?>escolher_pagamento" -->
                     </div>
                 </div>
             <?php } else { ?>
                 <h4 class="text-center" style="color: #CD6090;">Vazio...</h4>
                 <p class="text-center">Adicione produtos ao Carrinho. Você pode ir ao departamento da nossa loja para achar produtos.</p>
-                <a href="/todos" class="btn btn-cadastro">Ir aos produtos</a>
+                <a href="<?= BASE_URL ?>todos" class="btn btn-cadastro">Ir aos produtos</a>
 
             <?php } ?>
         </div>
@@ -96,7 +129,7 @@
             </div>
             <div class="modal-body row my-3">
                 <div class="col text-start mx-4">
-                    <a href="/limpar_carrinho" class="btn btn-danger" type="button" data-dismiss="modal">Sim</a>
+                    <a href="<?= BASE_URL ?>limpar_carrinho" class="btn btn-danger" type="button" data-dismiss="modal">Sim</a>
                 </div>
                 <div class="col text-end mx-4">
                     <a onclick="closeModalCarrinho()" class="btn btn-warning" type="button" data-dismiss="modal">Não</a>

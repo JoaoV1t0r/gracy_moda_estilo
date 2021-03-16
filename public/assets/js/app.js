@@ -153,3 +153,41 @@ function showModalLimpar(){
 function closeModalLimpar(){
 	$('#showModalLimpar').modal('toggle');
 }
+
+// ================================================================================
+function enderecoAlternativo(){
+	//Mostrar ou escontder o form de endereço alternativo
+	// enderecoAlternativo
+	let form = document.getElementById('enderecoAlternativo');
+	if(form.checked == true){
+		//mostra o from
+		$('#campoEnderecoAlternativo').css({
+			"display" : "inline"
+		})
+	}else {
+		//esconde o form
+		$('#campoEnderecoAlternativo').css({
+			"display" : "none"
+		})
+	}
+}
+
+// ================================================================================
+function definirDadosAlternativos(){
+	let form = document.getElementById('enderecoAlternativo');
+	if(form.checked == true){
+		let cidadeAlternativa = $('#Cidade').val();
+		let enderecoAlternativa = $('#rua').val() + ' ' + $('#numero_casa').val();
+		let cepAlternativa = $('#cep').val();
+		$.post(
+			'/adicionar_dados_alternativos',
+			{
+				cepAlternativa: cepAlternativa,
+				enderecoAlternativa: enderecoAlternativa,
+				cidadeAlternativa: cidadeAlternativa
+			},
+			function(data){
+				
+			})
+		}
+	}

@@ -155,6 +155,26 @@ class UserControllers extends Action
 		unset($_SESSION['cep']);
 		unset($_SESSION['telefone']);
 		unset($_SESSION['logado']);
+		if (isset($_SESSION['dadosAlternativos'])) {
+			unset($_SESSION['dadosAlternativos']);
+		}
 		header('Location: /');
+	}
+
+	// ===========================================================================
+	public function adicionarDadosAlternativos()
+	{
+		if (Store::clienteLogado()) {
+			header('Location: /');
+		}
+		//Verifica se foi feito o post
+		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+			header('Location: /');
+		}
+		$_SESSION['dadosAlternativos'] = [
+			'cidadeAlternativa' => $_POST['cidadeAlternativa'],
+			'enderecoAlternativa' => $_POST['enderecoAlternativa'],
+			'cepAlternativa' => $_POST['cepAlternativa']
+		];
 	}
 }

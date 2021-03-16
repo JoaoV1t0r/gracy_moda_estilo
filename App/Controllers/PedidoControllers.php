@@ -66,4 +66,15 @@ class PedidoControllers extends Action
             header('Location: /login?finalizarPedido=true');
         }
     }
+
+    // ====================================================================================
+    public function escolherPagamento()
+    {
+        if (Store::clienteLogado()) {
+            $this->view->clienteLogado = Store::clienteLogado();
+            $this->render('escolher_pagamento');
+        } else {
+            header('Location: /login?finalizarPedido=true');
+        }
+    }
 }

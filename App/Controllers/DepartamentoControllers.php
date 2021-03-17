@@ -16,17 +16,25 @@ class DepartamentoControllers extends Action
         $produtos = Container::getModel('Produto');
         $this->view->produto = $produtos->getTodos();
         $this->view->categoria = 'Todos os Produtos';
-        $this->render('produtos');
+        if(count($this->view->produto) == 0) {
+            $this->render('produtosVazio');
+        } else {
+            $this->render('produtos');
+        }
     }
 
     // ========================================================================================
     public function getCategoria()
     {
-        //Renderização da index
-        $categoria = isset($_GET['categoria']) ? $_GET['categoria'] : 'Todos';
         $this->view->clienteLogado = Store::clienteLogado();
-        $this->view->categoria = $categoria;
+        if(isset($_GET['categoria'])){
+            $categoria = $_GET['categoria'];
+        } else {
+            header('Location: ' . BASE_URL . 'todos');
+        }
+
         $produtos = Container::getModel('Produto');
+        $this->view->categoria = $categoria;
         $this->view->produto = $produtos->getProdutos($categoria);
         if (count($this->view->produto) == 0) {
             $this->render('produtosVazio');

@@ -10,7 +10,8 @@ class User extends Model
     private $email;
     private $nome;
     private $senha;
-    private $endereco;
+    private $rua;
+    private $numero_residencia;
     private $cidade;
     private $cep;
     private $telefone;
@@ -59,14 +60,15 @@ class User extends Model
             insert into
                 clientes
             values(
-                0, :nome, :email, :senha, :endereco, :cidade, :cep, :telefone, :purl, :ativo, NOW(), NOW(), NULL
+                0, :nome, :email, :senha, :rua, :numero_residencia, :cidade, :cep, :telefone, :purl, :ativo, NOW(), NOW(), NULL
         )";
 
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':nome', $this->nome);
         $stmt->bindValue(':email', $this->email);
         $stmt->bindValue(':senha', $this->senha);
-        $stmt->bindValue(':endereco', $this->endereco);
+        $stmt->bindValue(':rua', $this->rua);
+        $stmt->bindValue(':numero_residencia', $this->numero_residencia);
         $stmt->bindValue(':cidade', $this->cidade);
         $stmt->bindValue(':cep', $this->cep);
         $stmt->bindValue(':telefone', $this->telefone);

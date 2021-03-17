@@ -177,13 +177,15 @@ function definirDadosAlternativos(){
 	let form = document.getElementById('enderecoAlternativo');
 	if(form.checked == true){
 		let cidadeAlternativa = $('#Cidade').val();
-		let enderecoAlternativa = $('#rua').val() + ' ' + $('#numero_casa').val();
+		let ruaAlternativa = $('#rua').val() ;
+		let numeroResidencia = $('#numero_casa').val();
 		let cepAlternativa = $('#cep').val();
 		$.post(
 			'/adicionar_dados_alternativos',
 			{
 				cepAlternativa: cepAlternativa,
-				enderecoAlternativa: enderecoAlternativa,
+				ruaAlternativa: ruaAlternativa,
+				numeroResidencia: numeroResidencia,
 				cidadeAlternativa: cidadeAlternativa
 			},
 			function(data){

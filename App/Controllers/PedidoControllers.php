@@ -50,7 +50,8 @@ class PedidoControllers extends Action
                 $dadosCliente = [
                     'nome' => $_SESSION['cliente'],
                     'email' => $_SESSION['email'],
-                    'endereco' => $_SESSION['endereco'],
+                    'rua' => $_SESSION['rua'],
+                    'numero_residencia' => $_SESSION['numero_residencia'],
                     'cidade' => $_SESSION['cidade'],
                     'cep' => $_SESSION['cep'],
                     'telefone' => $_SESSION['telefone']

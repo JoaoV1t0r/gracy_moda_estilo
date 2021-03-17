@@ -32,7 +32,8 @@ class UserControllers extends Action
 		$user->email = trim($_POST['email']);
 		$user->nome = trim($_POST['nome']);
 		$user->senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
-		$user->endereco = trim($_POST['endereco']);
+		$user->rua = trim($_POST['rua']);
+		$user->numero_residencia = trim($_POST['numero_residencia']);
 		$user->cidade = trim($_POST['cidade']);
 		$user->cep = trim($_POST['cep']);
 		$user->telefone = trim($_POST['telefone']);
@@ -40,7 +41,7 @@ class UserControllers extends Action
 		$user->ativo = 0;
 
 		//Verifica os campos
-		if ($user->email == '' || $user->nome == '' || $user->senha == '' || $user->endereco == '' || $user->cidade == '' || $user->cep == '' || $user->telefone == '') {
+		if ($user->email == '' || $user->nome == '' || $user->senha == '' || $user->numero_residencia == '' || $user->rua == '' || $user->cidade == '' || $user->cep == '' || $user->telefone == '') {
 			header('Location: /criar_conta?erro=campoVazio');
 			return;
 		}
@@ -130,7 +131,8 @@ class UserControllers extends Action
 		} else {
 			$_SESSION['cliente'] = $usuario->nome;
 			$_SESSION['email'] = $usuario->email;
-			$_SESSION['endereco'] = $usuario->endereco;
+			$_SESSION['rua'] = $usuario->rua;
+			$_SESSION['numero_residencia'] = $usuario->numero_residencia;
 			$_SESSION['cidade'] = $usuario->cidade;
 			$_SESSION['cep'] = $usuario->cep;
 			$_SESSION['telefone'] = $usuario->contato;
@@ -150,7 +152,8 @@ class UserControllers extends Action
 		//remover  as variaveis de sessão e retorna para o inicio
 		unset($_SESSION['cliente']);
 		unset($_SESSION['email']);
-		unset($_SESSION['endereco']);
+		unset($_SESSION['rua']);
+		unset($_SESSION['numero_residencia']);
 		unset($_SESSION['cidade']);
 		unset($_SESSION['cep']);
 		unset($_SESSION['telefone']);
@@ -180,7 +183,8 @@ class UserControllers extends Action
 		}
 		$_SESSION['dadosAlternativos'] = [
 			'cidadeAlternativa' => $_POST['cidadeAlternativa'],
-			'enderecoAlternativa' => $_POST['enderecoAlternativa'],
+			'ruaAlternativa' => $_POST['ruaAlternativa'],
+			'numeroResidencia' => $_POST['numeroResidencia'],
 			'cepAlternativa' => $_POST['cepAlternativa']
 		];
 	}

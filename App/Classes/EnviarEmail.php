@@ -50,4 +50,44 @@ class EnviarEmail
             return false;
         }
     }
+
+    //==========================================================================================
+    public function EnviarEmailConfirmacaoPedido()
+    {
+        //Envia e-mail de confirmação da conta do cliente
+        $mail = new PHPMailer(true);
+
+        try {
+            //Server settings
+            $mail->SMTPDebug = SMTP::DEBUG_OFF;
+            $mail->isSMTP();
+            $mail->Host       = EMAIL_HOST;
+            $mail->SMTPAuth   = true;
+            $mail->Username   = EMAIL_FROM;
+            $mail->Password   = EMAIL_SENHA;
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port       = EMAIL_PORT;
+            $mail->CharSet    = 'UTF-8';
+
+            //Recipients
+            $mail->setFrom(EMAIL_FROM, APP_NAME);
+            $mail->addAddress($_SESSION['email']);
+
+            //Content
+            $mail->isHTML(true);
+            $mail->Subject = APP_NAME . ' - Confirmação de E-mail';
+            //Mensagem do E-mail
+            $html = "<p>Seu Pedido na " . APP_NAME . " foi confirmado.</p>";
+            $html .= "<p></p>";
+            $html .= "<p></p>";
+            $html .= '<p><a href=""></a></p>';
+            $html .= '<p><i><smail>' . APP_NAME . '</smail></i></p>';
+            $mail->Body = $html;
+
+            $mail->send();
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
 }

@@ -12,6 +12,9 @@ class PedidoControllers extends Action
     public function finalizarPedido()
     {
         if (Store::clienteLogado()) {
+            if (!isset($_SESSION['carrinho']) || count($_SESSION['carrinho']) == 0) {
+                header('Location: ' . BASE_URL . 'carrinho');
+            }
             $this->view->clienteLogado = Store::clienteLogado();
             if (!isset($_SESSION['carrinho']) || count($_SESSION['carrinho']) == 0) {
                 $this->view->carrinho = null;
@@ -44,12 +47,6 @@ class PedidoControllers extends Action
                     unset($consulta);
                 }
                 // -----------------------------------------------------------------------------------------------------
-                $_SESSION['cliente'];
-                $_SESSION['email'];
-                $_SESSION['endereco'];
-                $_SESSION['cidade'];
-                $_SESSION['cep'];
-                $_SESSION['telefone'];
                 $dadosCliente = [
                     'nome' => $_SESSION['cliente'],
                     'email' => $_SESSION['email'],
@@ -60,6 +57,10 @@ class PedidoControllers extends Action
                 ];
                 $this->view->dadosCliente = (object)$dadosCliente;
             }
+            if (!isset($_SESSION['codigo_pedido'])) {
+                $_SESSION['codigo_pedido'] = Store::codigoPedido();
+            }
+            $_SESSION['total_pedido'] = $this->view->total;
             $this->render('finalizar_pedido');
         } else {
             $_SESSION['login_finalizar_pedido'] = true;
@@ -68,11 +69,43 @@ class PedidoControllers extends Action
     }
 
     // ====================================================================================
-    public function escolherPagamento()
+    public function confirmarPedido()
     {
         if (Store::clienteLogado()) {
+            //Verifica se foi feito o post
+            if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+                header('Location: /');
+            }
+            //dados pagamento
+            $numeroCartao = $_POST['numero_cartao'];
+            $validadeCartao = $_POST['validade_cartao'];
+            $cvvCartao = $_POST['cvv_cartao'];
+            $cpfUser = $_POST['cpf_user'];
+            // if ($numeroCartao == '' || $validadeCartao == '' || $cvvCartao == '' || $cpfUser == '') {
+            //     header('Location: ' . BASE_URL . 'finalizar_pedido?erro=campoVazio');
+            // }
+            $_SESSION['dados_pagamento'] = [
+                'numero_cartao' => $numeroCartao,
+                'validade_cartao' => $validadeCartao,
+                'cvv_cartao' => $cvvCartao,
+                'cpf_user' => $cpfUser
+            ];
+            $this->view->codigoPedido = $_SESSION['codigo_pedido'];
+            $this->view->valorPedido = $_SESSION['total_pedido'];
+            unset($_SESSION['carrinho']);
+            unset($_SESSION['total_pedido']);
+            unset($_SESSION['codigo_pedido']);
+            if (isset($_SESSION['dadosAlternativos'])) {
+                unset($_SESSION['dadosAlternativos']);
+            }
+            if (isset($_SESSION['dados_pagamento'])) {
+                unset($_SESSION['dados_pagamento']);
+            }
+            if (isset($_SESSION['codigo_pedido'])) {
+                unset($_SESSION['codigo_pedido']);
+            }
             $this->view->clienteLogado = Store::clienteLogado();
-            $this->render('escolher_pagamento');
+            $this->render('confirmar_pedido');
         } else {
             header('Location: /login?finalizarPedido=true');
         }

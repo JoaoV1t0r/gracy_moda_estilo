@@ -90,15 +90,20 @@ class Route extends Bootstrap
 			'controller' => 'PedidoControllers',
 			'action' => 'finalizarPedido'
 		);
-		$routes['escolher_pagamento'] = array(
-			'route' => '/escolher_pagamento',
+		$routes['confirmar_pedido'] = array(
+			'route' => '/confirmar_pedido',
 			'controller' => 'PedidoControllers',
-			'action' => 'escolherPagamento'
+			'action' => 'confirmarPedido'
 		);
 		$routes['adicionar_dados_alternativos'] = array(
 			'route' => '/adicionar_dados_alternativos',
 			'controller' => 'UserControllers',
 			'action' => 'adicionarDadosAlternativos'
+		);
+		$routes['remove_dados_alternativos'] = array(
+			'route' => '/remove_dados_alternativos',
+			'controller' => 'UserControllers',
+			'action' => 'removerDadosAlternativos'
 		);
 
 		$this->setRoutes($routes);

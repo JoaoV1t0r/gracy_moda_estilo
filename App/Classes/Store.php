@@ -11,7 +11,6 @@ class Store
         return substr(str_shuffle($chars),  0, $numeroCaracteres);
     }
 
-
     // ===========================================================================
     public static function clienteLogado()
     {
@@ -20,5 +19,14 @@ class Store
         } else {
             return false;
         }
+    }
+
+    // ===========================================================================
+    public static function codigoPedido()
+    {
+        $chars = 'abcdefghijklmnopqrstuwvxzABCDEFGHIJKLMNOPQRSTUWVXZABCDEFGHIJKLMNOPQRSTUWVXZ';
+        $codigo =  substr(str_shuffle($chars),  0, 2);
+        $codigo .= rand(100000, 999999);
+        return $codigo;
     }
 }

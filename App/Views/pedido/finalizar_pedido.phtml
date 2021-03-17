@@ -4,10 +4,11 @@
         <div class="col conteudo">
             <?php if ($this->view->carrinho != null) { ?>
                 <h5 class="menu text-white p-2">Seu Pedido</h5>
+                <h6>Código do Pedido: <?= $_SESSION['codigo_pedido'] ?></h6>
                 <table class="table table-hover table-sm">
                     <thead>
                         <tr>
-                            <th class="text-start">Nome</th>
+                            <th class="text-start">Produto</th>
                             <th class="text-end">Qntd</th>
                             <th class="text-end">Total</th>
                         </tr>
@@ -68,11 +69,7 @@
                         </h6>
                     </div>
                 </div>
-                <div class="mb-4">
-                    <div class="col text-start">
-                        <a onclick="showModalLimpar()" class="btn btn-sm btn-cadastro mx-3">Cancelar</a>
-                        <a href="<?= BASE_URL ?>carrinho" class="btn btn-sm btn-cadastro mx-2 my-1">Voltar</a>
-                    </div>
+                <div class="mb-2">
                     <div class="form-check mx-3 my-4">
                         <input class="form-check-input" onchange="enderecoAlternativo()" type="checkbox" value="" id="enderecoAlternativo">
                         <label class="form-check-label" for="enderecoAlternativo">
@@ -105,11 +102,41 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col text-end">
-                        <a onclick="definirDadosAlternativos()" href="<?= BASE_URL ?>escolher_pagamento" class="btn btn-lg btn-cadastro mx-2">Escolher Método de Pagamento</a>
-                        <!-- href="<?= BASE_URL ?>escolher_pagamento" -->
-                    </div>
                 </div>
+                <h5 class="menu text-white p-2">Dados de Pagamento</h5>
+                <form class="row needs-validation my-3" method="post" action="<?= BASE_URL ?>confirmar_pedido">
+                    <div class="col-md">
+                        <?php if (isset($_GET['erro']) && $_GET['erro'] == 'campoVazio') { ?>
+                            <div>
+                                <p class="alert alert-danger text-center p-2">Preencha todos os campos para continuar</p>
+                            </div>
+                        <?php } ?>
+                        <div class="form-floating mb-2">
+                            <input name="numero_cartao" class="form-control" id="floatingInputGrid" placeholder="Cidade">
+                            <label for="floatingInputGrid">Número do Cartão</label>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input name="validade_cartao" class="form-control" id="floatingInputGrid" placeholder="Endereço">
+                            <label for="floatingInputGrid">Validade</label>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input name="cvv_cartao" class="form-control" id="floatingInputGrid" placeholder="Número">
+                            <label for="floatingInputGrid">CVV</label>
+                        </div>
+
+                        <div class="form-floating mb-2">
+                            <input name="cpf_user" class="form-control" id="floatingInputGrid" placeholder="CEP">
+                            <label for="floatingInputGrid">CPF</label>
+                        </div>
+                        <div class="col text-start">
+                            <a onclick="showModalLimpar()" class="btn btn-sm btn-cadastro mx-3">Cancelar</a>
+                            <a href="<?= BASE_URL ?>carrinho" class="btn btn-sm btn-cadastro mx-2 my-1">Voltar</a>
+                        </div>
+                        <div class="col my-3 text-end">
+                            <input type="submit" onclick="definirDadosAlternativos()" href="<?= BASE_URL ?>escolher_pagamento" class="btn btn-lg btn-cadastro mx-2" value="Escolher Método de Pagamento">
+                        </div>
+                    </div>
+                </form>
             <?php } else { ?>
                 <h4 class="text-center" style="color: #CD6090;">Vazio...</h4>
                 <p class="text-center">Adicione produtos ao Carrinho. Você pode ir ao departamento da nossa loja para achar produtos.</p>

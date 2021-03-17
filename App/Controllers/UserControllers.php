@@ -155,8 +155,15 @@ class UserControllers extends Action
 		unset($_SESSION['cep']);
 		unset($_SESSION['telefone']);
 		unset($_SESSION['logado']);
+		unset($_SESSION['codigo_pedido']);
 		if (isset($_SESSION['dadosAlternativos'])) {
 			unset($_SESSION['dadosAlternativos']);
+		}
+		if (isset($_SESSION['dados_pagamento'])) {
+			unset($_SESSION['dados_pagamento']);
+		}
+		if (isset($_SESSION['codigo_pedido'])) {
+			unset($_SESSION['codigo_pedido']);
 		}
 		header('Location: /');
 	}
@@ -176,5 +183,22 @@ class UserControllers extends Action
 			'enderecoAlternativa' => $_POST['enderecoAlternativa'],
 			'cepAlternativa' => $_POST['cepAlternativa']
 		];
+	}
+
+	// ===========================================================================
+	public function removerDadosAlternativos()
+	{
+		if (Store::clienteLogado()) {
+			header('Location: /');
+		}
+		//Verifica se foi feito o post
+		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+			header('Location: /');
+		}
+		if ($_POST['remover'] == true) {
+			if (isset($_SESSION['dadosAlternativos'])) {
+				unset($_SESSION['dadosAlternativos']);
+			}
+		}
 	}
 }

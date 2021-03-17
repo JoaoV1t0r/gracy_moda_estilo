@@ -188,6 +188,14 @@ function definirDadosAlternativos(){
 			},
 			function(data){
 				
-			})
-		}
+		})
+	} else{
+		$.post(
+			'/remove_dados_alternativos',
+			{
+				remover: true
+			},
+			function(data){}
+		)
 	}
+}

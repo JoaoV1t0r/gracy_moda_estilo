@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="row text-center" style="color: #CD6090;">
+        <div class="col-sm-6 offset-sm-3">
+            <h2 class="my-3">Pedido Confirmado</h2>
+            <p>Muito obrigado pela preferência. </p>
+            <p>Você vai receber um e-mail com os dados do seu pedido.</p>
+            <p>Verifique se o e-mail chegou na sua caixa de mensagens ou spam.</p>
+            <p>Qualquer duvida entre em contato com a gente pelo <a style="color: #CD6090;" href="https://api.whatsapp.com/send?phone=5585984064679">WhatsApp</a></p>
+            <h4>Dados do Pedido: </h4>
+            <h6>Código do Pedido: <?= $this->view->codigoPedido ?></h6>
+            <h6>Valor do Pedido: R$<?= number_format((float)$this->view->valorPedido, 2, ',', '') ?></h6>
+            <a class="btn btn-cadastro" href="<?= BASE_URL ?>">Voltar</a>
+        </div>
+    </div>
+</div>

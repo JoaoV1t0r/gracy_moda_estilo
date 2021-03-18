@@ -129,6 +129,7 @@ class UserControllers extends Action
 			header('Location: /login?erro=senha');
 			return;
 		} else {
+			$_SESSION['id_cliente'] = $usuario->id_cliente;
 			$_SESSION['cliente'] = $usuario->nome;
 			$_SESSION['email'] = $usuario->email;
 			$_SESSION['rua'] = $usuario->rua;
@@ -150,6 +151,7 @@ class UserControllers extends Action
 	public function sair()
 	{
 		//remover  as variaveis de sessão e retorna para o inicio
+		unset($_SESSION['id_cliente']);
 		unset($_SESSION['cliente']);
 		unset($_SESSION['email']);
 		unset($_SESSION['rua']);

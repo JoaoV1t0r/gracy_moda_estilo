@@ -38,7 +38,7 @@ if (isset($_SESSION['carrinho'])) {
 				<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<li class="nav-item">
-							<a class="nav-link" aria-current="" href="/"><i class="fas fa-home"></i> Home</a>
+							<a class="nav-link" aria-current="" href="<?= BASE_URL ?>"><i class="fas fa-home"></i> Home</a>
 						</li>
 
 						<li class="nav-item dropdown">
@@ -48,19 +48,19 @@ if (isset($_SESSION['carrinho'])) {
 							</a>
 
 							<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-								<a href="/produtos?categoria=Macaquinhos" class="dropdown-item">
+								<a href="<?= BASE_URL ?>produtos?categoria=Macaquinhos" class="dropdown-item">
 									Macaquinhos
 								</a>
-								<a href="/produtos?categoria=Camisas" class="dropdown-item">
+								<a href="<?= BASE_URL ?>produtos?categoria=Camisas" class="dropdown-item">
 									Camisas & Camisetas
 								</a>
-								<a href="/produtos?categoria=Conjuntos" class="dropdown-item">
+								<a href="<?= BASE_URL ?>produtos?categoria=Conjuntos" class="dropdown-item">
 									Conjuntinhos
 								</a>
 								<li>
 									<hr class="dropdown-divider">
 								</li>
-								<li><a class="dropdown-item" href="/todos">Ver Todos</a></li>
+								<li><a class="dropdown-item" href="<?= BASE_URL ?>todos">Ver Todos</a></li>
 							</ul>
 
 						</li>
@@ -86,14 +86,14 @@ if (isset($_SESSION['carrinho'])) {
 								<a class="nav-link" href="#"><i class="fas fa-user"></i></i> Minha Conta</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="/sair"><i class="fas fa-sign-out-alt"></i> Sair</a>
+								<a class="nav-link" href="<?= BASE_URL ?>sair"><i class="fas fa-sign-out-alt"></i> Sair</a>
 							</li>
 						<?php } else { ?>
 							<li class="nav-item">
-								<a class="nav-link" aria-current="" href="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
+								<a class="nav-link" aria-current="" href="<?= BASE_URL ?>login"><i class="fas fa-sign-in-alt"></i> Login</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="/criar_conta"><i class="far fa-address-card"></i> Criar Conta</a>
+								<a class="nav-link" href="<?= BASE_URL ?>criar_conta"><i class="far fa-address-card"></i> Criar Conta</a>
 							</li>
 						<?php } ?>
 					</ul>

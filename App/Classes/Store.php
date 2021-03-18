@@ -7,14 +7,14 @@ use stdClass;
 
 class Store extends Container
 {
-    // ===========================================================================
+    // ==========================================================================================================
     public static function criarHash($numeroCaracteres = 12)
     {
         $chars = '01234567890123456789abcdefghijklmnopqrstuwvxzABCDEFGHIJKLMNOPQRSTUWVXZABCDEFGHIJKLMNOPQRSTUWVXZ';
         return substr(str_shuffle($chars),  0, $numeroCaracteres);
     }
 
-    // ===========================================================================
+    // ===========================================================================================================
     public static function clienteLogado()
     {
         if (isset($_SESSION['logado']) && $_SESSION['logado'] == true) {
@@ -24,7 +24,7 @@ class Store extends Container
         }
     }
 
-    // ===========================================================================
+    // ============================================================================================================
     public static function codigoPedido()
     {
         $chars = 'abcdefghijklmnopqrstuwvxzABCDEFGHIJKLMNOPQRSTUWVXZABCDEFGHIJKLMNOPQRSTUWVXZ';
@@ -33,7 +33,7 @@ class Store extends Container
         return $codigo;
     }
 
-    // ===========================================================================
+    // =============================================================================================================
     public static function constroiCarrinho()
     {
         if (!isset($_SESSION['carrinho']) || count($_SESSION['carrinho']) == 0) {

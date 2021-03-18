@@ -48,28 +48,42 @@ class PedidoControllers extends Action
     public function confirmarPedido()
     {
         if (Store::clienteLogado()) {
-            //Verifica se foi feito o post
-            if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-                header('Location: /');
+            //Verifica se foi feito o post e se existe um pedido
+            if ($_SERVER['REQUEST_METHOD'] != 'POST' || !isset($_SESSION['carrinho']) || !isset($_SESSION['codigo_pedido'])) {
+                header('Location: ' . BASE_URL);
+                return;
             }
             //dados pagamentos
             $numeroCartao = $_POST['numero_cartao'];
             $validadeCartao = $_POST['validade_cartao'];
             $cvvCartao = $_POST['cvv_cartao'];
             $cpfUser = $_POST['cpf_user'];
-            // if ($numeroCartao == '' || $validadeCartao == '' || $cvvCartao == '' || $cpfUser == '') {
-            //     header('Location: ' . BASE_URL . 'finalizar_pedido?erro=campoVazio');
-            // }
+            if ($numeroCartao == '' || $validadeCartao == '' || $cvvCartao == '' || $cpfUser == '') {
+                header('Location: ' . BASE_URL . 'finalizar_pedido?erro=campoVazio');
+                return;
+            }
             $_SESSION['dados_pagamento'] = [
                 'numero_cartao' => $numeroCartao,
                 'validade_cartao' => $validadeCartao,
                 'cvv_cartao' => $cvvCartao,
                 'cpf_user' => $cpfUser
             ];
+            $retorno = Store::constroiCarrinho();
+            $produtos = '<ul>';
+            foreach ($retorno->carrinho as $carrinho) {
+                $carrinho->valorQuantidade = number_format((float)$carrinho->valorQuantidade, 2, ',', '');
+                $carrinho->preco = number_format((float)$carrinho->preco, 2, ',', '');
+                $produtos .= "<li><p>$carrinho->quantidade x $carrinho->nome_produto(R$$carrinho->preco) = R$$carrinho->valorQuantidade</p></li>";
+            }
+            $produtos .= '</ul>';
+            $this->view->x = $produtos;
             $this->view->codigoPedido = $_SESSION['codigo_pedido'];
             $this->view->valorPedido = $_SESSION['total_pedido'];
             $enviarEmail = new EnviarEmail();
-            $enviarEmail->EnviarEmailConfirmacaoPedido($this->view->codigoPedido, $this->view->valorPedido);
+            $enviarEmail->EnviarEmailConfirmacaoPedido($this->view->codigoPedido, $produtos, $this->view->valorPedido);
+
+
+            //-----------------------------------------------------------------------------------------------------------
             unset($_SESSION['carrinho']);
             unset($_SESSION['total_pedido']);
             unset($_SESSION['codigo_pedido']);

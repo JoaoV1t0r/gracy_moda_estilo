@@ -52,7 +52,7 @@ class EnviarEmail
     }
 
     //==========================================================================================
-    public function EnviarEmailConfirmacaoPedido()
+    public function EnviarEmailConfirmacaoPedido($codigo_pedido, $total_pedido)
     {
         //Envia e-mail de confirmação da conta do cliente
         $mail = new PHPMailer(true);
@@ -75,11 +75,11 @@ class EnviarEmail
 
             //Content
             $mail->isHTML(true);
-            $mail->Subject = APP_NAME . ' - Confirmação de E-mail';
+            $mail->Subject = APP_NAME . ' - Confirmação de Pedido - ' . $codigo_pedido;
             //Mensagem do E-mail
             $html = "<p>Seu Pedido na " . APP_NAME . " foi confirmado.</p>";
-            $html .= "<p></p>";
-            $html .= "<p></p>";
+            $html .= "<p>Valor do Pedido: $total_pedido</p>";
+            $html .= "<p>Código do Pedido: $codigo_pedido</p>";
             $html .= '<p><a href=""></a></p>';
             $html .= '<p><i><smail>' . APP_NAME . '</smail></i></p>';
             $mail->Body = $html;

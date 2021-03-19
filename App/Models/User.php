@@ -12,6 +12,7 @@ class User extends Model
     private $senha;
     private $rua;
     private $numero_residencia;
+    private $bairro;
     private $cidade;
     private $cep;
     private $telefone;
@@ -60,7 +61,7 @@ class User extends Model
             insert into
                 clientes
             values(
-                0, :nome, :email, :senha, :rua, :numero_residencia, :cidade, :cep, :telefone, :purl, :ativo, NOW(), NOW(), NULL
+                0, :nome, :email, :senha, :rua, :numero_residencia, :bairro, :cidade, :cep, :telefone, :purl, :ativo, NOW(), NOW(), NULL
         )";
 
         $stmt = $this->db->prepare($query);
@@ -69,6 +70,7 @@ class User extends Model
         $stmt->bindValue(':senha', $this->senha);
         $stmt->bindValue(':rua', $this->rua);
         $stmt->bindValue(':numero_residencia', $this->numero_residencia);
+        $stmt->bindValue(':bairro', $this->bairro);
         $stmt->bindValue(':cidade', $this->cidade);
         $stmt->bindValue(':cep', $this->cep);
         $stmt->bindValue(':telefone', $this->telefone);

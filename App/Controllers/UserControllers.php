@@ -34,6 +34,7 @@ class UserControllers extends Action
 		$user->senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
 		$user->rua = trim($_POST['rua']);
 		$user->numero_residencia = trim($_POST['numero_residencia']);
+		$user->bairro = trim($_POST['bairro']);
 		$user->cidade = trim($_POST['cidade']);
 		$user->cep = trim($_POST['cep']);
 		$user->telefone = trim($_POST['telefone']);
@@ -134,6 +135,7 @@ class UserControllers extends Action
 			$_SESSION['email'] = $usuario->email;
 			$_SESSION['rua'] = $usuario->rua;
 			$_SESSION['numero_residencia'] = $usuario->numero_residencia;
+			$_SESSION['bairro'] = $usuario->bairro;
 			$_SESSION['cidade'] = $usuario->cidade;
 			$_SESSION['cep'] = $usuario->cep;
 			$_SESSION['telefone'] = $usuario->contato;
@@ -156,6 +158,7 @@ class UserControllers extends Action
 		unset($_SESSION['email']);
 		unset($_SESSION['rua']);
 		unset($_SESSION['numero_residencia']);
+		unset($_SESSION['bairro']);
 		unset($_SESSION['cidade']);
 		unset($_SESSION['cep']);
 		unset($_SESSION['telefone']);

@@ -68,6 +68,9 @@
                             Número da Residência: <?= $this->view->dadosCliente->numero_residencia ?>
                         </h6>
                         <h6>
+                            Bairro: <?= $this->view->dadosCliente->bairro ?>
+                        </h6>
+                        <h6>
                             Cidade: <?= $this->view->dadosCliente->cidade ?>
                         </h6>
                     </div>
@@ -83,22 +86,30 @@
                         <form class="row needs-validation mb-3" method="" action="">
                             <div class="row">
                                 <div class="col-md">
+
                                     <div class="form-floating mb-2">
-                                        <input id="Cidade" class="form-control" id="floatingInputGrid" placeholder="Cidade">
-                                        <label for="floatingInputGrid">Cidade</label>
-                                    </div>
-                                    <div class="form-floating mb-2">
-                                        <input id="rua" class="form-control" id="floatingInputGrid" placeholder="Endereço">
-                                        <label for="floatingInputGrid">Sua Rua</label>
-                                    </div>
-                                    <div class="form-floating mb-2">
-                                        <input id="numero_casa" class="form-control" id="floatingInputGrid" placeholder="Número">
-                                        <label for="floatingInputGrid">Número da Residência</label>
+                                        <input class="form-control" id="CEP" placeholder="CEP">
+                                        <label for="CEP">CEP</label>
                                     </div>
 
                                     <div class="form-floating mb-2">
-                                        <input id="cep" class="form-control" id="floatingInputGrid" placeholder="CEP">
-                                        <label for="floatingInputGrid">CEP</label>
+                                        <input class="form-control" id="NumeroCasa" placeholder="Número">
+                                        <label for="NumeroCasa">Número da Residência</label>
+                                    </div>
+
+                                    <div class="form-floating mb-2">
+                                        <input class="form-control" id="Rua" placeholder="Endereço" readonly>
+                                        <label for="Rua">Sua Rua</label>
+                                    </div>
+
+                                    <div class="form-floating mb-2">
+                                        <input class="form-control" id="Bairro" placeholder="Bairro" readonly>
+                                        <label for="Bairro">Bairro</label>
+                                    </div>
+
+                                    <div class="form-floating mb-2">
+                                        <input class="form-control" id="Cidade" placeholder="Cidade" readonly>
+                                        <label for="Cidade">Cidade</label>
                                     </div>
 
                                 </div>
@@ -115,21 +126,21 @@
                             </div>
                         <?php } ?>
                         <div class="form-floating mb-2">
-                            <input name="numero_cartao" class="form-control" id="floatingInputGrid" placeholder="Cidade">
-                            <label for="floatingInputGrid">Número do Cartão</label>
+                            <input name="numero_cartao" class="form-control" id="numero_cartao" placeholder="Cidade">
+                            <label for="numero_cartao">Número do Cartão</label>
                         </div>
                         <div class="form-floating mb-2">
-                            <input name="validade_cartao" class="form-control" id="floatingInputGrid" placeholder="Endereço">
-                            <label for="floatingInputGrid">Validade</label>
+                            <input name="validade_cartao" class="form-control" id="validade_cartao" placeholder="Endereço">
+                            <label for="validade_cartao">Validade</label>
                         </div>
                         <div class="form-floating mb-2">
-                            <input name="cvv_cartao" class="form-control" id="floatingInputGrid" placeholder="Número">
-                            <label for="floatingInputGrid">CVV</label>
+                            <input name="cvv_cartao" class="form-control" id="cvv_cartao" placeholder="Número">
+                            <label for="cvv_cartao">CVV</label>
                         </div>
 
                         <div class="form-floating mb-2">
-                            <input name="cpf_user" class="form-control" id="floatingInputGrid" placeholder="CEP">
-                            <label for="floatingInputGrid">CPF</label>
+                            <input name="cpf_user" class="form-control" id="cpf_user" placeholder="CEP">
+                            <label for="cpf_user">CPF</label>
                         </div>
                         <div class="col text-start">
                             <a onclick="showModalLimpar()" class="btn btn-sm btn-cadastro mx-3">Cancelar</a>

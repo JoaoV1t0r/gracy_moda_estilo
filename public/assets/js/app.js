@@ -1,3 +1,27 @@
+//Masks
+$("#CEP").mask("99999-999");
+$("#Telefone").mask('(999)99999-9999');
+
+// ================================================================================
+$('#CEP').blur(e => {
+	let cep = $(e.target).val().replace(/[-]+/g, '')
+	$.ajax({
+		type: 'GET',
+		url: 'https://viacep.com.br/ws/'+ cep +'/json/unicode/',
+		dataType: 'json',
+		success: dados => {
+			if(!("erro" in dados)){
+				document.getElementById('Rua').value = dados.logradouro
+				document.getElementById('Bairro').value = dados.bairro
+				document.getElementById('Cidade').value = dados.localidade
+			}else{
+				alert("CEP não encontrado, tente novamente")
+			}
+		},
+		erro: erro => {console.log(erro)}
+	})
+})
+
 // ================================================================================
 function adicionarCarrinho(idProduto){
 	$.ajax({
@@ -176,16 +200,18 @@ function enderecoAlternativo(){
 function definirDadosAlternativos(){
 	let form = document.getElementById('enderecoAlternativo');
 	if(form.checked == true){
+		let cepAlternativa = $('#CEP').val();
+		let numeroResidencia = $('#NumeroCasa').val();
+		let ruaAlternativa = $('#Rua').val() ;
+		let bairroAlternativa = $('#Bairro').val() ;
 		let cidadeAlternativa = $('#Cidade').val();
-		let ruaAlternativa = $('#rua').val() ;
-		let numeroResidencia = $('#numero_casa').val();
-		let cepAlternativa = $('#cep').val();
 		$.post(
 			'/adicionar_dados_alternativos',
 			{
 				cepAlternativa: cepAlternativa,
-				ruaAlternativa: ruaAlternativa,
 				numeroResidencia: numeroResidencia,
+				ruaAlternativa: ruaAlternativa,
+				bairroAlternativa: bairroAlternativa,
 				cidadeAlternativa: cidadeAlternativa
 			},
 			function(data){

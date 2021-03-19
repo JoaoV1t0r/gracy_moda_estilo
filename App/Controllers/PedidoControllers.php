@@ -27,6 +27,7 @@ class PedidoControllers extends Action
                     'email' => $_SESSION['email'],
                     'rua' => $_SESSION['rua'],
                     'numero_residencia' => $_SESSION['numero_residencia'],
+                    'bairro' => $_SESSION['bairro'],
                     'cidade' => $_SESSION['cidade'],
                     'cep' => $_SESSION['cep'],
                     'telefone' => $_SESSION['telefone']

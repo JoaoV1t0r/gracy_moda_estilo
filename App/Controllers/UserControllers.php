@@ -187,10 +187,11 @@ class UserControllers extends Action
 			header('Location: /');
 		}
 		$_SESSION['dadosAlternativos'] = [
-			'cidadeAlternativa' => $_POST['cidadeAlternativa'],
-			'ruaAlternativa' => $_POST['ruaAlternativa'],
+			'cepAlternativa' => $_POST['cepAlternativa'],
 			'numeroResidencia' => $_POST['numeroResidencia'],
-			'cepAlternativa' => $_POST['cepAlternativa']
+			'ruaAlternativa' => $_POST['ruaAlternativa'],
+			'bairroAlternativa' =>  $_POST['bairroAlternativa'],
+			'cidadeAlternativa' => $_POST['cidadeAlternativa'],
 		];
 	}
 

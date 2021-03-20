@@ -81,6 +81,30 @@ class PedidoControllers extends Action
             $this->view->codigoPedido = $_SESSION['codigo_pedido'];
             $this->view->valorPedido = $_SESSION['total_pedido'];
             $enviarEmail = new EnviarEmail();
+            //Guardar o pedido na base de dados
+            $pedido = Container::getModel('Pedido');
+
+            $pedido->status_pedido = 'PENDENTE';
+            $pedido->id_cliente = $_SESSION['id_cliente'];
+            $pedido->cep_pedido = isset($_SESSION['dados_pagamento']) && !empty($_SESSION['dados_pagamento']['cepAlternativa']) ? $_SESSION['dados_pagamento']['cepAlternativa'] : $_SESSION['cep'];
+            $pedido->numero_residencia_pedido = isset($_SESSION['dados_pagamento']) && !empty($_SESSION['dados_pagamento']['numeroResidencia']) ? $_SESSION['dados_pagamento']['numeroResidencia'] : $_SESSION['numero_residencia'];
+            $pedido->rua_pedido = isset($_SESSION['dados_pagamento']) && !empty($_SESSION['dados_pagamento']['ruaAlternativa']) ? $_SESSION['dados_pagamento']['ruaAlternativa'] : $_SESSION['rua'];
+            $pedido->bairro_pedido = isset($_SESSION['dados_pagamento']) && !empty($_SESSION['dados_pagamento']['bairroAlternativa']) ? $_SESSION['dados_pagamento']['bairroAlternativa'] : $_SESSION['bairro'];
+            $pedido->cidade_pedido = isset($_SESSION['dados_pagamento']) && !empty($_SESSION['dados_pagamento']['cidadeAlternativa']) ? $_SESSION['dados_pagamento']['cidadeAlternativa'] : $_SESSION['cidade'];
+            $pedido->telefone_pedido = $_SESSION['telefone'];
+            $pedido->codigo_pedido = $_SESSION['codigo_pedido'];
+            $pedido->metodo_envio = '';
+            $pedido->mensagem = '';
+
+            //Dados dos Produtos do pedido
+            $pedido->designacao_produto = '';
+            $pedido->peco_unidade = '';
+            $pedido->quantidade = '';
+
+            //Salva o pedido
+
+
+            //Enviar e-mail do pedido
             $enviarEmail->EnviarEmailConfirmacaoPedido($this->view->codigoPedido, $produtos, $this->view->valorPedido);
 
 

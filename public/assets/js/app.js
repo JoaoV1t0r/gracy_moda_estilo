@@ -1,10 +1,9 @@
 //Masks
-$("#CEP").mask("99999-999");
-$("#Telefone").mask('(999)99999-9999');
 
 // ================================================================================
 $('#CEP').blur(e => {
 	let cep = $(e.target).val().replace(/[-]+/g, '')
+	document.getElementById('CEP').value = cep.substring(0,5)+"-"+cep.substring(5);
 	$.ajax({
 		type: 'GET',
 		url: 'https://viacep.com.br/ws/'+ cep +'/json/unicode/',

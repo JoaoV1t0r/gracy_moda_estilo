@@ -6,6 +6,7 @@ use App\Classes\EnviarEmail;
 use App\Classes\Store;
 use MF\Controller\Action;
 use MF\Model\Container;
+use stdClass;
 
 class PedidoControllers extends Action
 {
@@ -69,21 +70,23 @@ class PedidoControllers extends Action
                 'cvv_cartao' => $cvvCartao,
                 'cpf_user' => $cpfUser
             ];
-            $retorno = Store::constroiCarrinho();
+            $produtos_pedido = Store::constroiCarrinho();
             $produtos = '<ul>';
-            foreach ($retorno->carrinho as $carrinho) {
+            foreach ($produtos_pedido->carrinho as $carrinho) {
                 $carrinho->valorQuantidade = number_format((float)$carrinho->valorQuantidade, 2, ',', '');
                 $carrinho->preco = number_format((float)$carrinho->preco, 2, ',', '');
                 $produtos .= "<li><p>$carrinho->quantidade x $carrinho->nome_produto(R$$carrinho->preco) = R$$carrinho->valorQuantidade</p></li>";
             }
             $produtos .= '</ul>';
-            $this->view->x = $produtos;
             $this->view->codigoPedido = $_SESSION['codigo_pedido'];
             $this->view->valorPedido = $_SESSION['total_pedido'];
             $enviarEmail = new EnviarEmail();
+
+
             //Guardar o pedido na base de dados
             $pedido = Container::getModel('Pedido');
 
+            // Dados do Pedido
             $pedido->status_pedido = 'PENDENTE';
             $pedido->id_cliente = $_SESSION['id_cliente'];
             $pedido->cep_pedido = isset($_SESSION['dados_pagamento']) && !empty($_SESSION['dados_pagamento']['cepAlternativa']) ? $_SESSION['dados_pagamento']['cepAlternativa'] : $_SESSION['cep'];
@@ -97,18 +100,27 @@ class PedidoControllers extends Action
             $pedido->mensagem = '';
 
             //Dados dos Produtos do pedido
-            $pedido->designacao_produto = '';
-            $pedido->peco_unidade = '';
-            $pedido->quantidade = '';
+            $dados_podutos_pedido = [];
+            foreach ($produtos_pedido->carrinho as $value) {
+                $podutos_pedido = new \stdClass();
+
+                $podutos_pedido->designacao_produto  = $value->nome_produto;
+                $podutos_pedido->peco_unidade  = $value->preco;
+                $podutos_pedido->quantidade  = $value->quantidade;
+
+                array_push($dados_podutos_pedido, $podutos_pedido);
+                unset($produtos_pedido);
+            }
+            $pedido->dados_podutos_pedido = (object)$dados_podutos_pedido;
 
             //Salva o pedido
-
+            $pedido->salvarPedido();
 
             //Enviar e-mail do pedido
             $enviarEmail->EnviarEmailConfirmacaoPedido($this->view->codigoPedido, $produtos, $this->view->valorPedido);
 
 
-            //-----------------------------------------------------------------------------------------------------------
+            // -----------------------------------------------------------------------------------------------------------
             unset($_SESSION['carrinho']);
             unset($_SESSION['total_pedido']);
             unset($_SESSION['codigo_pedido']);

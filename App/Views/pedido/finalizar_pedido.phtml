@@ -117,40 +117,10 @@
                         </form>
                     </div>
                 </div>
-                <h5 class="menu text-white p-2">Dados de Pagamento</h5>
-                <form class="row needs-validation my-3" method="post" action="<?= BASE_URL ?>confirmar_pedido">
-                    <div class="col-md">
-                        <?php if (isset($_GET['erro']) && $_GET['erro'] == 'campoVazio') { ?>
-                            <div>
-                                <p class="alert alert-danger text-center p-2">Preencha todos os campos para continuar</p>
-                            </div>
-                        <?php } ?>
-                        <div class="form-floating mb-2">
-                            <input name="numero_cartao" class="form-control" id="numero_cartao" placeholder="Cidade">
-                            <label for="numero_cartao">Número do Cartão</label>
-                        </div>
-                        <div class="form-floating mb-2">
-                            <input name="validade_cartao" class="form-control" id="validade_cartao" placeholder="Endereço">
-                            <label for="validade_cartao">Validade</label>
-                        </div>
-                        <div class="form-floating mb-2">
-                            <input name="cvv_cartao" class="form-control" id="cvv_cartao" placeholder="Número">
-                            <label for="cvv_cartao">CVV</label>
-                        </div>
+                <div class="col my-3 text-end">
+                    <a type="submit" onclick="definirDadosAlternativos()" href="<?= BASE_URL ?>confirmar_pedido" class="btn btn-lg btn-cadastro mx-2">Finalizar Pedido</a>
+                </div>
 
-                        <div class="form-floating mb-2">
-                            <input name="cpf_user" class="form-control" id="cpf_user" placeholder="CEP">
-                            <label for="cpf_user">CPF</label>
-                        </div>
-                        <div class="col text-start">
-                            <a onclick="showModalLimpar()" class="btn btn-sm btn-cadastro mx-3">Cancelar</a>
-                            <a href="<?= BASE_URL ?>carrinho" class="btn btn-sm btn-cadastro mx-2 my-1">Voltar</a>
-                        </div>
-                        <div class="col my-3 text-end">
-                            <input type="submit" onclick="definirDadosAlternativos()" href="<?= BASE_URL ?>escolher_pagamento" class="btn btn-lg btn-cadastro mx-2" value="Escolher Método de Pagamento">
-                        </div>
-                    </div>
-                </form>
             <?php } else { ?>
                 <h4 class="text-center" style="color: #CD6090;">Vazio...</h4>
                 <p class="text-center">Adicione produtos ao Carrinho. Você pode ir ao departamento da nossa loja para achar produtos.</p>

@@ -142,6 +142,24 @@ class Produto extends Model
                 ativo = 1 and estoque > 0
             ORDER BY
                 total_vendidos desc
+            LIMIT
+                3
+        ";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_CLASS);
+    }
+
+    //=============================================================================================
+    public function getCategorias()
+    {
+        //Todos os produtos
+        $query = "
+            SELECT
+                *
+            FROM
+                categorias
         ";
         $stmt = $this->db->prepare($query);
         $stmt->execute();

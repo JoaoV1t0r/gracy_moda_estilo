@@ -19,6 +19,7 @@ class CarrinhoControllers extends Action
     //=============================================================================================
     public function carrinho()
     {
+        $this->view->categorias = Store::getCategoriasView();
         $this->view->clienteLogado = Store::clienteLogado();
         $retorno = Store::constroiCarrinho();
         if ($retorno == null) {

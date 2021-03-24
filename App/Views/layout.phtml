@@ -48,15 +48,17 @@ if (isset($_SESSION['carrinho'])) {
 							</a>
 
 							<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-								<a href="<?= BASE_URL ?>produtos?categoria=Macaquinhos" class="dropdown-item">
-									Macaquinhos
-								</a>
-								<a href="<?= BASE_URL ?>produtos?categoria=Camisas" class="dropdown-item">
-									Camisas & Camisetas
-								</a>
-								<a href="<?= BASE_URL ?>produtos?categoria=Conjuntos" class="dropdown-item">
-									Conjuntinhos
-								</a>
+								<?php foreach ($this->view->categorias as $categoria) { ?>
+									<a href="<?= BASE_URL ?>produtos?categoria=<?= $categoria->nome_categoria ?>" class="dropdown-item">
+										<?= $categoria->nome_categoria ?>
+									</a>
+									<!-- <a href="<?= BASE_URL ?>produtos?categoria=Camisas" class="dropdown-item">
+										Camisas & Camisetas
+									</a>
+									<a href="<?= BASE_URL ?>produtos?categoria=Conjuntos" class="dropdown-item">
+										Conjuntinhos
+									</a> -->
+								<?php } ?>
 								<li>
 									<hr class="dropdown-divider">
 								</li>

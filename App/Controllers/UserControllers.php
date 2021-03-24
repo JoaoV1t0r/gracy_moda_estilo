@@ -58,6 +58,7 @@ class UserControllers extends Action
 				$resultado = $email->EnviarEmailConfirmacaoNovoCLiente($user->email, $user->purl);
 				if ($resultado) {
 					//Carrega o layout
+					$this->view->categorias = Store::getCategoriasView();
 					$this->view->clienteLogado = Store::clienteLogado();
 					$this->render('envio_email');
 					return;
@@ -87,6 +88,7 @@ class UserControllers extends Action
 
 		if ($user->confirmaEmail()) {
 			//Carrega o layout
+			$this->view->categorias = Store::getCategoriasView();
 			$this->view->clienteLogado = Store::clienteLogado();
 			$this->render('email_confirmado');
 			return;
@@ -166,9 +168,6 @@ class UserControllers extends Action
 		unset($_SESSION['codigo_pedido']);
 		if (isset($_SESSION['dadosAlternativos'])) {
 			unset($_SESSION['dadosAlternativos']);
-		}
-		if (isset($_SESSION['dados_pagamento'])) {
-			unset($_SESSION['dados_pagamento']);
 		}
 		if (isset($_SESSION['codigo_pedido'])) {
 			unset($_SESSION['codigo_pedido']);

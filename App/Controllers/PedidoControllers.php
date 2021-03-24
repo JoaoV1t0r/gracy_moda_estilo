@@ -13,6 +13,7 @@ class PedidoControllers extends Action
     // ====================================================================================
     public function finalizarPedido()
     {
+        $this->view->categorias = Store::getCategoriasView();
         $this->view->clienteLogado = Store::clienteLogado();
         if ($this->view->clienteLogado) {
             $retorno = Store::constroiCarrinho();
@@ -51,25 +52,12 @@ class PedidoControllers extends Action
     {
         if (Store::clienteLogado()) {
             //Verifica se foi feito o post e se existe um pedido
-            if ($_SERVER['REQUEST_METHOD'] != 'POST' || !isset($_SESSION['carrinho']) || !isset($_SESSION['codigo_pedido'])) {
+            if (!isset($_SESSION['carrinho']) || !isset($_SESSION['codigo_pedido'])) {
                 header('Location: ' . BASE_URL);
                 return;
             }
-            //dados pagamentos
-            $numeroCartao = $_POST['numero_cartao'];
-            $validadeCartao = $_POST['validade_cartao'];
-            $cvvCartao = $_POST['cvv_cartao'];
-            $cpfUser = $_POST['cpf_user'];
-            if ($numeroCartao == '' || $validadeCartao == '' || $cvvCartao == '' || $cpfUser == '') {
-                header('Location: ' . BASE_URL . 'finalizar_pedido?erro=campoVazio');
-                return;
-            }
-            $_SESSION['dados_pagamento'] = [
-                'numero_cartao' => $numeroCartao,
-                'validade_cartao' => $validadeCartao,
-                'cvv_cartao' => $cvvCartao,
-                'cpf_user' => $cpfUser
-            ];
+
+            // Constroi os dados para o emvio do e-mail
             $produtos_pedido = Store::constroiCarrinho();
             $produtos = '<ul>';
             foreach ($produtos_pedido->carrinho as $carrinho) {
@@ -119,20 +107,18 @@ class PedidoControllers extends Action
             //Enviar e-mail do pedido
             $enviarEmail->EnviarEmailConfirmacaoPedido($this->view->codigoPedido, $produtos, $this->view->valorPedido);
 
-
             // -----------------------------------------------------------------------------------------------------------
+            //Limpar dados da Sessão relacionados ao pedido
             unset($_SESSION['carrinho']);
             unset($_SESSION['total_pedido']);
             unset($_SESSION['codigo_pedido']);
             if (isset($_SESSION['dadosAlternativos'])) {
                 unset($_SESSION['dadosAlternativos']);
             }
-            if (isset($_SESSION['dados_pagamento'])) {
-                unset($_SESSION['dados_pagamento']);
-            }
             if (isset($_SESSION['codigo_pedido'])) {
                 unset($_SESSION['codigo_pedido']);
             }
+            $this->view->categorias = Store::getCategoriasView();
             $this->view->clienteLogado = Store::clienteLogado();
             $this->render('confirmar_pedido');
         } else {

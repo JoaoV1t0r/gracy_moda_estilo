@@ -7,13 +7,6 @@ use stdClass;
 
 class Store extends Container
 {
-    // ==========================================================================================================
-    public static function criarHash($numeroCaracteres = 12)
-    {
-        $chars = '01234567890123456789abcdefghijklmnopqrstuwvxzABCDEFGHIJKLMNOPQRSTUWVXZABCDEFGHIJKLMNOPQRSTUWVXZ';
-        return substr(str_shuffle($chars),  0, $numeroCaracteres);
-    }
-
     // ===========================================================================================================
     public static function clienteLogado()
     {
@@ -22,6 +15,20 @@ class Store extends Container
         } else {
             return false;
         }
+    }
+
+    // ===========================================================================================================
+    public static function getCategoriasView()
+    {
+        $produto = Container::getModel('Produto');
+        return $produto->getCategorias();
+    }
+
+    // ==========================================================================================================
+    public static function criarHash($numeroCaracteres = 12)
+    {
+        $chars = '01234567890123456789abcdefghijklmnopqrstuwvxzABCDEFGHIJKLMNOPQRSTUWVXZABCDEFGHIJKLMNOPQRSTUWVXZ';
+        return substr(str_shuffle($chars),  0, $numeroCaracteres);
     }
 
     // ============================================================================================================

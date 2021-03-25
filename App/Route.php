@@ -40,6 +40,11 @@ class Route extends Bootstrap
 			'controller' => 'UserControllers',
 			'action' => 'validaLogin'
 		);
+		$routes['minha_conta'] = array(
+			'route' => '/minha_conta',
+			'controller' => 'UserControllers',
+			'action' => 'exibirUser'
+		);
 		$routes['sair'] = array(
 			'route' => '/sair',
 			'controller' => 'UserControllers',

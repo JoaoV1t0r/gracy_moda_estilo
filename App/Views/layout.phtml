@@ -30,7 +30,7 @@ if (isset($_SESSION['carrinho'])) {
 				</button>
 				<a class="navbar-brand logo" href="/"><?= 'Gracy' ?></a>
 				<div class="navbar-brand text-white">
-					<a class="nav-link text-white" href="/carrinho">
+					<a class="nav-link text-white" href="<?= BASE_URL ?>carrinho">
 						<i class="fas fa-shopping-cart text-white"></i>
 						<span id="carrinho" class="badge bg-light text-dark"><?= $total_produtos ?></span>
 					</a>
@@ -52,12 +52,6 @@ if (isset($_SESSION['carrinho'])) {
 									<a href="<?= BASE_URL ?>produtos?categoria=<?= $categoria->nome_categoria ?>" class="dropdown-item">
 										<?= $categoria->nome_categoria ?>
 									</a>
-									<!-- <a href="<?= BASE_URL ?>produtos?categoria=Camisas" class="dropdown-item">
-										Camisas & Camisetas
-									</a>
-									<a href="<?= BASE_URL ?>produtos?categoria=Conjuntos" class="dropdown-item">
-										Conjuntinhos
-									</a> -->
 								<?php } ?>
 								<li>
 									<hr class="dropdown-divider">
@@ -85,7 +79,7 @@ if (isset($_SESSION['carrinho'])) {
 						</li>
 						<?php if ($this->view->clienteLogado) { ?>
 							<li class="nav-item">
-								<a class="nav-link" href="#"><i class="fas fa-user"></i></i> Minha Conta</a>
+								<a class="nav-link" href="<?= BASE_URL ?>minha_conta"><i class="fas fa-user"></i> Minha Conta</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="<?= BASE_URL ?>sair"><i class="fas fa-sign-out-alt"></i> Sair</a>

@@ -152,4 +152,28 @@ class User extends Model
             return $usuario;
         }
     }
+
+    //=============================================================================================
+    public function getDadosCliente()
+    {
+        //validar e-mail do novo cliente
+        $query = "
+            SELECT
+                nome, 
+                email,
+                numero_residencia,
+                cep,
+                contato
+            FROM
+                clientes
+            where
+                id_cliente = :id_cliente
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id_cliente', $this->id_cliente);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_CLASS);
+    }
 }

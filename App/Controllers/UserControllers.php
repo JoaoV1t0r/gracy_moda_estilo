@@ -152,6 +152,23 @@ class UserControllers extends Action
 	}
 
 	// ===========================================================================
+	public function exibirUser()
+	{
+		if (!Store::clienteLogado()) {
+			header('Location: /');
+		}
+
+		$this->view->categorias = Store::getCategoriasView();
+		$this->view->clienteLogado = Store::clienteLogado();
+
+		$user = Container::getModel('User');
+		$user->id_cliente = $_SESSION['id_cliente'];
+		$this->view->dadosUser = $user->getDadosCliente()[0];
+
+		$this->render('perfil');
+	}
+
+	// ===========================================================================
 	public function sair()
 	{
 		//remover  as variaveis de sessão e retorna para o inicio

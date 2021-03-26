@@ -12,6 +12,7 @@ class IndexControllers extends Action
 	public function index()
 	{
 		//Renderização da index
+		$this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
 		$this->view->categorias = Store::getCategoriasView();
 		$this->view->clienteLogado = Store::clienteLogado();
 		$produto = Container::getModel('Produto');
@@ -22,6 +23,7 @@ class IndexControllers extends Action
 	// ====================================================================================
 	public function login()
 	{
+		$this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
 		$this->view->categorias = Store::getCategoriasView();
 		$this->view->clienteLogado = Store::clienteLogado();
 		$this->render('login');
@@ -30,6 +32,7 @@ class IndexControllers extends Action
 	// ====================================================================================
 	public function criarUsuario()
 	{
+		$this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
 		$this->view->categorias = Store::getCategoriasView();
 		$this->view->clienteLogado = Store::clienteLogado();
 		$this->render('criar_conta');

@@ -13,6 +13,7 @@ class PedidoControllers extends Action
     // ====================================================================================
     public function finalizarPedido()
     {
+        $this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
         $this->view->categorias = Store::getCategoriasView();
         $this->view->clienteLogado = Store::clienteLogado();
         if ($this->view->clienteLogado) {
@@ -118,6 +119,7 @@ class PedidoControllers extends Action
             if (isset($_SESSION['codigo_pedido'])) {
                 unset($_SESSION['codigo_pedido']);
             }
+            $this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
             $this->view->categorias = Store::getCategoriasView();
             $this->view->clienteLogado = Store::clienteLogado();
             $this->render('confirmar_pedido');

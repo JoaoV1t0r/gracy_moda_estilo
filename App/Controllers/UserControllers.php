@@ -58,6 +58,7 @@ class UserControllers extends Action
 				$resultado = $email->EnviarEmailConfirmacaoNovoCLiente($user->email, $user->purl);
 				if ($resultado) {
 					//Carrega o layout
+					$this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
 					$this->view->categorias = Store::getCategoriasView();
 					$this->view->clienteLogado = Store::clienteLogado();
 					$this->render('envio_email');
@@ -88,6 +89,7 @@ class UserControllers extends Action
 
 		if ($user->confirmaEmail()) {
 			//Carrega o layout
+			$this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
 			$this->view->categorias = Store::getCategoriasView();
 			$this->view->clienteLogado = Store::clienteLogado();
 			$this->render('email_confirmado');

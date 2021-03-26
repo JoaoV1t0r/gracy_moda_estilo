@@ -143,7 +143,7 @@ class Produto extends Model
             ORDER BY
                 total_vendidos desc
             LIMIT
-                3
+                4
         ";
         $stmt = $this->db->prepare($query);
         $stmt->execute();

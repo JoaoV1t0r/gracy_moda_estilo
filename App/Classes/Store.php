@@ -40,6 +40,18 @@ class Store extends Container
         return $codigo;
     }
 
+    // ============================================================================================================
+    public static function quantidadeCarrinho()
+    {
+        $total_produtos = 0;
+        if (isset($_SESSION['carrinho'])) {
+            foreach ($_SESSION['carrinho'] as $quantidadeProdutos) {
+                $total_produtos += $quantidadeProdutos;
+            }
+        }
+        return $total_produtos;
+    }
+
     // =============================================================================================================
     public static function constroiCarrinho()
     {

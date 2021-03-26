@@ -11,6 +11,7 @@ class DepartamentoControllers extends Action
     // ========================================================================================
     public function getTodosProdutos()
     {
+        $this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
         $this->view->categorias = Store::getCategoriasView();
         $this->view->clienteLogado = Store::clienteLogado();
         $produtos = Container::getModel('Produto');
@@ -26,6 +27,7 @@ class DepartamentoControllers extends Action
     // ========================================================================================
     public function getCategoria()
     {
+        $this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
         $this->view->clienteLogado = Store::clienteLogado();
         if (isset($_GET['categoria'])) {
             $categoria = $_GET['categoria'];

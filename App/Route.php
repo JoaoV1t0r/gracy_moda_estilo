@@ -105,10 +105,10 @@ class Route extends Bootstrap
 			'controller' => 'UserControllers',
 			'action' => 'adicionarDadosAlternativos'
 		);
-		$routes['remove_dados_alternativos'] = array(
-			'route' => '/remove_dados_alternativos',
-			'controller' => 'UserControllers',
-			'action' => 'removerDadosAlternativos'
+		$routes['metodo_envio'] = array(
+			'route' => '/metodo_envio',
+			'controller' => 'PedidoControllers',
+			'action' => 'adicionarMetodoEnvio'
 		);
 
 		$this->setRoutes($routes);

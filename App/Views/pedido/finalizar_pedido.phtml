@@ -5,6 +5,7 @@
             <?php if ($this->view->carrinho != null) { ?>
                 <h5 class="menu text-white p-2">Seu Pedido</h5>
                 <h6>Código do Pedido: <?= $_SESSION['codigo_pedido'] ?></h6>
+
                 <table class="table table-hover table-sm">
                     <thead>
                         <tr>
@@ -46,6 +47,7 @@
                         </tr>
                     </tbody>
                 </table>
+
                 <div class="mt-3 mb-4">
                     <div>
                         <h5 class="menu text-white p-2">Seus Dados</h5>
@@ -75,6 +77,7 @@
                         </h6>
                     </div>
                 </div>
+
                 <div class="mb-2">
                     <div class="form-check mx-3 my-4">
                         <input class="form-check-input" onchange="enderecoAlternativo()" type="checkbox" value="" id="enderecoAlternativo">
@@ -117,8 +120,57 @@
                         </form>
                     </div>
                 </div>
+
+                <div class="mt-3 mb-4">
+                    <div>
+                        <h5 class="menu text-white p-2">Método de Envio</h5>
+
+                        <div class="form-check mx-3 mt-4">
+                            <input class="form-check-input" type="checkbox" value="" id="metodoEnvioCorreios">
+                            <label class="form-check-label" for="metodoEnvioCorreios">
+                                Correios
+                            </label>
+                        </div>
+                        <div id="EnvioCorreios" style="display: none;">
+                            <h6 class="mx-3 mt-2">Valor: R$20,00</h6>
+                            <p class="mx-3">O preço para envio pelos Correios vai ser Adicionado ao Valor final</p>
+                        </div>
+
+
+                        <div class="form-check mx-3 mb-4">
+                            <input class="form-check-input" type="checkbox" value="" id="metodoEnvioExcursao">
+                            <label class="form-check-label" for="metodoEnvioExcursao">
+                                Excursão
+                            </label>
+                        </div>
+                        <div id="campoNomeExcursao" style="display: none;">
+                            <form class="row needs-validation mb-3">
+                                <div class="row">
+                                    <div class="col-md">
+                                        <div class="form-floating mb-2">
+                                            <input class="form-control" id="nomeExcursao" placeholder="nomeExcursao">
+                                            <label for="nomeExcursao">Nome da Excursão pela qual deseja receber</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col text-start">
+                        <a id="buttonModalLimpar" class="btn btn-cadastro mx-3">Limpar Carrinho</a>
+                    </div>
+                    <div class="col text-end">
+                        <a href="<?= BASE_URL ?>todos" class="btn btn-cadastro mx-4 my-1">Mais produtos</a>
+                    </div>
+                </div>
+
                 <div class="col my-3 text-end">
-                    <a type="submit" onclick="definirDadosAlternativos()" href="<?= BASE_URL ?>confirmar_pedido" class="btn btn-lg btn-cadastro mx-2">Finalizar Pedido</a>
+                    <!-- href="<?= BASE_URL ?>confirmar_pedido" -->
+                    <button id="confirmarPedido" type="submit" class="btn btn-lg btn-cadastro mx-2">Finalizar Pedido</button>
                 </div>
 
             <?php } else { ?>
@@ -143,7 +195,41 @@
                     <a href="<?= BASE_URL ?>limpar_carrinho" class="btn btn-danger" type="button" data-dismiss="modal">Sim</a>
                 </div>
                 <div class="col text-end mx-4">
-                    <a onclick="closeModalCarrinho()" class="btn btn-warning" type="button" data-dismiss="modal">Não</a>
+                    <a id="closeModalLimpar" class="btn btn-warning" type="button" data-dismiss="modal">Não</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="selecionaMetodoEnvio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-danger">
+                <h3 class="modal-title">Selecione um método de envio para Finalizar</h3>
+            </div>
+            <div class="modal-body row my-3">
+                <div class="col text-center mx-4">
+                    <a id="closeSelecionaMetodoEnvio" class="btn btn-warning" type="button" data-dismiss="modal">Fechar</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="preencherCampoExcursao" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-danger">
+                <h3 class="modal-title">Infome o nome da excursão pela qual você quer receber.</h3>
+            </div>
+            <div class="modal-body row my-3">
+                <div class="col text-center mx-4">
+                    <a id="closePreencherCampoExcursao" class="btn btn-warning" type="button" data-dismiss="modal">Fechar</a>
                 </div>
             </div>
 

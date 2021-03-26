@@ -49,6 +49,19 @@ class PedidoControllers extends Action
     }
 
     // ====================================================================================
+    public function adicionarMetodoEnvio()
+    {
+        if (Store::clienteLogado()) {
+            header('Location: /');
+        }
+        //Verifica se foi feito o post
+        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            header('Location: /');
+        }
+        $_SESSION['metodo_envio'] = isset($_POST['metodo_envio']) ? $_POST['metodo_envio'] : 'Não Informado';
+    }
+
+    // ====================================================================================
     public function confirmarPedido()
     {
         if (Store::clienteLogado()) {
@@ -78,14 +91,14 @@ class PedidoControllers extends Action
             // Dados do Pedido
             $pedido->status_pedido = 'PENDENTE';
             $pedido->id_cliente = $_SESSION['id_cliente'];
-            $pedido->cep_pedido = isset($_SESSION['dados_pagamento']) && !empty($_SESSION['dados_pagamento']['cepAlternativa']) ? $_SESSION['dados_pagamento']['cepAlternativa'] : $_SESSION['cep'];
-            $pedido->numero_residencia_pedido = isset($_SESSION['dados_pagamento']) && !empty($_SESSION['dados_pagamento']['numeroResidencia']) ? $_SESSION['dados_pagamento']['numeroResidencia'] : $_SESSION['numero_residencia'];
-            $pedido->rua_pedido = isset($_SESSION['dados_pagamento']) && !empty($_SESSION['dados_pagamento']['ruaAlternativa']) ? $_SESSION['dados_pagamento']['ruaAlternativa'] : $_SESSION['rua'];
-            $pedido->bairro_pedido = isset($_SESSION['dados_pagamento']) && !empty($_SESSION['dados_pagamento']['bairroAlternativa']) ? $_SESSION['dados_pagamento']['bairroAlternativa'] : $_SESSION['bairro'];
-            $pedido->cidade_pedido = isset($_SESSION['dados_pagamento']) && !empty($_SESSION['dados_pagamento']['cidadeAlternativa']) ? $_SESSION['dados_pagamento']['cidadeAlternativa'] : $_SESSION['cidade'];
+            $pedido->cep_pedido = isset($_SESSION['dadosAlternativos']) && !empty($_SESSION['dadosAlternativos']['cepAlternativa']) ? $_SESSION['dadosAlternativos']['cepAlternativa'] : $_SESSION['cep'];
+            $pedido->numero_residencia_pedido = isset($_SESSION['dadosAlternativos']) && !empty($_SESSION['dadosAlternativos']['numeroResidencia']) ? $_SESSION['dadosAlternativos']['numeroResidencia'] : $_SESSION['numero_residencia'];
+            $pedido->rua_pedido = isset($_SESSION['dadosAlternativos']) && !empty($_SESSION['dadosAlternativos']['ruaAlternativa']) ? $_SESSION['dadosAlternativos']['ruaAlternativa'] : $_SESSION['rua'];
+            $pedido->bairro_pedido = isset($_SESSION['dadosAlternativos']) && !empty($_SESSION['dadosAlternativos']['bairroAlternativa']) ? $_SESSION['dadosAlternativos']['bairroAlternativa'] : $_SESSION['bairro'];
+            $pedido->cidade_pedido = isset($_SESSION['dadosAlternativos']) && !empty($_SESSION['dadosAlternativos']['cidadeAlternativa']) ? $_SESSION['dadosAlternativos']['cidadeAlternativa'] : $_SESSION['cidade'];
             $pedido->telefone_pedido = $_SESSION['telefone'];
             $pedido->codigo_pedido = $_SESSION['codigo_pedido'];
-            $pedido->metodo_envio = '';
+            $pedido->metodo_envio = isset($_SESSION['metodo_envio']) ? $_SESSION['metodo_envio'] : 'Não informado';
             $pedido->mensagem = '';
 
             //Dados dos Produtos do pedido
@@ -106,7 +119,7 @@ class PedidoControllers extends Action
             $pedido->salvarPedido();
 
             //Enviar e-mail do pedido
-            $enviarEmail->EnviarEmailConfirmacaoPedido($this->view->codigoPedido, $produtos, $this->view->valorPedido);
+            //$enviarEmail->EnviarEmailConfirmacaoPedido($this->view->codigoPedido, $produtos, $this->view->valorPedido);
 
             // -----------------------------------------------------------------------------------------------------------
             //Limpar dados da Sessão relacionados ao pedido
@@ -118,6 +131,9 @@ class PedidoControllers extends Action
             }
             if (isset($_SESSION['codigo_pedido'])) {
                 unset($_SESSION['codigo_pedido']);
+            }
+            if (isset($_SESSION['metodo_envio'])) {
+                unset($_SESSION['metodo_envio']);
             }
             $this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
             $this->view->categorias = Store::getCategoriasView();

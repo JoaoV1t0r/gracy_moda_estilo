@@ -160,6 +160,7 @@ class UserControllers extends Action
 			header('Location: /');
 		}
 
+		$this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
 		$this->view->categorias = Store::getCategoriasView();
 		$this->view->clienteLogado = Store::clienteLogado();
 
@@ -190,6 +191,9 @@ class UserControllers extends Action
 		}
 		if (isset($_SESSION['codigo_pedido'])) {
 			unset($_SESSION['codigo_pedido']);
+		}
+		if (isset($_SESSION['metodo_envio'])) {
+			unset($_SESSION['metodo_envio']);
 		}
 		header('Location: /');
 	}

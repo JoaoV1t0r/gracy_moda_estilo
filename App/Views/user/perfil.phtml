@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-3">
     <div class="row" style="color: #CD6090;">
         <div class="col conteudo">
             <h2 class="menu text-white p-2">Seus Dados:</h2>
@@ -44,6 +44,13 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row conteudo">
+            <h2 class="menu text-white p-2">Seus Pedidos: </h2>
+            <?php if (isset($this->view->pedidosRealizados)) { ?>
+            <?php } else { ?>
+                <p>Você ainda não realizou nenhum pedido na nossa loja. Quando você realizar um pedido poderá acompanha-lo por aqui.</p>
+            <?php } ?>
         </div>
     </div>
 </div>

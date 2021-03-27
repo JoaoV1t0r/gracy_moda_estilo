@@ -7,50 +7,35 @@
                     <div class="col text-start">
                         <h5>Nome: <span><?= $this->view->dadosUser->nome ?> </span></h5>
                     </div>
-                    <div class="col text-end">
-                        <i class="fas fa-edit fa-lg" style="color: #CD6090;"></i>
-                    </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col text-start">
                         <h5>E-mail: <span><?= $this->view->dadosUser->email ?></span></h5>
-                    </div>
-                    <div class="col text-end">
-                        <i class="fas fa-edit fa-lg" style="color: #CD6090;"></i>
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col text-start">
                         <h5>CEP: <span><?= $this->view->dadosUser->cep ?></span></h5>
                     </div>
-                    <div class="col text-end">
-                        <i class="fas fa-edit fa-lg" style="color: #CD6090;"></i>
-                    </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col text-start">
                         <h5>Número da Redidência: <span><?= $this->view->dadosUser->numero_residencia ?></span></h5>
-                    </div>
-                    <div class="col text-end">
-                        <i class="fas fa-edit fa-lg" style="color: #CD6090;"></i>
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col text-start">
                         <h5>Telefone: <span><?= $this->view->dadosUser->contato ?></span></h5>
                     </div>
-                    <div class="col text-end">
-                        <i class="fas fa-edit fa-lg" style="color: #CD6090;"></i>
-                    </div>
                 </div>
             </div>
         </div>
-        <div class="row conteudo">
-            <h2 class="menu text-white p-2">Seus Pedidos: </h2>
-            <?php if (isset($this->view->pedidosRealizados)) { ?>
-            <?php } else { ?>
-                <p>Você ainda não realizou nenhum pedido na nossa loja. Quando você realizar um pedido poderá acompanha-lo por aqui.</p>
-            <?php } ?>
+        <div class="row mt-4 conteudo text-center">
+            <div class="col justify-content-between">
+                <a href="<?= BASE_URL ?>/alterar_dados_pessoais" class="btn btn-cadastro mx-3"><i class="fas fa-user-edit"></i> Alterar Dados Pessoais</a>
+                <a href="<?= BASE_URL ?>/historico_pedidos" class="btn btn-cadastro mx-2"><i class="fas fa-list-alt"></i> Histórico de Pedidos</a>
+                <a href="<?= BASE_URL ?>/alterar_senha" class="btn btn-cadastro mx-4 my-1"><i class="fas fa-key"></i> Alterar Senha</a>
+            </div>
         </div>
     </div>
 </div>

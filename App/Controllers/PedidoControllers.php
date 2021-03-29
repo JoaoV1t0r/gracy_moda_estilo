@@ -58,7 +58,25 @@ class PedidoControllers extends Action
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             header('Location: /');
         }
-        $_SESSION['metodo_envio'] = isset($_POST['metodo_envio']) ? $_POST['metodo_envio'] : 'Não Informado';
+
+
+        if (isset($_SESSION['metodo_envio']) && $_SESSION['metodo_envio'] != $_POST['metodo_envio']) {
+            if (isset($_POST['metodo_envio']) && isset($_POST['valorCorreios'])) {
+                $_SESSION['metodo_envio'] = $_POST['metodo_envio'];
+                $_SESSION['total_pedido'] += isset($_POST['valorCorreios']) && is_numeric($_POST['valorCorreios']) ? $_POST['valorCorreios'] : 0;
+                $_SESSION['valorCorreios'] = isset($_POST['valorCorreios']) && is_numeric($_POST['valorCorreios']) ? $_POST['valorCorreios'] : 0;
+            } else {
+                $_SESSION['metodo_envio'] = $_POST['metodo_envio'];
+                $_SESSION['total_pedido'] = Store::constroiCarrinho()->total;
+                unset($_SESSION['valorCorreios']);
+            }
+        } else if (isset($_SESSION['metodo_envio']) && $_SESSION['metodo_envio'] == $_POST['metodo_envio']) {
+            return;
+        } else {
+            $_SESSION['metodo_envio'] = $_POST['metodo_envio'];
+            $_SESSION['total_pedido'] += isset($_POST['valorCorreios']) && is_numeric($_POST['valorCorreios']) ? $_POST['valorCorreios'] : 0;
+            $_SESSION['valorCorreios'] = isset($_POST['valorCorreios']) && is_numeric($_POST['valorCorreios']) ? $_POST['valorCorreios'] : 0;
+        }
     }
 
     // ====================================================================================
@@ -82,6 +100,7 @@ class PedidoControllers extends Action
             $produtos .= '</ul>';
             $this->view->codigoPedido = $_SESSION['codigo_pedido'];
             $this->view->valorPedido = $_SESSION['total_pedido'];
+            $this->view->metodoEnvio = $_SESSION['metodo_envio'];
             $enviarEmail = new EnviarEmail();
 
 

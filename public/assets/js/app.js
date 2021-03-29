@@ -34,7 +34,8 @@ $('#metodoEnvioCorreios').on('change' , e => {
 		$.post(
 			'http://localhost:8080/metodo_envio',
 			{
-				metodo_envio: 'Correios'
+				metodo_envio: 'Correios Valor:' + 'R$20,00',
+				valorCorreios: 20
 		})
 	}else {
 		//esconde o form
@@ -61,7 +62,7 @@ $('#metodoEnvioExcursao').on('change' , e => {
 })
 
 $('#nomeExcursao').on('blur' , e => {
-	let metodoEnvio =  'Excursão: ' + $(e.target).val();
+	let metodoEnvio =  'Excursão ' + $(e.target).val();
 	$.post(
 		'http://localhost:8080/metodo_envio',
 		{

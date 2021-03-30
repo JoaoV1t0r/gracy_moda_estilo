@@ -14,11 +14,13 @@ class UserControllers extends Action
 	{
 		if (Store::clienteLogado()) {
 			header('Location: /');
+			return;
 		}
 
 		//verifica se houve submissão de formulario
 		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 			header('Location: /');
+			return;
 		}
 
 		//Verifica a senha
@@ -73,11 +75,13 @@ class UserControllers extends Action
 	{
 		if (Store::clienteLogado()) {
 			header('Location: /');
+			return;
 		}
 
 		//Verificar se existe um purl
 		if (!isset($_GET['purl'])) {
 			header('Location: /');
+			return;
 		}
 
 		//Verifica se o purl é valido
@@ -85,6 +89,7 @@ class UserControllers extends Action
 		$user->purl = $_GET['purl'];
 		if (strlen($user->purl) != 12) {
 			header('Location: /');
+			return;
 		}
 
 		if ($user->confirmaEmail()) {
@@ -105,11 +110,13 @@ class UserControllers extends Action
 	{
 		if (Store::clienteLogado()) {
 			header('Location: /');
+			return;
 		}
 
 		//Verifica se foi feito o post
 		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 			header('Location: /');
+			return;
 		}
 
 		//define os dados
@@ -158,6 +165,7 @@ class UserControllers extends Action
 	{
 		if (!Store::clienteLogado()) {
 			header('Location: /');
+			return;
 		}
 
 		$this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
@@ -201,12 +209,14 @@ class UserControllers extends Action
 	// ===========================================================================
 	public function adicionarDadosAlternativos()
 	{
-		if (Store::clienteLogado()) {
+		if (!Store::clienteLogado()) {
 			header('Location: /');
+			return;
 		}
 		//Verifica se foi feito o post
 		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 			header('Location: /');
+			return;
 		}
 		$_SESSION['dadosAlternativos'] = [
 			'cepAlternativa' => $_POST['cepAlternativa'],
@@ -220,17 +230,102 @@ class UserControllers extends Action
 	// ===========================================================================
 	public function removerDadosAlternativos()
 	{
-		if (Store::clienteLogado()) {
+		if (!Store::clienteLogado()) {
 			header('Location: /');
+			return;
 		}
 		//Verifica se foi feito o post
 		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 			header('Location: /');
+			return;
 		}
 		if ($_POST['remover'] == true) {
 			if (isset($_SESSION['dadosAlternativos'])) {
 				unset($_SESSION['dadosAlternativos']);
 			}
 		}
+	}
+
+	// ===========================================================================
+	public function editarDadosUser()
+	{
+		if (!Store::clienteLogado()) {
+			header('Location: /');
+		}
+		$this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
+		$this->view->categorias = Store::getCategoriasView();
+		$this->view->clienteLogado = Store::clienteLogado();
+		$this->render('editar_dados_usuario');
+	}
+
+	// ===========================================================================
+	public function salvarNewDadosUser()
+	{
+		if (!Store::clienteLogado()) {
+			header('Location: /');
+			return;
+		}
+		//Verifica se foi feito o post
+		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+			header('Location: /');
+			return;
+		}
+		//Definindo variaveis
+		$user = Container::getModel('User');
+		$user->nome = trim($_POST['nome']);
+		$user->rua = trim($_POST['rua']);
+		$user->numero_residencia = trim($_POST['numero_residencia']);
+		$user->bairro = trim($_POST['bairro']);
+		$user->cidade = trim($_POST['cidade']);
+		$user->cep = trim($_POST['cep']);
+		$user->telefone = trim($_POST['telefone']);
+
+		//Verifica os campos
+		if ($user->nome == '' || $user->numero_residencia == '' || $user->rua == '' || $user->cidade == '' || $user->cep == '' || $user->telefone == '') {
+			header('Location: ' . BASE_URL . 'alterar_dados_pessoais?erro=campoVazio');
+			return;
+		} else {
+			//Salva a alteração no banco de dados
+			$user->id_cliente = intval($_SESSION['id_cliente']);
+			$user->SalvarEdicaoDadosUser();
+
+			//Altera dados da sessão
+			$_SESSION['email'] = $user->email;
+			$_SESSION['cliente'] = $user->nome;
+			$_SESSION['rua'] = $user->rua;
+			$_SESSION['numero_residencia'] = $user->numero_residencia;
+			$_SESSION['bairro'] = $user->bairro;
+			$_SESSION['cidade'] = $user->cidade;
+			$_SESSION['cep'] = $user->cep;
+			$_SESSION['telefone'] = $user->telefone;
+			header('Location: ' . BASE_URL . 'minha_conta');
+			return;
+		}
+	}
+
+	// ===========================================================================
+	public function historicoPedidos()
+	{
+		if (!Store::clienteLogado()) {
+			header('Location: /');
+			return;
+		}
+		$this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
+		$this->view->categorias = Store::getCategoriasView();
+		$this->view->clienteLogado = Store::clienteLogado();
+		echo 'Histórico de pedidos';
+	}
+
+	// ===========================================================================
+	public function alterarSenhaUser()
+	{
+		if (!Store::clienteLogado()) {
+			header('Location: /');
+			return;
+		}
+		$this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
+		$this->view->categorias = Store::getCategoriasView();
+		$this->view->clienteLogado = Store::clienteLogado();
+		echo 'Alterar Senha';
 	}
 }

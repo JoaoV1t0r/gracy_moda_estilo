@@ -138,7 +138,7 @@ class PedidoControllers extends Action
             $pedido->salvarPedido();
 
             //Enviar e-mail do pedido
-            //$enviarEmail->EnviarEmailConfirmacaoPedido($this->view->codigoPedido, $produtos, $this->view->valorPedido);
+            $enviarEmail->EnviarEmailConfirmacaoPedido($this->view->codigoPedido, $produtos, $this->view->valorPedido);
 
             // -----------------------------------------------------------------------------------------------------------
             //Limpar dados da Sessão relacionados ao pedido

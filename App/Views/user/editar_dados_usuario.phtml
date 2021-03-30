@@ -1,0 +1,56 @@
+<div class="container-fluid">
+    <div class="row mt-3">
+        <div class="col-sm-6 offset-sm-3 ml-2">
+            <h3 class="text-center mb-3" style="color:#CD6090;">Criar Conta</h3>
+            <form class="row needs-validation mb-3" method="post" action="<?= BASE_URL ?>salvar_alteracao_dados_pessoais">
+                <div class="row">
+                    <div class="col-md">
+                        <?php if (isset($_GET['erro']) && $_GET['erro'] == 'campoVazio') { ?>
+                            <div>
+                                <p class="alert alert-danger text-center p-2">Preencha todos os campos para editar os dados</p>
+                            </div>
+                        <?php } ?>
+
+                        <div class="form-floating mb-2">
+                            <input name="nome" type="name" class="form-control" id="Nome" placeholder="Nome" value="<?= $_SESSION['cliente'] ?>">
+                            <label for="Nome">Nome</label>
+                        </div>
+
+                        <div class="form-floating mb-2">
+                            <input name="cep" type="text" class="cep form-control" id="CEP" value="<?= $_SESSION['cep'] ?>">
+                            <label for="CEP">CEP</label>
+                        </div>
+
+                        <div class="form-floating mb-2">
+                            <input name="numero_residencia" type="text" class="form-control" id="NumeroCasa" value="<?= $_SESSION['numero_residencia'] ?>">
+                            <label for="NumeroCasa">Número da Residência</label>
+                        </div>
+
+                        <div class="form-floating mb-2">
+                            <input name="cidade" type="text" class="form-control" id="Cidade" readonly value="<?= $_SESSION['cidade'] ?>">
+                            <label for="Cidade">Cidade</label>
+                        </div>
+
+                        <div class="form-floating mb-2">
+                            <input name="bairro" type="text" class="form-control" id="Bairro" readonly value="<?= $_SESSION['bairro'] ?>">
+                            <label for="Bairro">Bairro</label>
+                        </div>
+
+                        <div class="form-floating mb-2">
+                            <input name="rua" type="text" class="form-control" id="Rua" readonly value="<?= $_SESSION['rua'] ?>">
+                            <label for="Rua">Rua</label>
+                        </div>
+
+                        <div class="form-floating mb-2">
+                            <input name="telefone" type="text" class="form-control" id="Telefone" value="<?= $_SESSION['telefone'] ?>">
+                            <label for="Telefone">Telefone para contato(com o DDD)</label>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 mt-2 mb-3">
+                        <input type="submit" value="Salvar Alteração" class="btn btn-cadastro">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

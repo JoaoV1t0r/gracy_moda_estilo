@@ -176,4 +176,39 @@ class User extends Model
 
         return $stmt->fetchAll(\PDO::FETCH_CLASS);
     }
+
+    //=============================================================================================
+    public function SalvarEdicaoDadosUser()
+    {
+        //validar e-mail do novo cliente
+        $query = "
+            UPDATE
+                clientes
+            SET
+                nome = :nome,
+                rua = :rua,
+                numero_residencia = :numero_residencia,
+                bairro = :bairro,
+                cidade = :cidade,
+                cep = :cep,
+                contato = :telefone
+            WHERE
+                id_cliente = :id_cliente
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id_cliente', $this->id_cliente);
+
+        //dados alterados
+        $stmt->bindValue(':nome', $this->nome);
+        $stmt->bindValue(':rua', $this->rua);
+        $stmt->bindValue(':numero_residencia', $this->numero_residencia);
+        $stmt->bindValue(':bairro', $this->bairro);
+        $stmt->bindValue(':cidade', $this->cidade);
+        $stmt->bindValue(':cep', $this->cep);
+        $stmt->bindValue(':telefone', $this->telefone);
+        $stmt->execute();
+
+        return;
+    }
 }

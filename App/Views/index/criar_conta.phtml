@@ -22,44 +22,45 @@
                                 <p class="alert alert-danger text-center p-2">E-mail já cadastrado, por favor use outro email</p>
                             </div>
                         <?php } ?>
+
                         <div class="form-floating mb-2">
-                            <input name="email" type="email" class="form-control" id="email" placeholder="E-mail" value="">
+                            <input name="email" type="email" class="form-control" id="email" placeholder="E-mail" value="" required>
                             <label for="email">E-mail</label>
                         </div>
                         <div class="form-floating mb-2">
-                            <input name="nome" type="name" class="form-control" id="Nome" placeholder="Nome" value="">
+                            <input name="nome" type="name" class="form-control" id="Nome" placeholder="Nome" value="" required>
                             <label for="Nome">Nome</label>
                         </div>
                         <div class="form-floating mb-2">
-                            <input name="senha" type="password" class="form-control" id="Senha" placeholder="Senha" value="">
+                            <input name="senha" type="password" class="form-control" id="Senha" placeholder="Senha" value="" required>
                             <label for="Senha">Senha</label>
                         </div>
                         <div class="form-floating mb-2">
-                            <input name="senhaConfirmada" type="password" class="form-control" id="ConfirmeSenha" placeholder="Confirme a Senha" value="">
+                            <input name="senhaConfirmada" type="password" class="form-control" id="ConfirmeSenha" placeholder="Confirme a Senha" value="" required>
                             <label for="ConfirmeSenha">Confirme a Senha</label>
                         </div>
                         <div class="form-floating mb-2">
-                            <input name="cep" type="text" class="cep form-control" id="CEP" placeholder="Confirme a Senha" value="">
+                            <input name="cep" type="text" class="cep form-control" id="CEP" placeholder="Confirme a Senha" value="" required>
                             <label for="CEP">CEP</label>
                         </div>
                         <div class="form-floating mb-2">
                             <input name="numero_residencia" type="text" class="form-control" id="NumeroCasa" placeholder="Confirme a Senha" value="">
-                            <label for="NumeroCasa">Número da Residência</label>
-                        </div>
-                        <div class="form-floating mb-2">
-                            <input name="cidade" type="text" class="form-control" id="Cidade" placeholder="Confirme a Senha" readonly>
-                            <label for="Cidade">Cidade</label>
-                        </div>
-                        <div class="form-floating mb-2">
-                            <input name="bairro" type="text" class="form-control" id="Bairro" placeholder="Confirme a Senha" readonly>
-                            <label for="Bairro">Bairro</label>
+                            <label for="NumeroCasa" required>Número da Residência</label>
                         </div>
                         <div class="form-floating mb-2">
                             <input name="rua" type="text" class="form-control" id="Rua" placeholder="Confirme a Senha" readonly>
                             <label for="Rua">Rua</label>
                         </div>
                         <div class="form-floating mb-2">
-                            <input name="telefone" type="text" class="form-control" id="Telefone" placeholder="Confirme a Senha" value="">
+                            <input name="bairro" type="text" class="form-control" id="Bairro" placeholder="Confirme a Senha" readonly>
+                            <label for="Bairro">Bairro</label>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input name="cidade" type="text" class="form-control" id="Cidade" placeholder="Confirme a Senha" readonly>
+                            <label for="Cidade">Cidade</label>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input name="telefone" type="text" class="form-control" id="Telefone" placeholder="Confirme a Senha" value="" required>
                             <label for="Telefone">Telefone para contato(com o DDD)</label>
                         </div>
                     </div>

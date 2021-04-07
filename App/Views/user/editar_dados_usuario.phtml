@@ -12,17 +12,17 @@
                         <?php } ?>
 
                         <div class="form-floating mb-2">
-                            <input name="nome" type="name" class="form-control" id="Nome" placeholder="Nome" value="<?= $_SESSION['cliente'] ?>">
+                            <input name="nome" maxlength="250" type="name" class="form-control" required id="Nome" placeholder="Nome" value="<?= $_SESSION['cliente'] ?>">
                             <label for="Nome">Nome</label>
                         </div>
 
                         <div class="form-floating mb-2">
-                            <input name="cep" type="text" class="cep form-control" id="CEP" value="<?= $_SESSION['cep'] ?>">
+                            <input name="cep" maxlength="10" type="text" class="cep form-control" id="CEP" value="<?= $_SESSION['cep'] ?>" required>
                             <label for="CEP">CEP</label>
                         </div>
 
                         <div class="form-floating mb-2">
-                            <input name="numero_residencia" type="text" class="form-control" id="NumeroCasa" value="<?= $_SESSION['numero_residencia'] ?>">
+                            <input name="numero_residencia" type="text" class="form-control" id="NumeroCasa" value="<?= $_SESSION['numero_residencia'] ?>" required>
                             <label for="NumeroCasa">Número da Residência</label>
                         </div>
 
@@ -42,7 +42,7 @@
                         </div>
 
                         <div class="form-floating mb-2">
-                            <input name="telefone" type="text" class="form-control" id="Telefone" value="<?= $_SESSION['telefone'] ?>">
+                            <input name="telefone" type="text" class="form-control" id="Telefone" value="<?= $_SESSION['telefone'] ?>" required>
                             <label for="Telefone">Telefone para contato(com o DDD)</label>
                         </div>
                     </div>

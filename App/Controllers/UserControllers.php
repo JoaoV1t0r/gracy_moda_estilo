@@ -366,9 +366,15 @@ class UserControllers extends Action
 			header('Location: /');
 			return;
 		}
+
 		$this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
 		$this->view->categorias = Store::getCategoriasView();
 		$this->view->clienteLogado = Store::clienteLogado();
-		echo 'Histórico de pedidos';
+
+		$pedido = Container::getModel('Pedido');
+		$pedido->id_cliente = $_SESSION['id_cliente'];
+		$this->view->historicoPedido = $pedido->getHistoricoPedidos();
+
+		$this->render('historico_pedido');
 	}
 }

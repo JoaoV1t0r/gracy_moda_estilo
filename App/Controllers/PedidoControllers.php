@@ -118,7 +118,7 @@ class PedidoControllers extends Action
             $pedido->telefone_pedido = $_SESSION['telefone'];
             $pedido->codigo_pedido = $_SESSION['codigo_pedido'];
             $pedido->metodo_envio = isset($_SESSION['metodo_envio']) ? $_SESSION['metodo_envio'] : 'Não informado';
-            $pedido->mensagem = '';
+            $pedido->mensagem = 'Seu pedido está sendo preparado.';
 
             //Dados dos Produtos do pedido
             $dados_podutos_pedido = [];

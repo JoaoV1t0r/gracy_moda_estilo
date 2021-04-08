@@ -114,4 +114,30 @@ class Pedido extends Model
 
         return $stmt->fetchAll(\PDO::FETCH_CLASS);
     }
+
+    //=============================================================================================
+    public function getHistoricoPedidos()
+    {
+        $query = "
+            SELECT
+                id_pedido,
+                status_pedido,
+                data_pedido,
+                codigo_pedido,
+                metodo_envio,
+                mensagem
+            FROM
+                pedidos
+            WHERE
+                id_cliente = :id_cliente
+            ORDER BY
+                data_pedido desc
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id_cliente', $this->id_cliente);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_CLASS);
+    }
 }

@@ -120,15 +120,20 @@ class Route extends Bootstrap
 			'controller' => 'UserControllers',
 			'action' => 'salvarNewDadosUser'
 		);
-		$routes['historico_pedidos'] = array(
-			'route' => '/historico_pedidos',
-			'controller' => 'UserControllers',
-			'action' => 'historicoPedidos'
-		);
 		$routes['alterar_senha'] = array(
 			'route' => '/alterar_senha',
 			'controller' => 'UserControllers',
 			'action' => 'alterarSenhaUser'
+		);
+		$routes['salvar_alteracao_senha'] = array(
+			'route' => '/salvar_alteracao_senha',
+			'controller' => 'UserControllers',
+			'action' => 'salvarNewSenhaUser'
+		);
+		$routes['historico_pedidos'] = array(
+			'route' => '/historico_pedidos',
+			'controller' => 'UserControllers',
+			'action' => 'historicoPedidos'
 		);
 
 		$this->setRoutes($routes);

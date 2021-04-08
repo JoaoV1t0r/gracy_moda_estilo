@@ -191,7 +191,8 @@ class User extends Model
                 bairro = :bairro,
                 cidade = :cidade,
                 cep = :cep,
-                contato = :telefone
+                contato = :telefone,
+                updated_at = NOW()
             WHERE
                 id_cliente = :id_cliente
         ";
@@ -207,6 +208,53 @@ class User extends Model
         $stmt->bindValue(':cidade', $this->cidade);
         $stmt->bindValue(':cep', $this->cep);
         $stmt->bindValue(':telefone', $this->telefone);
+        $stmt->execute();
+
+        return;
+    }
+
+    //=============================================================================================
+    public function validaSenha($senhaAtual)
+    {
+        //validar e-mail do novo cliente
+        $query = "
+            SELECT
+                *
+            FROM
+                clientes
+            WHERE
+                id_cliente = :id_cliente
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id_cliente', $this->id_cliente);
+        $stmt->execute();
+
+        $resultados =  $stmt->fetchAll(\PDO::FETCH_CLASS);
+        $usuario = $resultados[0];
+
+        return password_verify($senhaAtual, $usuario->senha);
+    }
+
+    //=============================================================================================
+    public function alterarSenha()
+    {
+        //validar e-mail do novo cliente
+        $query = "
+            UPDATE
+                clientes
+            SET
+                senha = :senha,
+                updated_at = NOW()
+            WHERE
+                id_cliente = :id_cliente
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id_cliente', $this->id_cliente);
+
+        //dados alterados
+        $stmt->bindValue(':senha', $this->senha);
         $stmt->execute();
 
         return;

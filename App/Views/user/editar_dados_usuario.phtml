@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row mt-3">
         <div class="col-sm-6 offset-sm-3 ml-2">
-            <h3 class="text-center mb-3" style="color:#CD6090;">Criar Conta</h3>
+            <h3 class="text-center mb-3" style="color:#CD6090;">Alterar Dados Pessoais</h3>
             <form class="row needs-validation mb-3" method="post" action="<?= BASE_URL ?>salvar_alteracao_dados_pessoais">
                 <div class="row">
                     <div class="col-md">
@@ -46,9 +46,14 @@
                             <label for="Telefone">Telefone para contato(com o DDD)</label>
                         </div>
                     </div>
-                    <div class="d-grid gap-2 mt-2 mb-3">
-                        <input type="submit" value="Salvar Alteração" class="btn btn-cadastro">
+
+                    <div class="row mt-4 text-center">
+                        <div class="col justify-content-between">
+                            <input type="submit" value="Salvar Alteração" class="btn btn-cadastro  mx-4">
+                            <a type="submit" href="<?= BASE_URL ?>minha_conta" class="btn btn-cadastro  mx-4">Voltar</a>
+                        </div>
                     </div>
+
                 </div>
             </form>
         </div>

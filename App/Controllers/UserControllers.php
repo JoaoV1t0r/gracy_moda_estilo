@@ -298,7 +298,63 @@ class UserControllers extends Action
 			$_SESSION['cidade'] = $user->cidade;
 			$_SESSION['cep'] = $user->cep;
 			$_SESSION['telefone'] = $user->telefone;
-			header('Location: ' . BASE_URL . 'minha_conta');
+			header('Location: ' . BASE_URL . 'minha_conta?alteracao=dadosPessoais');
+			return;
+		}
+	}
+
+	// ===========================================================================
+	public function alterarSenhaUser()
+	{
+		if (!Store::clienteLogado()) {
+			header('Location: /');
+			return;
+		}
+		$this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
+		$this->view->categorias = Store::getCategoriasView();
+		$this->view->clienteLogado = Store::clienteLogado();
+		$this->render('editar_senha_usuario');
+	}
+
+	// ===========================================================================
+	public function salvarNewSenhaUser()
+	{
+		if (!Store::clienteLogado()) {
+			header('Location: /');
+			return;
+		}
+		//Verifica se foi feito o post
+		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+			header('Location: /');
+			return;
+		}
+
+		//Verifica a senha
+		if ($_POST['novaSenha'] !== $_POST['senhaNovaConfirmada']) {
+			header('Location: ' . BASE_URL . 'alterar_senha?erro=senha');
+			return;
+		}
+
+		//Definindo variaveis
+		$user = Container::getModel('User');
+		$user->id_cliente = $_SESSION['id_cliente'];
+		$senhaAtual = trim($_POST['senhaAtual']);
+		$novaSenha = password_hash($_POST['novaSenha'], PASSWORD_DEFAULT);
+
+		//Validações das senhas
+		if ($senhaAtual == ''  || $novaSenha == '') {
+			header('Location: ' . BASE_URL . 'alterar_senha?erro=campoVazio');
+			return;
+		}
+
+		//Verifica se a senha atual está correta
+		if ($user->validaSenha($senhaAtual)) {
+			$user->senha = $novaSenha;
+			$user->alterarSenha();
+			header('Location: ' . BASE_URL . 'minha_conta?alteracao=senha');
+			return;
+		} else {
+			header('Location: ' . BASE_URL . 'alterar_senha?erro=senha2');
 			return;
 		}
 	}
@@ -314,18 +370,5 @@ class UserControllers extends Action
 		$this->view->categorias = Store::getCategoriasView();
 		$this->view->clienteLogado = Store::clienteLogado();
 		echo 'Histórico de pedidos';
-	}
-
-	// ===========================================================================
-	public function alterarSenhaUser()
-	{
-		if (!Store::clienteLogado()) {
-			header('Location: /');
-			return;
-		}
-		$this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
-		$this->view->categorias = Store::getCategoriasView();
-		$this->view->clienteLogado = Store::clienteLogado();
-		echo 'Alterar Senha';
 	}
 }

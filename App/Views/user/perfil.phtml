@@ -1,7 +1,20 @@
 <div class="container mt-3">
     <div class="row" style="color: #CD6090;">
         <div class="col conteudo">
+            <?php if (isset($_GET['alteracao']) && $_GET['alteracao'] == 'dadosPessoais') { ?>
+                <div>
+                    <p class="alert alert-success text-center p-2">Dados Pessoais Alterados com Sucesso</p>
+                </div>
+            <?php } ?>
+
+            <?php if (isset($_GET['alteracao']) && $_GET['alteracao'] == 'senha') { ?>
+                <div>
+                    <p class="alert alert-success text-center p-2">Senha Alterada com Sucesso</p>
+                </div>
+            <?php } ?>
+
             <h2 class="menu text-white p-2">Seus Dados:</h2>
+
             <div class="col">
                 <div class="row mb-2">
                     <div class="col text-start">
@@ -30,10 +43,10 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-4 conteudo text-center">
+        <div class="row mt-4 text-center">
             <div class="col justify-content-between">
-                <a href="<?= BASE_URL ?>alterar_dados_pessoais" class="btn btn-cadastro mx-3"><i class="fas fa-user-edit"></i> Alterar Dados Pessoais</a>
-                <a href="<?= BASE_URL ?>historico_pedidos" class="btn btn-cadastro mx-2"><i class="fas fa-list-alt"></i> Histórico de Pedidos</a>
+                <a href="<?= BASE_URL ?>historico_pedidos" class="btn btn-cadastro mx-4 my-1"><i class="fas fa-list-alt"></i> Histórico de Pedidos</a>
+                <a href="<?= BASE_URL ?>alterar_dados_pessoais" class="btn btn-cadastro mx-4 my-1"><i class="fas fa-user-edit"></i> Alterar Dados Pessoais</a>
                 <a href="<?= BASE_URL ?>alterar_senha" class="btn btn-cadastro mx-4 my-1"><i class="fas fa-key"></i> Alterar Senha</a>
             </div>
         </div>

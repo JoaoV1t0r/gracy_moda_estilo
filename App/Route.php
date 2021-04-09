@@ -132,8 +132,13 @@ class Route extends Bootstrap
 		);
 		$routes['historico_pedidos'] = array(
 			'route' => '/historico_pedidos',
-			'controller' => 'UserControllers',
+			'controller' => 'PedidoControllers',
 			'action' => 'historicoPedidos'
+		);
+		$routes['detalhes_pedido'] = array(
+			'route' => '/detalhes_pedido',
+			'controller' => 'PedidoControllers',
+			'action' => 'detalhesPedido'
 		);
 
 		$this->setRoutes($routes);

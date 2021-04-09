@@ -122,9 +122,9 @@ class Pedido extends Model
             SELECT
                 id_pedido,
                 status_pedido,
+                metodo_envio,
                 data_pedido,
                 codigo_pedido,
-                metodo_envio,
                 mensagem
             FROM
                 pedidos
@@ -139,5 +139,25 @@ class Pedido extends Model
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_CLASS);
+    }
+
+    //=============================================================================================
+    public function verificaPedidoCliente()
+    {
+        $query = "
+            SELECT
+                id_pedido
+            FROM
+                pedidos
+            WHERE
+                id_cliente = :id_cliente AND id_pedido = :id_pedido
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id_cliente', $this->id_cliente);
+        $stmt->bindValue(':id_pedido', $this->id_pedido);
+        $stmt->execute();
+
+        return count($stmt->fetchAll(\PDO::FETCH_CLASS)) == 1 ? true : false;
     }
 }

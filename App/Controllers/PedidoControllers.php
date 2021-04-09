@@ -6,7 +6,6 @@ use App\Classes\EnviarEmail;
 use App\Classes\Store;
 use MF\Controller\Action;
 use MF\Model\Container;
-use stdClass;
 
 class PedidoControllers extends Action
 {
@@ -44,7 +43,7 @@ class PedidoControllers extends Action
             }
         } else {
             $_SESSION['login_finalizar_pedido'] = true;
-            header('Location: /login?finalizarPedido=true');
+            header('Location:' . BASE_URL . 'login?finalizarPedido=true');
         }
     }
 
@@ -52,11 +51,11 @@ class PedidoControllers extends Action
     public function adicionarMetodoEnvio()
     {
         if (Store::clienteLogado()) {
-            header('Location: /');
+            header('Location: ' . BASE_URL);
         }
         //Verifica se foi feito o post
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            header('Location: /');
+            header('Location: ' . BASE_URL);
         }
 
 
@@ -159,7 +158,64 @@ class PedidoControllers extends Action
             $this->view->clienteLogado = Store::clienteLogado();
             $this->render('confirmar_pedido');
         } else {
-            header('Location: /login?finalizarPedido=true');
+            header('Location: ' . BASE_URL . 'login?finalizarPedido=true');
         }
+    }
+
+    // ===========================================================================
+    public function historicoPedidos()
+    {
+        if (!Store::clienteLogado()) {
+            header('Location: ' . BASE_URL);
+            return;
+        }
+
+        $this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
+        $this->view->categorias = Store::getCategoriasView();
+        $this->view->clienteLogado = Store::clienteLogado();
+
+        $pedido = Container::getModel('Pedido');
+        $pedido->id_cliente = $_SESSION['id_cliente'];
+        $this->view->historicoPedido = $pedido->getHistoricoPedidos();
+        foreach ($this->view->historicoPedido as $pedido) {
+            $pedido->id_pedido = Store::aesEncriptar($pedido->id_pedido);
+        }
+
+        $this->render('historico_pedido');
+    }
+
+    // ===========================================================================
+    public function detalhesPedido()
+    {
+        if (!Store::clienteLogado()) {
+            header('Location: /');
+            return;
+        }
+
+        if (!isset($_GET['id_pedido'])) {
+            header('Location: ' . BASE_URL);
+            return;
+        }
+
+        if (strlen($_GET['id_pedido']) != 32) {
+            header('Location: ' . BASE_URL);
+            return;
+        }
+
+        //Variáveis
+        $pedido = Container::getModel('Pedido');
+        $pedido->id_cliente = $_SESSION['id_cliente'];
+        $pedido->id_pedido = Store::aesDesencriptar($_GET['id_pedido']);
+        if ($pedido->verificaPedidoCliente()) {
+            echo 'Ok';
+        } else {
+            header('Location: ' . BASE_URL);
+            return;
+        }
+
+
+        $this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
+        $this->view->categorias = Store::getCategoriasView();
+        $this->view->clienteLogado = Store::clienteLogado();
     }
 }

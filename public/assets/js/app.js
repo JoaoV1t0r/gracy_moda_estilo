@@ -96,35 +96,47 @@ $('#closePreencherCampoExcursao').on('click', () => {
 })
 
 // ================================================================================
+$('#closeSelecioneUmaOpcao').on('click', () => {
+	$('#SelecioneUmaOpcao').modal('toggle');
+})
+
+// ================================================================================
 $('#confirmarPedido').on('click' , () => {
 	let metodoEnvioCorreios = document.getElementById('metodoEnvioCorreios');
 	let metodoEnvioExcursao = document.getElementById('metodoEnvioExcursao');
-	if(metodoEnvioCorreios.checked == true || metodoEnvioExcursao.checked == true){
-		let metodoEnvio = $('#nomeExcursao').val();
-		if(metodoEnvioExcursao.checked == true && metodoEnvio.length == 0){
-			$('#preencherCampoExcursao').modal('show')
-		}else {
-			let form = document.getElementById('enderecoAlternativo');
-			if(form.checked == true){
-				let cepAlternativa = $('#CEP').val();
-				let numeroResidencia = $('#NumeroCasa').val();
-				let ruaAlternativa = $('#Rua').val() ;
-				let bairroAlternativa = $('#Bairro').val() ;
-				let cidadeAlternativa = $('#Cidade').val();
-				$.post(
-					'http://localhost:8080/adicionar_dados_alternativos',
-					{
-						cepAlternativa: cepAlternativa,
-						numeroResidencia: numeroResidencia,
-						ruaAlternativa: ruaAlternativa,
-						bairroAlternativa: bairroAlternativa,
-						cidadeAlternativa: cidadeAlternativa
-				})
+	if(metodoEnvioCorreios.checked == true && metodoEnvioExcursao.checked == true){
+		metodoEnvioCorreios.checked = false;
+		metodoEnvioExcursao.checked = false;
+		$('#nomeExcursao').val('');
+		$('#SelecioneUmaOpcao').modal('show')
+	} else {
+		if(metodoEnvioCorreios.checked == true || metodoEnvioExcursao.checked == true){
+			let metodoEnvio = $('#nomeExcursao').val();
+			if(metodoEnvioExcursao.checked == true && metodoEnvio.length == 0){
+				$('#preencherCampoExcursao').modal('show')
+			}else {
+				let form = document.getElementById('enderecoAlternativo');
+				if(form.checked == true){
+					let cepAlternativa = $('#CEP').val();
+					let numeroResidencia = $('#NumeroCasa').val();
+					let ruaAlternativa = $('#Rua').val() ;
+					let bairroAlternativa = $('#Bairro').val() ;
+					let cidadeAlternativa = $('#Cidade').val();
+					$.post(
+						'http://localhost:8080/adicionar_dados_alternativos',
+						{
+							cepAlternativa: cepAlternativa,
+							numeroResidencia: numeroResidencia,
+							ruaAlternativa: ruaAlternativa,
+							bairroAlternativa: bairroAlternativa,
+							cidadeAlternativa: cidadeAlternativa
+					})
+				}
+				window.location.href = 'http://localhost:8080/confirmar_pedido'
 			}
-			window.location.href = 'http://localhost:8080/confirmar_pedido'
+		}else{
+			$('#selecionaMetodoEnvio').modal('show')
 		}
-	}else{
-		$('#selecionaMetodoEnvio').modal('show')
 	}
 })
 

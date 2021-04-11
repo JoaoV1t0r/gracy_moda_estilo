@@ -209,7 +209,11 @@ class PedidoControllers extends Action
         if ($pedido->verificaPedidoCliente()) {
             //Dados do Pedido
             $this->view->detalhesPedido = $pedido->getDetalhesPedido();
-            $this->view->pedido = $pedido->getPedido();
+            $this->view->pedido = $pedido->getPedido()[0];
+            $this->view->totalPedido = 0;
+            foreach ($this->view->detalhesPedido as $detalhes) {
+                $this->view->totalPedido += ($detalhes->quantidade * $detalhes->peco_unidade);
+            }
 
             $this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
             $this->view->categorias = Store::getCategoriasView();

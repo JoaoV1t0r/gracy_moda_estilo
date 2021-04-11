@@ -160,4 +160,43 @@ class Pedido extends Model
 
         return count($stmt->fetchAll(\PDO::FETCH_CLASS)) == 1 ? true : false;
     }
+
+    //=============================================================================================
+    public function getDetalhesPedido()
+    {
+        $query = "
+            SELECT
+                *
+            FROM
+                produtos_pedido
+            WHERE
+                id_pedido = :id_pedido
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id_pedido', $this->id_pedido);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_CLASS);
+    }
+
+    //=============================================================================================
+    public function getPedido()
+    {
+        $query = "
+            SELECT
+                *
+            FROM
+                pedidos
+            WHERE
+                id_cliente = :id_cliente AND id_pedido = :id_pedido
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id_cliente', $this->id_cliente);
+        $stmt->bindValue(':id_pedido', $this->id_pedido);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_CLASS);
+    }
 }

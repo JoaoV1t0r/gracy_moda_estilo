@@ -83,7 +83,7 @@ class PedidoControllers extends Action
     {
         if (Store::clienteLogado()) {
             //Verifica se foi feito o post e se existe um pedido
-            if (!isset($_SESSION['carrinho']) || !isset($_SESSION['codigo_pedido'])) {
+            if (!isset($_SESSION['carrinho']) || !isset($_SESSION['codigo_pedido']) || !isset($_SESSION['metodo_envio'])) {
                 header('Location: ' . BASE_URL);
                 return;
             }
@@ -207,15 +207,18 @@ class PedidoControllers extends Action
         $pedido->id_cliente = $_SESSION['id_cliente'];
         $pedido->id_pedido = Store::aesDesencriptar($_GET['id_pedido']);
         if ($pedido->verificaPedidoCliente()) {
-            echo 'Ok';
+            //Dados do Pedido
+            $this->view->detalhesPedido = $pedido->getDetalhesPedido();
+            $this->view->pedido = $pedido->getPedido();
+
+            $this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
+            $this->view->categorias = Store::getCategoriasView();
+            $this->view->clienteLogado = Store::clienteLogado();
+
+            $this->render('detalhes_pedido');
         } else {
             header('Location: ' . BASE_URL);
             return;
         }
-
-
-        $this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
-        $this->view->categorias = Store::getCategoriasView();
-        $this->view->clienteLogado = Store::clienteLogado();
     }
 }

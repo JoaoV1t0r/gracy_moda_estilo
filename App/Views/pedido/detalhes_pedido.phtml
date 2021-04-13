@@ -1,7 +1,79 @@
 <div class="container">
-    <div class="row">
+    <div class="row text-loja">
         <h3 class="background-loja text-white p-2">Detalhes do Pedido: <?= $this->view->pedido->codigo_pedido ?></h3>
-        <div class="col text-loja">
+        <div class="col border-end">
+            <h5>Data do Pedido:</h5>
+            <p><?= $this->view->pedido->data_pedido ?></p>
+            <h5>Telefone para contato:</h5>
+            <p><?= $this->view->pedido->telefone_pedido ?></p>
+        </div>
+        <div class="col border-end">
+            <h5>Método de Envio:</h5>
+            <p><?= $this->view->pedido->metodo_envio ?></p>
+            <h5>Dados para entrega:</h5>
+            <p><?= $this->view->pedido->rua_pedido, ' ', $this->view->pedido->numero_residencia_pedido, ', ', $this->view->pedido->bairro_pedido, ', ', $this->view->pedido->cidade_pedido, ', ', $this->view->pedido->cep_pedido ?></p>
+        </div>
+        <div class="col">
+            <h5>Status: </h5>
+            <p><?= $this->view->pedido->status_pedido ?></p>
+            <h5>Mensagem: </h5>
+            <p><?= $this->view->pedido->mensagem ?></p>
+        </div>
+    </div>
+    <div class="row">
+        <h4 class="background-loja text-white p-2">Produtos do Pedido: </h4>
+        <table class="table table-hover table-sm">
+            <thead>
+                <tr>
+                    <th class="text-start">Produto</th>
+                    <th class="text-center">Qntd</th>
+                    <th class="text-center">Valor(Und)</th>
+                    <th class="text-center">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($this->view->detalhesPedido as $detalhes) { ?>
+                    <tr>
+                        <td class="align-middle text-start">
+                            <p><?= $detalhes->designacao_produto ?></p>
+                        </td>
+                        <td class="align-middle text-center">
+                            <p><?= $detalhes->quantidade ?></p>
+                        </td>
+                        <td class="align-middle text-center">
+                            <p>R$<?= number_format((float)$detalhes->peco_unidade, 2, ',', '') ?></p>
+                        </td>
+                        <td class="align-middle text-center">
+                            <p>R$<?= number_format((float)($detalhes->quantidade * $detalhes->peco_unidade), 2, ',', '') ?></p>
+                        </td>
+                    </tr>
+                <?php } ?>
+                <tr>
+                    <td class="align-middle text-start">
+                        <h3>
+                            Total do Pedido:
+                        </h3>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td class="align-middle text-center">
+                        <h4>
+                            R$<?= number_format((float)$this->view->totalPedido, 2, ',', '') ?>
+                        </h4>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-lg btn-cadastro my-2" href="<?= BASE_URL ?>historico_pedidos">Voltar</a>
+        </div>
+    </div>
+</div>
+
+
+<!-- <div class="col">
             <h4 class="mb-3">Status: <?= $this->view->pedido->status_pedido ?></h4>
             <h4 class="mb-3">Data do Pedido: <?= $this->view->pedido->data_pedido ?></h4>
             <h4 class="mb-3">Telefone para contato: <?= $this->view->pedido->telefone_pedido ?></h4>
@@ -19,5 +91,4 @@
             <h4 class="mb-3">Valor total dos produtos: R$<?= number_format((float)$this->view->totalPedido, 2, ',', '') ?></h4>
             <a class="btn btn-lg btn-cadastro my-2" href="<?= BASE_URL ?>historico_pedidos">Voltar</a>
         </div>
-    </div>
-</div>
+    </div> -->

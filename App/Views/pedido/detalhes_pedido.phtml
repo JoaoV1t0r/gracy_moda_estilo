@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row text-loja">
+    <div class="row text-loja mb-2">
         <h3 class="background-loja text-white p-2">Detalhes do Pedido: <?= $this->view->pedido->codigo_pedido ?></h3>
         <div class="col border-end">
             <h5>Data do Pedido:</h5>
@@ -10,8 +10,10 @@
         <div class="col border-end">
             <h5>Método de Envio:</h5>
             <p><?= $this->view->pedido->metodo_envio ?></p>
-            <h5>Dados para entrega:</h5>
-            <p><?= $this->view->pedido->rua_pedido, ' ', $this->view->pedido->numero_residencia_pedido, ', ', $this->view->pedido->bairro_pedido, ', ', $this->view->pedido->cidade_pedido, ', ', $this->view->pedido->cep_pedido ?></p>
+            <h5>Custo do Envio:</h5>
+            <p><?= $this->view->pedido->metodo_envio == 'Correios' ? 'R$' . number_format((float)$this->view->pedido->valor_envio, 2, ',', '') : $this->view->pedido->valor_envio ?></p>
+            <!-- <h5>Dados para entrega:</h5>
+            <p><?= $this->view->pedido->rua_pedido, ' ', $this->view->pedido->numero_residencia_pedido, ', ', $this->view->pedido->bairro_pedido, ', ', $this->view->pedido->cidade_pedido, ', ', $this->view->pedido->cep_pedido ?></p> -->
         </div>
         <div class="col">
             <h5>Status: </h5>
@@ -71,24 +73,3 @@
         </div>
     </div>
 </div>
-
-
-<!-- <div class="col">
-            <h4 class="mb-3">Status: <?= $this->view->pedido->status_pedido ?></h4>
-            <h4 class="mb-3">Data do Pedido: <?= $this->view->pedido->data_pedido ?></h4>
-            <h4 class="mb-3">Telefone para contato: <?= $this->view->pedido->telefone_pedido ?></h4>
-            <h4 class="mb-3">Método de Envio: <?= $this->view->pedido->metodo_envio ?></h4>
-            <h4 class="mb-3">Dados para entrega: <?= $this->view->pedido->rua_pedido, ' ', $this->view->pedido->numero_residencia_pedido, ', ', $this->view->pedido->bairro_pedido, ', ', $this->view->pedido->cidade_pedido, ', ', $this->view->pedido->cep_pedido ?> </h4>
-            <h4 class="mb-3">Mensagem: <?= $this->view->pedido->mensagem ?></h4>
-            <h4 class="mb-3">Produtos do Pedido: </h4>
-            <ul class="mb-3 list-group">
-                <?php foreach ($this->view->detalhesPedido as $detalhes) { ?>
-                    <li class="list-group-item">
-                        <p><?= $detalhes->quantidade ?> x <?= $detalhes->designacao_produto ?>(R$<?= number_format((float)$detalhes->peco_unidade, 2, ',', '') ?>) = R$<?= number_format((float)($detalhes->quantidade * $detalhes->peco_unidade), 2, ',', '') ?></p>
-                    </li>
-                <?php } ?>
-            </ul>
-            <h4 class="mb-3">Valor total dos produtos: R$<?= number_format((float)$this->view->totalPedido, 2, ',', '') ?></h4>
-            <a class="btn btn-lg btn-cadastro my-2" href="<?= BASE_URL ?>historico_pedidos">Voltar</a>
-        </div>
-    </div> -->

@@ -50,31 +50,21 @@ class PedidoControllers extends Action
     // ====================================================================================
     public function adicionarMetodoEnvio()
     {
-        if (Store::clienteLogado()) {
+        if (!Store::clienteLogado()) {
             header('Location: ' . BASE_URL);
+            return;
         }
         //Verifica se foi feito o post
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             header('Location: ' . BASE_URL);
-        }
-
-
-        if (isset($_SESSION['metodo_envio']) && $_SESSION['metodo_envio'] != $_POST['metodo_envio']) {
-            if (isset($_POST['metodo_envio']) && isset($_POST['valorCorreios'])) {
-                $_SESSION['metodo_envio'] = $_POST['metodo_envio'];
-                $_SESSION['total_pedido'] += isset($_POST['valorCorreios']) && is_numeric($_POST['valorCorreios']) ? $_POST['valorCorreios'] : 0;
-                $_SESSION['valorCorreios'] = isset($_POST['valorCorreios']) && is_numeric($_POST['valorCorreios']) ? $_POST['valorCorreios'] : 0;
-            } else {
-                $_SESSION['metodo_envio'] = $_POST['metodo_envio'];
-                $_SESSION['total_pedido'] = Store::constroiCarrinho()->total;
-                unset($_SESSION['valorCorreios']);
-            }
-        } else if (isset($_SESSION['metodo_envio']) && $_SESSION['metodo_envio'] == $_POST['metodo_envio']) {
             return;
-        } else {
+        }
+        if (isset($_POST['metodo_envio']) && isset($_POST['valor_envio'])) {
             $_SESSION['metodo_envio'] = $_POST['metodo_envio'];
-            $_SESSION['total_pedido'] += isset($_POST['valorCorreios']) && is_numeric($_POST['valorCorreios']) ? $_POST['valorCorreios'] : 0;
-            $_SESSION['valorCorreios'] = isset($_POST['valorCorreios']) && is_numeric($_POST['valorCorreios']) ? $_POST['valorCorreios'] : 0;
+            $_SESSION['valor_envio'] = $_POST['valor_envio'];
+        } else {
+            header('Location: ' . BASE_URL);
+            return;
         }
     }
 
@@ -100,6 +90,7 @@ class PedidoControllers extends Action
             $this->view->codigoPedido = $_SESSION['codigo_pedido'];
             $this->view->valorPedido = $_SESSION['total_pedido'];
             $this->view->metodoEnvio = $_SESSION['metodo_envio'];
+            $this->view->valor_envio = $_SESSION['valor_envio'];
             $enviarEmail = new EnviarEmail();
 
 
@@ -117,6 +108,7 @@ class PedidoControllers extends Action
             $pedido->telefone_pedido = $_SESSION['telefone'];
             $pedido->codigo_pedido = $_SESSION['codigo_pedido'];
             $pedido->metodo_envio = isset($_SESSION['metodo_envio']) ? $_SESSION['metodo_envio'] : 'Não informado';
+            $pedido->valor_envio = isset($_SESSION['valor_envio']) ? $_SESSION['valor_envio'] : 'Não informado';
             $pedido->mensagem = 'Seu pedido está sendo preparado.';
 
             //Dados dos Produtos do pedido
@@ -137,7 +129,7 @@ class PedidoControllers extends Action
             $pedido->salvarPedido();
 
             //Enviar e-mail do pedido
-            $enviarEmail->EnviarEmailConfirmacaoPedido($this->view->codigoPedido, $produtos, $this->view->valorPedido);
+            //$enviarEmail->EnviarEmailConfirmacaoPedido($this->view->codigoPedido, $produtos, $this->view->valorPedido);
 
             // -----------------------------------------------------------------------------------------------------------
             //Limpar dados da Sessão relacionados ao pedido
@@ -152,6 +144,7 @@ class PedidoControllers extends Action
             }
             if (isset($_SESSION['metodo_envio'])) {
                 unset($_SESSION['metodo_envio']);
+                unset($_SESSION['valor_envio']);
             }
             $this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
             $this->view->categorias = Store::getCategoriasView();
@@ -159,6 +152,7 @@ class PedidoControllers extends Action
             $this->render('confirmar_pedido');
         } else {
             header('Location: ' . BASE_URL . 'login?finalizarPedido=true');
+            return;
         }
     }
 

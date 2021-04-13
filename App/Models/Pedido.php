@@ -18,6 +18,7 @@ class Pedido extends Model
     private $telefone_pedido;
     private $codigo_pedido;
     private $metodo_envio;
+    private $valor_envio;
     private $mensagem;
 
     //Dados dos Produtos do pedido
@@ -58,6 +59,7 @@ class Pedido extends Model
                 :telefone_pedido,
                 :codigo_pedido,
                 :metodo_envio,
+                :valor_envio,
                 :mensagem
         )";
         $stmt_salvar_pedido = $this->db->prepare($query_salvar_pedido);
@@ -72,6 +74,7 @@ class Pedido extends Model
         $stmt_salvar_pedido->bindValue(':telefone_pedido', $this->telefone_pedido);
         $stmt_salvar_pedido->bindValue(':codigo_pedido', $this->codigo_pedido);
         $stmt_salvar_pedido->bindValue(':metodo_envio', $this->metodo_envio);
+        $stmt_salvar_pedido->bindValue(':valor_envio', $this->valor_envio);
         $stmt_salvar_pedido->bindValue(':mensagem', $this->mensagem);
 
         $stmt_salvar_pedido->execute();

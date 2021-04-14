@@ -1,6 +1,6 @@
 <div class="container col-12 my-3">
     <div class="row">
-        <h1 class="mt-2 text-center text-loja"><?= $this->view->categoria ?></h1>
+        <h1 class="text-center text-loja"><?= $this->view->categoria ?></h1>
     </div>
     <div class="container-produtos card-body row">
         <?php foreach ($this->view->produto as $produto) { ?>
@@ -24,7 +24,7 @@
     <div class="row">
         <div class="col ">
             <ul class="pagination justify-content-center text-loja text-paginacao">
-                <li class="page-item"><a class="page-link" href="<?= BASE_URL ?>todos?pagina=1<?= $this->view->categoria == 'Todos os Produtos' ? '' : '&categoria=' . $this->view->categoria ?>">Primeira</a></li>
+                <li class="page-item"><a class="page-link" href="<?= BASE_URL ?><?= $this->view->categoria == 'Todos os Produtos' ? 'todos' : 'produtos' ?>?pagina=1<?= $this->view->categoria == 'Todos os Produtos' ? '' : '&categoria=' . $this->view->categoria ?>">Primeira</a></li>
                 <?php for ($i = 1; $i <= $this->view->totalPaginas; $i++) { ?>
                     <li class="page-item  <?= $this->view->paginaAtiva == $i ? 'active' : '' ?>">
                         <?php if ($this->view->categoria == 'Todos os Produtos') { ?>
@@ -34,7 +34,7 @@
                         <?php } ?>
                     </li>
                 <?php } ?>
-                <li class="page-item"><a class="page-link" href="<?= BASE_URL ?>todos?pagina=<?= $this->view->totalPaginas ?><?= $this->view->categoria == 'Todos os Produtos' ? '' : '&categoria=' . $this->view->categoria ?>">Última</a></li>
+                <li class="page-item"><a class="page-link" href="<?= BASE_URL ?><?= $this->view->categoria == 'Todos os Produtos' ? 'todos' : 'produtos' ?>?pagina=<?= $this->view->totalPaginas ?><?= $this->view->categoria == 'Todos os Produtos' ? '' : '&categoria=' . $this->view->categoria ?>">Última</a></li>
             </ul>
         </div>
     </div>

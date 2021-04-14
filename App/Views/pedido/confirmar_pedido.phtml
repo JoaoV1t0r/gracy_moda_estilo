@@ -9,7 +9,7 @@
             <h4>Dados do Pedido: </h4>
             <h6>Código do Pedido: <?= $this->view->codigoPedido ?></h6>
             <h6>Método de Envio: <?= $this->view->metodoEnvio ?></h6>
-            <h6>Valor de Envio: <?= $this->view->metodoEnvio == 'Correios' ? 'R$' . $this->view->valor_envio : $this->view->valor_envio ?></h6>
+            <h6>Valor de Envio: <?= $this->view->metodoEnvio == 'Correios' ? 'R$' . number_format((float)$this->view->valor_envio, 2, ',', '') : $this->view->valor_envio ?></h6>
             <h6>Valor do Pedido: R$<?= number_format((float)$this->view->valorPedido, 2, ',', '') ?></h6>
             <a class="btn btn-cadastro" href="<?= BASE_URL ?>">Voltar</a>
         </div>

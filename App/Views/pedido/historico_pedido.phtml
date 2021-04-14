@@ -32,25 +32,39 @@
                                     <p><?= $pedido->mensagem ?></p>
                                 </td>
                                 <td class="align-middle text-start">
-                                    <a class="btn btn-cadastro" href="<?= BASE_URL ?>detalhes_pedido?id_pedido=<?= $pedido->id_pedido ?>">Detalhes</a>
+                                    <a class="btn btn-sm btn-cadastro" href="<?= BASE_URL ?>detalhes_pedido?id_pedido=<?= $pedido->id_pedido ?>">Detalhes</a>
                                 </td>
                             </tr>
                         <?php } ?>
 
                     </tbody>
                 </table>
-                <div class="row mb-4">
-                    <div class="col text-start">
-                        <h4 class="text-loja">Total de Pedidos: <?= count($this->view->historicoPedido) ?></h4>
+
+                <div class="row">
+                    <div class="col ">
+                        <ul class="pagination justify-content-center text-loja text-paginacao">
+                            <li class="page-item"><a class="page-link" href="<?= BASE_URL ?>historico_pedidos?pagina=1">Primeira</a></li>
+                            <?php for ($i = 1; $i <= $this->view->totalPaginas; $i++) { ?>
+                                <li class="page-item  <?= $this->view->paginaAtiva == $i ? 'active' : '' ?>">
+
+                                    <a class="page-link" href="<?= BASE_URL ?>historico_pedidos?pagina=<?= $i ?>"><?= $i ?></a>
+
+                                </li>
+                            <?php } ?>
+                            <li class="page-item"><a class="page-link" href="<?= BASE_URL ?>historico_pedidos?pagina=<?= $this->view->totalPaginas ?>">Última</a></li>
+                        </ul>
                     </div>
-                    <div class="col text-end">
-                        <a type="submit" href="<?= BASE_URL ?>minha_conta" class="btn btn-cadastro mx-4">Voltar</a>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col text-center">
+                        <a type="submit" href="<?= BASE_URL ?>minha_conta" class="btn btn-lg btn-cadastro mx-4">Voltar</a>
                     </div>
                 </div>
 
 
             <?php } else { ?>
-                <p class="text-center" style="color:#CD6090;">
+                <p class="text-center text-loja">
                     Você ainda não realizou nenhum pedido, quando fizer um pedido poderá vê-lo aqui.
                 </p>
             <?php } ?>

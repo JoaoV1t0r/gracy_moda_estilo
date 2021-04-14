@@ -19,7 +19,7 @@ class DepartamentoControllers extends Action
         $totalProdutos = $produtos->getTotalProdutos()[0]->total;
         //Variáveis de paginação
         $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
-        $totalRegistrosPagina = 5;
+        $totalRegistrosPagina = 10;
         $this->view->totalPaginas = ceil($totalProdutos / $totalRegistrosPagina);
         $deslocamento = ($pagina - 1) * $totalRegistrosPagina;
 
@@ -51,7 +51,7 @@ class DepartamentoControllers extends Action
         $totalProdutos = $produtos->getTotalProdutosPorPagina()[0]->total;
         //Variáveis de paginação
         $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
-        $totalRegistrosPagina = 5;
+        $totalRegistrosPagina = 10;
         $this->view->totalPaginas = ceil($totalProdutos / $totalRegistrosPagina);
         $deslocamento = ($pagina - 1) * $totalRegistrosPagina;
 

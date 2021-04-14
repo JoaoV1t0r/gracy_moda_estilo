@@ -119,7 +119,7 @@ class Pedido extends Model
     }
 
     //=============================================================================================
-    public function getHistoricoPedidos()
+    public function getHistoricoPedidos($limit, $offset)
     {
         $query = "
             SELECT
@@ -135,6 +135,10 @@ class Pedido extends Model
                 id_cliente = :id_cliente
             ORDER BY
                 data_pedido desc
+            LIMIT
+                $limit
+            OFFSET
+                $offset
         ";
 
         $stmt = $this->db->prepare($query);
@@ -181,6 +185,25 @@ class Pedido extends Model
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_CLASS);
+    }
+
+    //=============================================================================================
+    public function getTotalPedidos()
+    {
+        $query = "
+            SELECT
+                count(*) as total
+            FROM
+                pedidos
+            WHERE
+                id_cliente = :id_cliente
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id_cliente', $this->id_cliente);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_CLASS)[0]->total;
     }
 
     //=============================================================================================

@@ -164,17 +164,25 @@ class PedidoControllers extends Action
             return;
         }
 
-        $this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
-        $this->view->categorias = Store::getCategoriasView();
-        $this->view->clienteLogado = Store::clienteLogado();
-
         $pedido = Container::getModel('Pedido');
         $pedido->id_cliente = $_SESSION['id_cliente'];
-        $this->view->historicoPedido = $pedido->getHistoricoPedidos();
+        $totalPedidos = $pedido->getTotalPedidos();
+        $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+        $totalRegistrosPagina = 5;
+        $this->view->totalPaginas = ceil($totalPedidos / $totalRegistrosPagina);
+        $deslocamento = ($pagina - 1) * $totalRegistrosPagina;
+
+        $this->view->paginaAtiva = $pagina;
+
+
+        $this->view->historicoPedido = $pedido->getHistoricoPedidos($totalRegistrosPagina, $deslocamento);
         foreach ($this->view->historicoPedido as $pedido) {
             $pedido->id_pedido = Store::aesEncriptar($pedido->id_pedido);
         }
 
+        $this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
+        $this->view->categorias = Store::getCategoriasView();
+        $this->view->clienteLogado = Store::clienteLogado();
         $this->render('historico_pedido');
     }
 

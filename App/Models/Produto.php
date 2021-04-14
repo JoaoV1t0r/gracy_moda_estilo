@@ -28,7 +28,44 @@ class Produto extends Model
     }
 
     //=============================================================================================
-    public function getTodos()
+    public function getTotalProdutos()
+    {
+        //Todos os produtos
+        $query = "
+            SELECT
+                count(*) as total
+            FROM
+                produtos
+            WHERE
+                ativo = 1
+        ";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_CLASS);
+    }
+
+    //=============================================================================================
+    public function getTotalProdutosPorPagina()
+    {
+        //Todos os produtos
+        $query = "
+            SELECT
+                count(*) as total
+            FROM
+                produtos
+            WHERE
+                ativo = 1 and categoria = :categoria
+        ";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':categoria', $this->categoria);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_CLASS);
+    }
+
+    //=============================================================================================
+    public function getPorPagina($limit, $offset)
     {
         //Todos os produtos
         $query = "
@@ -40,6 +77,10 @@ class Produto extends Model
                 ativo = 1
             ORDER BY
                 estoque desc
+            LIMIT
+                $limit
+            OFFSET
+                $offset
         ";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
@@ -48,7 +89,7 @@ class Produto extends Model
     }
 
     //=============================================================================================
-    public function getProdutos($categoria)
+    public function getProdutosPorCategoria($limit, $offset)
     {
         //Todos os produtos
         $query = "
@@ -60,9 +101,13 @@ class Produto extends Model
                 ativo = 1 and categoria = :categoria
             ORDER BY
                 estoque desc
+            LIMIT
+                $limit
+            OFFSET
+                $offset
         ";
         $stmt = $this->db->prepare($query);
-        $stmt->bindValue(':categoria', $categoria);
+        $stmt->bindValue(':categoria', $this->categoria);
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_CLASS);

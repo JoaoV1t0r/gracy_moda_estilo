@@ -66,3 +66,23 @@
     border-radius: 5px;
     max-height: auto;
 }
+
+.page-link {
+    color: #CD6090;
+    border: #CD6090;
+    border: 1px solid #CD6090;
+}
+
+.page-link:hover {
+    position: relative;
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    background-color: #CD6090;
+    border: 1px solid #CD6090;
+}
+
+.page-item.active .page-link {
+    background-color: #CD6090;
+    border-color: #CD6090;
+}

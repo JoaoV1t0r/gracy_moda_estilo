@@ -14,8 +14,19 @@ class DepartamentoControllers extends Action
         $this->view->quantidadeCarrinho = Store::quantidadeCarrinho();
         $this->view->categorias = Store::getCategoriasView();
         $this->view->clienteLogado = Store::clienteLogado();
+
         $produtos = Container::getModel('Produto');
-        $this->view->produto = $produtos->getTodos();
+        $totalProdutos = $produtos->getTotalProdutos()[0]->total;
+        //Variáveis de paginação
+        $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+        $totalRegistrosPagina = 5;
+        $this->view->totalPaginas = ceil($totalProdutos / $totalRegistrosPagina);
+        $deslocamento = ($pagina - 1) * $totalRegistrosPagina;
+
+        $this->view->paginaAtiva = $pagina;
+        $this->view->produto = $produtos->getPorPagina($totalRegistrosPagina, $deslocamento);
+
+        //$this->view->produto = $produtos->getTodos();
         $this->view->categoria = 'Todos os Produtos';
         if (count($this->view->produto) == 0) {
             $this->render('produtosVazio');
@@ -36,8 +47,18 @@ class DepartamentoControllers extends Action
         }
 
         $produtos = Container::getModel('Produto');
+        $produtos->categoria = $categoria;
+        $totalProdutos = $produtos->getTotalProdutosPorPagina()[0]->total;
+        //Variáveis de paginação
+        $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+        $totalRegistrosPagina = 5;
+        $this->view->totalPaginas = ceil($totalProdutos / $totalRegistrosPagina);
+        $deslocamento = ($pagina - 1) * $totalRegistrosPagina;
+
+        $this->view->paginaAtiva = $pagina;
+        $this->view->produto = $produtos->getProdutosPorCategoria($totalRegistrosPagina, $deslocamento);
+
         $this->view->categoria = $categoria;
-        $this->view->produto = $produtos->getProdutos($categoria);
         $this->view->categorias = Store::getCategoriasView();
         if (count($this->view->produto) == 0) {
             $this->render('produtosVazio');

@@ -140,6 +140,11 @@ class Route extends Bootstrap
 			'controller' => 'PedidoControllers',
 			'action' => 'detalhesPedido'
 		);
+		$routes['confirmacao_pagamento'] = array(
+			'route' => '/confirmacao_pagamento',
+			'controller' => 'PedidoControllers',
+			'action' => 'confirmacaoPagamento'
+		);
 
 		$this->setRoutes($routes);
 	}

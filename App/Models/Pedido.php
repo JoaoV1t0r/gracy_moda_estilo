@@ -225,4 +225,42 @@ class Pedido extends Model
 
         return $stmt->fetchAll(\PDO::FETCH_CLASS);
     }
+
+    //=============================================================================================
+    public function verificarPedidoPendente()
+    {
+        $query = "
+            SELECT
+                *
+            FROM
+                pedidos
+            WHERE
+                codigo_pedido = :codigo_pedido AND status_pedido = 'PENDENTE'
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':codigo_pedido', $this->codigo_pedido);
+        $stmt->execute();
+
+        return count($stmt->fetchAll(\PDO::FETCH_CLASS));
+    }
+
+    //=============================================================================================
+    public function confirmacaoPagamentoPedido()
+    {
+        $query = "
+            UPDATE
+                pedidos
+            SET
+                status_pedido = 'PREPARANDO'
+            WHERE
+                codigo_pedido = :codigo_pedido
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':codigo_pedido', $this->codigo_pedido);
+        $stmt->execute();
+
+        return true;
+    }
 }

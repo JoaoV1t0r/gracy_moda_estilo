@@ -109,13 +109,13 @@ class UserControllers extends Action
 	public function validaLogin()
 	{
 		if (Store::clienteLogado()) {
-			header('Location: /');
+			header('Location: ' . BASE_URL);
 			return;
 		}
 
 		//Verifica se foi feito o post
 		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-			header('Location: /');
+			header('Location: ' . BASE_URL);
 			return;
 		}
 
@@ -126,19 +126,19 @@ class UserControllers extends Action
 
 		//verifica os campos
 		if ($user->email == '' || $user->senha == '' || !filter_var($user->email, FILTER_VALIDATE_EMAIL)) {
-			header('Location: /login?erro=campoVazio');
+			header('Location: ' . BASE_URL . 'login?erro=campoVazio');
 			return;
 		}
 
 		//Valida email
 		if (!$user->validacaoEmail()) {
-			header('Location: /login?erro=email');
+			header('Location: ' . BASE_URL . 'login?erro=email');
 			return;
 		}
 
 		$usuario = $user->validaLogin();
-		if (is_bool($usuario)) {
-			header('Location: /login?erro=senha');
+		if (is_bool($user->validaLogin())) {
+			header('Location:' . BASE_URL . 'login?erro=senha');
 			return;
 		} else {
 			$_SESSION['id_cliente'] = $usuario->id_cliente;
@@ -153,9 +153,9 @@ class UserControllers extends Action
 			$_SESSION['logado'] = true;
 			if (isset($_SESSION['login_finalizar_pedido']) && $_SESSION['login_finalizar_pedido'] == true) {
 				unset($_SESSION['login_finalizar_pedido']);
-				header('Location: /finalizar_pedido');
+				header('Location: ' . BASE_URL . 'finalizar_pedido');
 			} else {
-				header('Location: /');
+				header('Location: ' . BASE_URL . 'minha_conta');
 			}
 		}
 	}

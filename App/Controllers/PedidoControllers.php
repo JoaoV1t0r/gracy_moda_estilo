@@ -227,4 +227,28 @@ class PedidoControllers extends Action
             return;
         }
     }
+
+    // ===========================================================================
+    public function confirmacaoPagamento()
+    {
+        //Simulação da confirmação do pagamento
+        //Validar o código do pedido
+        if (!isset($_GET['codigo_pedido'])) {
+            header('Location: ' . BASE_URL);
+            return;
+        } else {
+            $codigoPedido = $_GET['codigo_pedido'];
+        }
+
+        //Verificar se o código do pedido está pendente
+        $pedido = Container::getModel('Pedido');
+        $pedido->codigo_pedido = $codigoPedido;
+        if ($pedido->verificarPedidoPendente() == 0) {
+            header('Location: ' . BASE_URL);
+            return;
+        } else {
+            $pedido->confirmacaoPagamentoPedido();
+            header('Location: ' . BASE_URL);
+        }
+    }
 }

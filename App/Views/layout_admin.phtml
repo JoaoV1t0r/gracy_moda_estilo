@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="h-100">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sticky-footer-navbar/">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/app.css">
+    <title><?= APP_NAME ?></title>
+</head>
+
+<body class="d-flex flex-column h-100 <?= "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" == BASE_URL . 'login_admin' ? 'tela-admin' : '' ?>">
+
+    <!-- Begin page content -->
+    <main class="flex-shrink-0" style="padding: 80px 15px 0">
+        <?php
+        $this->content();
+        ?>
+    </main>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/app.js"></script>
+
+</body>
+
+</html>

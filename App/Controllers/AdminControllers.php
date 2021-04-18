@@ -15,7 +15,7 @@ class AdminControllers extends Action
             header('Location:' . BASE_URL);
             return;
         }
-        $this->render('login_admin', 'layout_admin');
+        $this->renderAdmin('login_admin');
     }
 
     // ====================================================================================

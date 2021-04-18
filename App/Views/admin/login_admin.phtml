@@ -1,7 +1,7 @@
-<div class="container tela-admin">
+<div class="container">
     <div class="row">
         <div class="col">
-            <form class="form-admin" action="<?= BASE_URL . 'confirma_login_admin' ?>" method="post">
+            <form class="form-admin" action="<?= BASE_URL . 'admin/confirma_login' ?>" method="post">
                 <h1 class="text-center">Login Admin</h1>
 
                 <div class="form-floating mb-2">
@@ -12,6 +12,10 @@
                 <div class="form-floating mb-2">
                     <input name="senha" type="password" class="form-control" id="password" placeholder="Senha" required>
                     <label for="password">Senha</label>
+                </div>
+
+                <div class="d-grid gap-2 mt-2">
+                    <input type="submit" value="Login" class="btn btn-cadastro">
                 </div>
             </form>
         </div>

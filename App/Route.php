@@ -145,21 +145,6 @@ class Route extends Bootstrap
 			'controller' => 'PedidoControllers',
 			'action' => 'confirmacaoPagamento'
 		);
-		$routes['login_admin'] = array(
-			'route' => '/login_admin',
-			'controller' => 'AdminControllers',
-			'action' => 'adminLogin'
-		);
-		$routes['confirma_login_admin'] = array(
-			'route' => '/confirma_login_admin',
-			'controller' => 'AdminControllers',
-			'action' => 'validaLogin'
-		);
-		$routes['home_admin'] = array(
-			'route' => '/home_admin',
-			'controller' => 'AdminControllers',
-			'action' => 'adminHome'
-		);
 
 		$this->setRoutes($routes);
 	}

@@ -86,3 +86,16 @@
     background-color: #CD6090;
     border-color: #CD6090;
 }
+
+.tela-admin {
+    background-color: #CD6090;
+}
+
+.form-admin {
+    background-color: #fff;
+    max-width: 500px;
+    color: #CD6090;
+    padding: 20px;
+    margin: auto;
+    border-radius: 20px;
+}

@@ -9,15 +9,20 @@ class RouteAdmin extends Bootstrap
 
     protected function initRoutes()
     {
-        $routes['login'] = array(
+        $routes['admin/login'] = array(
             'route' => '/admin/login',
             'controller' => 'AdminControllers',
             'action' => 'adminLogin'
         );
-        $routes['confirma_login'] = array(
+        $routes['admin/confirma_login'] = array(
             'route' => '/admin/confirma_login',
             'controller' => 'AdminControllers',
             'action' => 'validaLogin'
+        );
+        $routes['admin/sair'] = array(
+            'route' => '/admin/sair',
+            'controller' => 'AdminControllers',
+            'action' => 'adminSair'
         );
         $routes['home_admin'] = array(
             'route' => '/admin/home',

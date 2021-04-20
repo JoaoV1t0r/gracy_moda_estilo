@@ -132,13 +132,13 @@ class UserControllers extends Action
 
 		//Valida email
 		if (!$user->validacaoEmail()) {
-			header('Location: ' . BASE_URL . 'login?erro=email');
+			header('Location: ' . BASE_URL . 'login?erro=2');
 			return;
 		}
 
 		$usuario = $user->validaLogin();
 		if (is_bool($user->validaLogin())) {
-			header('Location:' . BASE_URL . 'login?erro=senha');
+			header('Location:' . BASE_URL . 'login?erro=1');
 			return;
 		} else {
 			$_SESSION['id_cliente'] = $usuario->id_cliente;

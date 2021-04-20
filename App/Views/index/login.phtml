@@ -11,13 +11,13 @@
                             </div>
                         <?php } ?>
 
-                        <?php if (isset($_GET['erro']) && $_GET['erro'] == 'senha') { ?>
+                        <?php if (isset($_GET['erro']) && $_GET['erro'] == 1) { ?>
                             <div>
                                 <p class="alert alert-danger text-center p-2">Senha ou E-mail incorreto, tente novamente</p>
                             </div>
                         <?php } ?>
 
-                        <?php if (isset($_GET['erro']) && $_GET['erro'] == 'email') { ?>
+                        <?php if (isset($_GET['erro']) && $_GET['erro'] == 2) { ?>
                             <div>
                                 <p class="alert alert-danger text-center p-2">E-mail não cadastrado.
                                     Por favor tente usar outro email ou faça um <a href="?page=newUser">Cadastro </a>desse E-mail

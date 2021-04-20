@@ -53,6 +53,25 @@ class AdminControllers extends Action
     }
 
     // ====================================================================================
+    public function adminSair()
+    {
+        if (Store::clienteLogado()) {
+            header('Location:' . BASE_URL);
+            return;
+        }
+
+        if (Store::adminLogado()) {
+            unset($_SESSION['id_admin']);
+            unset($_SESSION['admin_nome']);
+            unset($_SESSION['adminLogado']);
+            header('Location:' . BASE_URL);
+        } else {
+            header('Location:' . BASE_URL . 'admin/login');
+            return;
+        }
+    }
+
+    // ====================================================================================
     public function adminHome()
     {
         if (Store::clienteLogado()) {

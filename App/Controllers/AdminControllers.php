@@ -15,7 +15,13 @@ class AdminControllers extends Action
             header('Location:' . BASE_URL);
             return;
         }
-        $this->renderAdmin('login_admin');
+
+        if (Store::adminLogado()) {
+            header('Location:' . BASE_URL . 'admin/home');
+            return;
+        }
+
+        $this->renderAdmin('login_admin', 'layout_admin_login');
     }
 
     // ====================================================================================
@@ -26,8 +32,23 @@ class AdminControllers extends Action
             return;
         }
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            header('Location:' . BASE_URL . 'login_admin');
+            header('Location:' . BASE_URL . 'admin/login');
             return;
+        }
+
+        $admin = Container::getModel('Admin');
+        $admin->nome_admin = trim($_POST['nome_admin']);
+        $admin->senha_admin = trim($_POST['senha_admin']);
+
+        $adminLogado = $admin->validaLoginAdmin();
+        if (is_bool($adminLogado)) {
+            header('Location:' . BASE_URL . 'admin/login?erro=true');
+            return;
+        } else {
+            $_SESSION['id_admin'] = $adminLogado->id_admin;
+            $_SESSION['nome_admin'] = $adminLogado->nome_admin;
+            $_SESSION['adminLogado'] = true;
+            header('Location:' . BASE_URL . 'admin/home');
         }
     }
 
@@ -38,6 +59,12 @@ class AdminControllers extends Action
             header('Location:' . BASE_URL);
             return;
         }
-        $this->render('home_admin', 'layout_admin');
+
+        if (!Store::adminLogado()) {
+            header('Location:' . BASE_URL . 'admin/login');
+            return;
+        }
+
+        $this->renderAdmin('home_admin', 'layout_admin');
     }
 }

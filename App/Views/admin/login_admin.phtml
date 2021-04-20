@@ -5,14 +5,22 @@
                 <h1 class="text-center">Login Admin</h1>
 
                 <div class="form-floating mb-2">
-                    <input name="admin" type="text" class="form-control" id="Admin" placeholder="Admin" required>
+                    <input name="nome_admin" type="text" class="form-control" id="Admin" placeholder="Admin" required>
                     <label for="Admin">Admin</label>
                 </div>
 
                 <div class="form-floating mb-2">
-                    <input name="senha" type="password" class="form-control" id="password" placeholder="Senha" required>
+                    <input name="senha_admin" type="password" class="form-control" id="password" placeholder="Senha" required>
                     <label for="password">Senha</label>
                 </div>
+
+                <?php if (isset($_GET['erro']) && $_GET['erro'] == true) { ?>
+                    <div>
+                        <p class="alert alert-danger text-center p-2">
+                            Usuário ou senha inválidos, tente novamente.
+                        </p>
+                    </div>
+                <?php } ?>
 
                 <div class="d-grid gap-2 mt-2">
                     <input type="submit" value="Login" class="btn btn-cadastro">

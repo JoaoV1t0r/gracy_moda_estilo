@@ -12,21 +12,7 @@
     <title><?= APP_NAME ?></title>
 </head>
 
-<body class="d-flex flex-column h-100">
-
-    <header>
-        <!-- Fixed navbar -->
-        <nav class="navbar navbar-expand-md fixed-top navbar-dark menu">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <a class="navbar-brand logo" href="/"><?= 'Gracy' ?></a>
-
-            </div>
-        </nav>
-
-    </header>
+<body class="d-flex flex-column h-100 tela-admin">
 
     <!-- Begin page content -->
     <main class="flex-shrink-0" style="padding: 80px 15px 0">
@@ -34,15 +20,6 @@
         $this->contentAdmin();
         ?>
     </main>
-
-    <footer class="footer mt-auto">
-        <div class="container-fluid rodape">
-            <div class="col-12 text-center p-3">
-                <?= APP_NAME .  ' &copy;'  . date('Y') ?>
-            </div>
-        </div>
-    </footer>
-
 
     <script src="assets_admin/js/jquery.min.js"></script>
     <script src="assets_admin/js/bootstrap.bundle.min.js"></script>

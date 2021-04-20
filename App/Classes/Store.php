@@ -18,6 +18,16 @@ class Store extends Container
     }
 
     // ===========================================================================================================
+    public static function adminLogado()
+    {
+        if (isset($_SESSION['adminLogado']) && $_SESSION['adminLogado'] == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // ===========================================================================================================
     public static function getCategoriasView()
     {
         $produto = Container::getModel('Produto');

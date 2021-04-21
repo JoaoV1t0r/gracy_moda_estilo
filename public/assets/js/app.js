@@ -24,18 +24,48 @@ $('#CEP').on('blur' , e => {
 })
 
 // ================================================================================
+$('#NumeroCasa').on('blur', () => {
+	let cepAlternativa = $('#CEP').val();
+	let numeroResidencia = $('#NumeroCasa').val();
+	let ruaAlternativa = $('#Rua').val() ;
+	let bairroAlternativa = $('#Bairro').val() ;
+	let cidadeAlternativa = $('#Cidade').val();
+	$.post(
+		'http://localhost:8080/adicionar_dados_alternativos',
+		{
+			cepAlternativa: cepAlternativa,
+			numeroResidencia: numeroResidencia,
+			ruaAlternativa: ruaAlternativa,
+			bairroAlternativa: bairroAlternativa,
+			cidadeAlternativa: cidadeAlternativa
+	})
+})
+
+// ================================================================================
 $('#metodoEnvioCorreios').on('change' , e => {
 	let metodoEnvio = document.getElementById('metodoEnvioCorreios');
 	if( metodoEnvio.checked == true){
-		//mostra o from
+		//mostra o valor do envio
+		//Cálculo do envio
+		let valorEnvioCorreios = 20;
+		$('#ValorEnvioCorreios').html('Valor: R$' + valorEnvioCorreios)
 		$('#EnvioCorreios').css({
 			"display" : "inline"
 		})
+		/*$.ajax({
+			type: 'GET',
+			url: `http://localhost:8080/metodo_correios`,
+			dataType: 'json',
+			success: dados => {
+				console.log(dados)
+			},
+			erro: erro => {console.log(erro)}
+		})*/
 		$.post(
 			'http://localhost:8080/metodo_envio',
 			{
 				metodo_envio: 'Correios',
-				valor_envio: 20
+				valor_envio: valorEnvioCorreios
 			}
 		)
 	}else {
@@ -73,36 +103,6 @@ $('#nomeExcursao').on('blur' , e => {
 })
 
 // ================================================================================
-$('#closeModalEstoqueInvalido').on('click' , () => {
-	$('#modalEstoqueInvalido').modal('toggle')
-})
-
-// ================================================================================
-$('#buttonModalLimpar').on('click', () => {
-	$('#showModalLimpar').modal('show');
-})
-
-// ================================================================================
-$('#closeModalLimpar').on('click', () => {
-	$('#showModalLimpar').modal('toggle');
-})
-
-// ================================================================================
-$('#closeSelecionaMetodoEnvio').on('click', () => {
-	$('#selecionaMetodoEnvio').modal('toggle');
-})
-
-// ================================================================================
-$('#closePreencherCampoExcursao').on('click', () => {
-	$('#preencherCampoExcursao').modal('toggle');
-})
-
-// ================================================================================
-$('#closeSelecioneUmaOpcao').on('click', () => {
-	$('#SelecioneUmaOpcao').modal('toggle');
-})
-
-// ================================================================================
 $('#confirmarPedido').on('click' , () => {
 	let metodoEnvioCorreios = document.getElementById('metodoEnvioCorreios');
 	let metodoEnvioExcursao = document.getElementById('metodoEnvioExcursao');
@@ -118,23 +118,12 @@ $('#confirmarPedido').on('click' , () => {
 				$('#preencherCampoExcursao').modal('show')
 			}else {
 				let form = document.getElementById('enderecoAlternativo');
-				if(form.checked == true){
-					let cepAlternativa = $('#CEP').val();
-					let numeroResidencia = $('#NumeroCasa').val();
-					let ruaAlternativa = $('#Rua').val() ;
-					let bairroAlternativa = $('#Bairro').val() ;
-					let cidadeAlternativa = $('#Cidade').val();
-					$.post(
-						'http://localhost:8080/adicionar_dados_alternativos',
-						{
-							cepAlternativa: cepAlternativa,
-							numeroResidencia: numeroResidencia,
-							ruaAlternativa: ruaAlternativa,
-							bairroAlternativa: bairroAlternativa,
-							cidadeAlternativa: cidadeAlternativa
-					})
+				if(form.checked == true && ($('#CEP').val() == '' || $('#NumeroCasa').val() == '')){
+					$('#dadosAlternativos').modal('show')
+				} else{
+					window.location.href = 'http://localhost:8080/confirmar_pedido'
 				}
-				window.location.href = 'http://localhost:8080/confirmar_pedido'
+				
 			}
 		}else{
 			$('#selecionaMetodoEnvio').modal('show')
@@ -294,9 +283,57 @@ function enderecoAlternativo(){
 			"display" : "inline"
 		})
 	}else {
+		//Remove os dados da sessão
+		$.post(
+			'http://localhost:8080/remover_dados_alternativos',
+			{
+				remover: true
+		})
+		//Limpa o form
+		$('#CEP').val('');
+		$('#NumeroCasa').val('');
+		$('#Rua').val('');
+		$('#Bairro').val('');
+		$('#Cidade').val('');
+
 		//esconde o form
 		$('#campoEnderecoAlternativo').css({
 			"display" : "none"
 		})
 	}
 }
+
+// ================================================================================
+$('#closeModalEstoqueInvalido').on('click' , () => {
+	$('#modalEstoqueInvalido').modal('toggle')
+})
+
+// ================================================================================
+$('#buttonModalLimpar').on('click', () => {
+	$('#showModalLimpar').modal('show');
+})
+
+// ================================================================================
+$('#closeModalLimpar').on('click', () => {
+	$('#showModalLimpar').modal('toggle');
+})
+
+// ================================================================================
+$('#closeSelecionaMetodoEnvio').on('click', () => {
+	$('#selecionaMetodoEnvio').modal('toggle');
+})
+
+// ================================================================================
+$('#closePreencherCampoExcursao').on('click', () => {
+	$('#preencherCampoExcursao').modal('toggle');
+})
+
+// ================================================================================
+$('#closeSelecioneUmaOpcao').on('click', () => {
+	$('#SelecioneUmaOpcao').modal('toggle');
+})
+
+// ================================================================================
+$('#closeDadosAlternativos').on('click', () => {
+	$('#dadosAlternativos').modal('toggle');
+})

@@ -207,46 +207,6 @@ class UserControllers extends Action
 	}
 
 	// ===========================================================================
-	public function adicionarDadosAlternativos()
-	{
-		if (!Store::clienteLogado()) {
-			header('Location: /');
-			return;
-		}
-		//Verifica se foi feito o post
-		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-			header('Location: /');
-			return;
-		}
-		$_SESSION['dadosAlternativos'] = [
-			'cepAlternativa' => $_POST['cepAlternativa'],
-			'numeroResidencia' => $_POST['numeroResidencia'],
-			'ruaAlternativa' => $_POST['ruaAlternativa'],
-			'bairroAlternativa' =>  $_POST['bairroAlternativa'],
-			'cidadeAlternativa' => $_POST['cidadeAlternativa'],
-		];
-	}
-
-	// ===========================================================================
-	public function removerDadosAlternativos()
-	{
-		if (!Store::clienteLogado()) {
-			header('Location: /');
-			return;
-		}
-		//Verifica se foi feito o post
-		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-			header('Location: /');
-			return;
-		}
-		if ($_POST['remover'] == true) {
-			if (isset($_SESSION['dadosAlternativos'])) {
-				unset($_SESSION['dadosAlternativos']);
-			}
-		}
-	}
-
-	// ===========================================================================
 	public function editarDadosUser()
 	{
 		if (!Store::clienteLogado()) {

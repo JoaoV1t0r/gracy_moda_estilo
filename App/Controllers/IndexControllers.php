@@ -37,4 +37,12 @@ class IndexControllers extends Action
 		$this->view->clienteLogado = Store::clienteLogado();
 		$this->render('criar_conta');
 	}
+
+	// ====================================================================================
+	public function session()
+	{
+		//Renderização da index
+		echo '<pre>';
+		print_r($_SESSION);
+	}
 }

@@ -102,13 +102,23 @@ class Route extends Bootstrap
 		);
 		$routes['adicionar_dados_alternativos'] = array(
 			'route' => '/adicionar_dados_alternativos',
-			'controller' => 'UserControllers',
+			'controller' => 'PedidoControllers',
 			'action' => 'adicionarDadosAlternativos'
+		);
+		$routes['remover_dados_alternativos'] = array(
+			'route' => '/remover_dados_alternativos',
+			'controller' => 'PedidoControllers',
+			'action' => 'removerDadosAlternativos'
 		);
 		$routes['metodo_envio'] = array(
 			'route' => '/metodo_envio',
 			'controller' => 'PedidoControllers',
 			'action' => 'adicionarMetodoEnvio'
+		);
+		$routes['metodo_correios'] = array(
+			'route' => '/metodo_correios',
+			'controller' => 'PedidoControllers',
+			'action' => 'correiosMetodoEnvio'
 		);
 		$routes['alterar_dados_pessoais'] = array(
 			'route' => '/alterar_dados_pessoais',
@@ -144,6 +154,11 @@ class Route extends Bootstrap
 			'route' => '/confirmacao_pagamento',
 			'controller' => 'PedidoControllers',
 			'action' => 'confirmacaoPagamento'
+		);
+		$routes['session'] = array(
+			'route' => '/session',
+			'controller' => 'IndexControllers',
+			'action' => 'session'
 		);
 
 		$this->setRoutes($routes);

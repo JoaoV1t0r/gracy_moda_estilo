@@ -38,12 +38,55 @@ class PedidoControllers extends Action
                 if (!isset($_SESSION['codigo_pedido'])) {
                     $_SESSION['codigo_pedido'] = Store::codigoPedido();
                 }
+                unset($_SESSION['dadosAlternativos']);
+                unset($_SESSION['metodo_envio']);
+                unset($_SESSION['valor_envio']);
                 $_SESSION['total_pedido'] = $this->view->total;
                 $this->render('finalizar_pedido');
             }
         } else {
             $_SESSION['login_finalizar_pedido'] = true;
             header('Location:' . BASE_URL . 'login?finalizarPedido=true');
+        }
+    }
+
+    // ===========================================================================
+    public function adicionarDadosAlternativos()
+    {
+        if (!Store::clienteLogado()) {
+            header('Location: /');
+            return;
+        }
+        //Verifica se foi feito o post
+        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            header('Location: /');
+            return;
+        }
+        $_SESSION['dadosAlternativos'] = [
+            'cepAlternativa' => $_POST['cepAlternativa'],
+            'numeroResidencia' => $_POST['numeroResidencia'],
+            'ruaAlternativa' => $_POST['ruaAlternativa'],
+            'bairroAlternativa' =>  $_POST['bairroAlternativa'],
+            'cidadeAlternativa' => $_POST['cidadeAlternativa'],
+        ];
+    }
+
+    // ===========================================================================
+    public function removerDadosAlternativos()
+    {
+        if (!Store::clienteLogado()) {
+            header('Location: ' . BASE_URL);
+            return;
+        }
+        //Verifica se foi feito o post
+        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            header('Location: ' . BASE_URL);
+            return;
+        }
+        if ($_POST['remover'] == true) {
+            if (isset($_SESSION['dadosAlternativos'])) {
+                unset($_SESSION['dadosAlternativos']);
+            }
         }
     }
 
@@ -66,6 +109,13 @@ class PedidoControllers extends Action
             header('Location: ' . BASE_URL);
             return;
         }
+    }
+
+    // ====================================================================================
+    public function correiosMetodoEnvio()
+    {
+        $cep = isset($_SESSION['dadosAlternativos']) ? $_SESSION['dadosAlternativos']['cepAlternativa'] : $_SESSION['cep'];
+        echo json_encode($cep);
     }
 
     // ====================================================================================

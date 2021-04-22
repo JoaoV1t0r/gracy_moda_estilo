@@ -115,10 +115,10 @@ class Route extends Bootstrap
 			'controller' => 'PedidoControllers',
 			'action' => 'adicionarMetodoEnvio'
 		);
-		$routes['metodo_correios'] = array(
-			'route' => '/metodo_correios',
+		$routes['calcular_frete'] = array(
+			'route' => '/calcular_frete',
 			'controller' => 'PedidoControllers',
-			'action' => 'correiosMetodoEnvio'
+			'action' => 'calcularFreteCorreios'
 		);
 		$routes['alterar_dados_pessoais'] = array(
 			'route' => '/alterar_dados_pessoais',
@@ -155,6 +155,7 @@ class Route extends Bootstrap
 			'controller' => 'PedidoControllers',
 			'action' => 'confirmacaoPagamento'
 		);
+		//Rota para debug
 		$routes['session'] = array(
 			'route' => '/session',
 			'controller' => 'IndexControllers',

@@ -112,8 +112,9 @@ class PedidoControllers extends Action
     }
 
     // ====================================================================================
-    public function correiosMetodoEnvio()
+    public function calcularFreteCorreios()
     {
+
         $cep = isset($_SESSION['dadosAlternativos']) ? $_SESSION['dadosAlternativos']['cepAlternativa'] : $_SESSION['cep'];
         echo json_encode($cep);
     }

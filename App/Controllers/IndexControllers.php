@@ -39,10 +39,11 @@ class IndexControllers extends Action
 	}
 
 	// ====================================================================================
-	public function session()
+	public function deBug($value)
 	{
-		//Renderização da index
+		//Método para debug
 		echo '<pre>';
-		print_r($_SESSION);
+		print_r($value);
+		echo '</pre>';
 	}
 }

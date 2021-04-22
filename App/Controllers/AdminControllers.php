@@ -84,6 +84,8 @@ class AdminControllers extends Action
             return;
         }
 
+        $pedidos = Container::getModel('Pedido');
+
         $this->renderAdmin('home_admin', 'layout_admin');
     }
 }

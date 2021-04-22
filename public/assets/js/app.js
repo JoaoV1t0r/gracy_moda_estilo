@@ -274,7 +274,7 @@ function removerProdutoCarrinho(idProduto){
 
 // ================================================================================
 function enderecoAlternativo(){
-	//Mostrar ou escontder o form de endereço alternativo
+	//Mostrar ou esconder o form de endereço alternativo
 	// enderecoAlternativo
 	let form = document.getElementById('enderecoAlternativo');
 	if(form.checked == true){
@@ -283,7 +283,7 @@ function enderecoAlternativo(){
 			"display" : "inline"
 		})
 	}else {
-		//Remove os dados da sessão
+		//Remove os dados alternativos da sessão
 		$.post(
 			'http://localhost:8080/remover_dados_alternativos',
 			{

@@ -85,6 +85,13 @@ class AdminControllers extends Action
         }
 
         $pedidos = Container::getModel('Pedido');
+        $this->view->listaPedidos = [
+            'pedidosTotal' => $pedidos->totalPedidos(),
+            'pedidosPendentes' => $pedidos->totalPedidosPendentes(),
+            'pedidosPreparo' => $pedidos->totalPedidosPreparo(),
+            'pedidosEnviados' => $pedidos->totalPedidosEnviados(),
+            'pedidosFinalizados' => $pedidos->totalPedidosFinalizados()
+        ];
 
         $this->renderAdmin('home_admin', 'layout_admin');
     }

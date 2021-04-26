@@ -263,4 +263,92 @@ class Pedido extends Model
 
         return true;
     }
+
+    //=============================================================================================
+    public function totalPedidos()
+    {
+        $query = "
+            SELECT
+                count(*) as total
+            FROM
+                pedidos
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_CLASS)[0]->total;
+    }
+
+    //=============================================================================================
+    public function totalPedidosPendentes()
+    {
+        $query = "
+            SELECT
+                count(*) as total
+            FROM
+                pedidos
+            WHERE
+                status_pedido = 'PENDENTE'
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_CLASS)[0]->total;
+    }
+
+    //=============================================================================================
+    public function totalPedidosPreparo()
+    {
+        $query = "
+            SELECT
+                count(*) as total
+            FROM
+                pedidos
+            WHERE
+                status_pedido = 'PREPARANDO'
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_CLASS)[0]->total;
+    }
+
+    //=============================================================================================
+    public function totalPedidosEnviados()
+    {
+        $query = "
+            SELECT
+                count(*) as total
+            FROM
+                pedidos
+            WHERE
+                status_pedido = 'ENVIADO'
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_CLASS)[0]->total;
+    }
+
+    //=============================================================================================
+    public function totalPedidosFinalizados()
+    {
+        $query = "
+            SELECT
+                count(*) as total
+            FROM
+                pedidos
+            WHERE
+                status_pedido = 'FINALIZADO'
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_CLASS)[0]->total;
+    }
 }

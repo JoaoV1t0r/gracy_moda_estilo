@@ -37,16 +37,16 @@ class CarrinhoControllers extends Action
     {
         //Validação
         if (!isset($_GET['id_produto'])) {
-            echo isset($_SESSION['carrinho']) ? count($_SESSION['carrinho']) : '';
+            echo isset($_SESSION['carrinho']) ? count($_SESSION['carrinho']) : 0;
             return;
         }
-        //adicona produtos ao carrinho
+        //Adicona produtos ao carrinho
         //Valida se o produto existe na bd e se tem estoque
         $produto = Container::getModel('Produto');
         $produto->id_produto = $_GET['id_produto'];
         $validacao = null;
         if (!$produto->validaProduto()) {
-            echo isset($_SESSION['carrinho']) ? count($_SESSION['carrinho']) : '';
+            echo isset($_SESSION['carrinho']) ? count($_SESSION['carrinho']) : 0;
             return;
         }
         $carrinho = [];

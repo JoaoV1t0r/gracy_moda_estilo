@@ -113,6 +113,11 @@ class UserControllers extends Action
 			return;
 		}
 
+		if (Store::adminLogado()) {
+			header('Location: ' . BASE_URL . '/admin');
+			return;
+		}
+
 		//Verifica se foi feito o post
 		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 			header('Location: ' . BASE_URL);

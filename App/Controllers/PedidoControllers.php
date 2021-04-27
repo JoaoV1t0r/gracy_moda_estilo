@@ -298,6 +298,23 @@ class PedidoControllers extends Action
             header('Location: ' . BASE_URL);
             return;
         } else {
+            //Localizando os itens do pedido
+            $pedido->id_pedido = $pedido->getIdPedidoAndIdCliente();
+            $produtosPedido = $pedido->getDetalhesPedido();
+
+            //Atualizando os dados dos produtos no banco de dados
+            $produto = Container::getModel('Produto');
+            foreach ($produtosPedido as $produtoPedido) {
+                //Definindo dados do produto
+                $produto->nome_produto = $produtoPedido->designacao_produto;
+                $dadosProduto = $produto->getProduto();
+
+                //Atualizando os dados do produto no banco de dados
+                $produto->id_produto = $dadosProduto->id_produto;
+                $produto->estoque = $dadosProduto->estoque - $produtoPedido->quantidade;
+                $produto->total_vendidos = $produtoPedido->quantidade + $dadosProduto->total_vendidos;
+                $produto->updateVenda();
+            }
             $pedido->confirmacaoPagamentoPedido();
             header('Location: ' . BASE_URL);
         }

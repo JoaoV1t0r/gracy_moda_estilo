@@ -13,6 +13,7 @@ class Produto extends Model
     private $imagem;
     private $preco;
     private $estoque;
+    private $total_vendidos;
     private $ativo;
 
     //=============================================================================================
@@ -210,5 +211,45 @@ class Produto extends Model
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_CLASS);
+    }
+
+    //=============================================================================================
+    public function getProduto()
+    {
+        //Todos os produtos
+        $query = "
+            SELECT
+                *
+            FROM
+                produtos
+            WHERE
+                nome_produto = :nome_produto
+        ";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':nome_produto', $this->nome_produto);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_CLASS)[0];
+    }
+
+    //=============================================================================================
+    public function updateVenda()
+    {
+        //Todos os produtos
+        $query = "
+            UPDATE
+                produtos
+            SET
+                estoque = :estoque,
+                total_vendidos = :total_vendidos
+            WHERE
+                id_produto = :id_produto
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':estoque', $this->estoque);
+        $stmt->bindValue(':total_vendidos', $this->total_vendidos);
+        $stmt->bindValue(':id_produto', $this->id_produto);
+        $stmt->execute();
     }
 }

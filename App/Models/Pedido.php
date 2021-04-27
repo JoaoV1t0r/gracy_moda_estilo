@@ -265,6 +265,25 @@ class Pedido extends Model
     }
 
     //=============================================================================================
+    public function getIdPedidoAndIdCliente()
+    {
+        $query = "
+            SELECT
+                id_pedido
+            FROM
+                pedidos
+            WHERE
+                codigo_pedido = :codigo_pedido
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':codigo_pedido', $this->codigo_pedido);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_CLASS)[0]->id_pedido;
+    }
+
+    //=============================================================================================
     public function totalPedidos()
     {
         $query = "

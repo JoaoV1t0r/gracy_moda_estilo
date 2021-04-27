@@ -116,7 +116,7 @@ class User extends Model
             set
                 purl = null,
                 ativo = 1,
-                update_at = NOW()
+                updated_at = NOW()
             where
                 id_cliente = :id_cliente
         ";

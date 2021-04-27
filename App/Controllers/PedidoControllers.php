@@ -142,8 +142,6 @@ class PedidoControllers extends Action
             $this->view->valorPedido = $_SESSION['total_pedido'];
             $this->view->metodoEnvio = $_SESSION['metodo_envio'];
             $this->view->valor_envio = $_SESSION['valor_envio'];
-            $enviarEmail = new EnviarEmail();
-
 
             //Guardar o pedido na base de dados
             $pedido = Container::getModel('Pedido');
@@ -162,11 +160,23 @@ class PedidoControllers extends Action
             $pedido->valor_envio = isset($_SESSION['valor_envio']) ? $_SESSION['valor_envio'] : 'Não informado';
             $pedido->mensagem = 'Seu pedido está sendo preparado.';
 
+            //Atualizando os dados dos produtos no banco de dados
+            $produto = Container::getModel('Produto');
+
             //Dados dos Produtos do pedido
             $dados_podutos_pedido = [];
             foreach ($produtos_pedido->carrinho as $value) {
-                $podutos_pedido = new \stdClass();
+            	//Definindo dados do produto
+                $produto->id_produto = $value->id_produto;
+                $dadosProduto = $produto->getProduto();
 
+                //Atualizando os dados do produto no banco de dados
+                $produto->estoque = $dadosProduto->estoque - $value->quantidade;
+                $produto->total_vendidos = $value->quantidade + $dadosProduto->total_vendidos;
+                $produto->updateVenda();
+            
+            	//Guarda dos itens do pedido no banco de dados
+                $podutos_pedido = new \stdClass();
                 $podutos_pedido->designacao_produto  = $value->nome_produto;
                 $podutos_pedido->peco_unidade  = $value->preco;
                 $podutos_pedido->quantidade  = $value->quantidade;
@@ -180,7 +190,8 @@ class PedidoControllers extends Action
             $pedido->salvarPedido();
 
             //Enviar e-mail do pedido
-            $enviarEmail->EnviarEmailConfirmacaoPedido($this->view->codigoPedido, $produtos, $this->view->valorPedido);
+            $enviarEmail = new EnviarEmail();
+            //$enviarEmail->EnviarEmailConfirmacaoPedido($this->view->codigoPedido, $produtos, $this->view->valorPedido);
 
             // -----------------------------------------------------------------------------------------------------------
             //Limpar dados da Sessão relacionados ao pedido

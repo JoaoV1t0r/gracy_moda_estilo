@@ -223,10 +223,10 @@ class Produto extends Model
             FROM
                 produtos
             WHERE
-                nome_produto = :nome_produto
+                id_produto = :id_produto
         ";
         $stmt = $this->db->prepare($query);
-        $stmt->bindValue(':nome_produto', $this->nome_produto);
+        $stmt->bindValue(':id_produto', $this->id_produto);
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_CLASS)[0];

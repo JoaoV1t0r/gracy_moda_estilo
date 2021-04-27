@@ -39,11 +39,8 @@ class IndexControllers extends Action
 	}
 
 	// ====================================================================================
-	public function deBug($value)
+	public function session()
 	{
-		//Método para debug
-		echo '<pre>';
-		print_r($value);
-		echo '</pre>';
+		Store::deBug($_SESSION);
 	}
 }

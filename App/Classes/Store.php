@@ -115,4 +115,13 @@ class Store extends Container
     {
         return openssl_decrypt(hex2bin($valor), 'aes-256-cbc', AES_KEY, OPENSSL_RAW_DATA, AES_IV);
     }
+
+    // =============================================================================================================
+    public static function deBug($value)
+    {
+        //Método para debug
+        echo '<pre>';
+        print_r($value);
+        echo "</pre>";
+    }
 }

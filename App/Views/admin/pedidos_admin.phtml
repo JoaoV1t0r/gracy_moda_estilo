@@ -1,0 +1,8 @@
+<div class="container">
+    <div class="row text-loja">
+        <h1 class="text-center">Lista de Pedidos <?= isset($_GET['status_pedido']) ? $_GET['status_pedido'] : '' ?></h1>
+        <pre>
+        <?php print_r($this->view->listaPedidos); ?>
+        </pre>
+    </div>
+</div>

@@ -95,4 +95,30 @@ class AdminControllers extends Action
 
         $this->renderAdmin('home_admin', 'layout_admin');
     }
+
+    // ====================================================================================
+    public function adminPedidos()
+    {
+        if (Store::clienteLogado()) {
+            header('Location:' . BASE_URL);
+            return;
+        }
+
+        if (!Store::adminLogado()) {
+            header('Location:' . BASE_URL . 'admin/login');
+            return;
+        }
+
+
+        $pedido = Container::getModel('Pedido');
+
+        //Verifica se existe um filtrar de status para a busca
+        if (isset($_GET['status_pedido'])) {
+            $pedido->status_pedido = $_GET['status_pedido'];
+        }
+
+        $this->view->listaPedidos = $pedido->getPedidosAdmin();
+
+        $this->renderAdmin('pedidos_admin');
+    }
 }

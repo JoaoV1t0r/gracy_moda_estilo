@@ -29,6 +29,11 @@ class RouteAdmin extends Bootstrap
             'controller' => 'AdminControllers',
             'action' => 'adminHome'
         );
+        $routes['pedidos_admin'] = array(
+            'route' => '/admin/pedidos',
+            'controller' => 'AdminControllers',
+            'action' => 'adminPedidos'
+        );
 
         $this->setRoutes($routes);
     }

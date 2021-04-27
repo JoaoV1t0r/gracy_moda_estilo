@@ -370,4 +370,30 @@ class Pedido extends Model
 
         return $stmt->fetchAll(\PDO::FETCH_CLASS)[0]->total;
     }
+
+    //=============================================================================================
+    public function getPedidosAdmin()
+    {
+        $query = "
+            SELECT
+                *
+            FROM
+                pedidos
+        ";
+
+        //Verifica se existe um status para filtrar a busca
+        if ($this->status_pedido != '') {
+            $query .= "
+                WHERE
+                    status_pedido = :status_pedido
+            ";
+        }
+        $stmt = $this->db->prepare($query);
+        if ($this->status_pedido != '') {
+            $stmt->bindValue(':status_pedido', $this->status_pedido);
+        }
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_CLASS);
+    }
 }

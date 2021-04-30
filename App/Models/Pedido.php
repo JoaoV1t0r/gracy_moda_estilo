@@ -376,18 +376,27 @@ class Pedido extends Model
     {
         $query = "
             SELECT
-                *
+                p.*,c.nome as nome_cliente
             FROM
-                pedidos
+                pedidos p LEFT JOIN clientes c
+            ON
+                p.id_cliente = c.id_cliente
         ";
 
         //Verifica se existe um status para filtrar a busca
         if ($this->status_pedido != '') {
             $query .= "
                 WHERE
-                    status_pedido = :status_pedido
+                    p.status_pedido = :status_pedido
             ";
         }
+
+        //Adicionando Ordenação na listagem
+        $query .= "
+            ORDER BY
+                p.id_pedido DESC
+        ";
+
         $stmt = $this->db->prepare($query);
         if ($this->status_pedido != '') {
             $stmt->bindValue(':status_pedido', $this->status_pedido);

@@ -1,8 +1,50 @@
 <div class="container">
     <div class="row text-loja">
-        <h1 class="text-center">Lista de Pedidos <?= isset($_GET['status_pedido']) ? $_GET['status_pedido'] : '' ?></h1>
-        <pre>
-        <?php print_r($this->view->listaPedidos); ?>
-        </pre>
+        <h1 class="text-center">Lista de Pedidos <?= isset($_GET['status_pedido']) ? 'Com Status: ' . $_GET['status_pedido'] : '' ?></h1>
+        <?php if (count($this->view->listaPedidos) > 0) { ?>
+            <table class="table table-hover table-sm my-3">
+                <thead>
+                    <th class="align-middle text-start"> Status </th>
+                    <th class="align-middle text-center"> Cliente </th>
+                    <th class="align-middle text-center"> Data do Pedido </th>
+                    <th class="align-middle text-center"> Endereço </th>
+                    <th class="align-middle text-center"> Telefone </th>
+                    <th class="align-middle text-center"> Código </th>
+                    <th class="align-middle text-center"> Método de Envio </th>
+                    <th class="align-middle text-center"> Mensagem </th>
+                </thead>
+                <tbody>
+                    <?php foreach ($this->view->listaPedidos as $pedido) { ?>
+                        <tr>
+                            <td class="align-middle text-center"><?= $pedido->status_pedido ?></td>
+                            <td class="align-middle text-center"><?= $pedido->nome_cliente ?></td>
+                            <td class="align-middle text-center"><?= $pedido->data_pedido ?></td>
+                            <td class="align-middle text-center"><?= $pedido->rua_pedido . ' ' . $pedido->numero_residencia_pedido . ', ' . $pedido->bairro_pedido . ', ' . $pedido->cidade_pedido . ' ' . $pedido->cep_pedido ?></td>
+                            <td class="align-middle text-center"><?= $pedido->telefone_pedido ?></td>
+                            <td class="align-middle text-center"><?= $pedido->codigo_pedido ?></td>
+                            <td class="align-middle text-center"><?= $pedido->metodo_envio ?></td>
+                            <td class="align-middle text-center"><?= $pedido->mensagem ?></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+            <a class="btn btn-cadastro mb-3" href="<?= BASE_URL ?>admin/home">Voltar</a>
+        <?php } else { ?>
+            <p>Não Existe Pedidos com esse status atualmente.</p>
+        <?php } ?>
     </div>
 </div>
+
+
+<!-- status_pedido
+nome_cliente
+data_pedido
+cep_pedido
+numero_residencia_pedido
+rua_pedido
+bairro_pedido
+cidade_pedido
+telefone_pedido
+codigo_pedido
+metodo_envio
+mensagem -->

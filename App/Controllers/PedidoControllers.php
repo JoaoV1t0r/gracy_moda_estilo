@@ -230,7 +230,7 @@ class PedidoControllers extends Action
         $pedido->id_cliente = $_SESSION['id_cliente'];
         $totalPedidos = $pedido->getTotalPedidos();
         $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
-        $totalRegistrosPagina = 5;
+        $totalRegistrosPagina = 15;
         $this->view->totalPaginas = ceil($totalPedidos / $totalRegistrosPagina);
         $deslocamento = ($pagina - 1) * $totalRegistrosPagina;
 

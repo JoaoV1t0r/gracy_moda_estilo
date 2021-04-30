@@ -113,7 +113,7 @@ class AdminControllers extends Action
         $pedido = Container::getModel('Pedido');
 
         //Verifica se existe um filtrar de status para a busca
-        if (isset($_GET['status_pedido'])) {
+        if (isset($_GET['status_pedido']) && ($_GET['status_pedido'] == 'PENDENTE' || $_GET['status_pedido'] == 'PREPARANDO' || $_GET['status_pedido'] == 'ENVIADO' || $_GET['status_pedido'] == 'FINALIZADO')) {
             $pedido->status_pedido = $_GET['status_pedido'];
         }
 
